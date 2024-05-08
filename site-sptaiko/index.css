@@ -6,6 +6,11 @@
     font-family: "Rubik", sans-serif;
 }
 
+body{
+    background-color: #D28B53;
+    overflow-x: hidden; 
+}
+
 /* ============================ MENU ================================ */
 nav{
     background-color: rgb(255, 255, 255); 
@@ -20,7 +25,7 @@ nav li{
 
 nav a{
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: black;
 }
 
@@ -49,7 +54,7 @@ nav a{
 
 .navbar3 a{
     background-color: #B80000;
-    padding: 0.5rem 2.5rem;
+    padding: 0.4rem 2.3rem;
     color: white;
     border-radius: 0.3rem;
     font-weight: 300;
@@ -86,3 +91,61 @@ img{
 }
 
 /* ============================ INÍCIO ================================ */
+
+.container-incio{
+    width: 120%;
+    height: 30em;
+    background-color: white;
+    border-radius: 0 0 50% 50%;
+    margin-left: -9.2rem;
+    
+}
+
+.img-sakura{
+    width: 20%;
+    position: absolute;
+    left: -1%;
+    top: 56%;
+}
+
+.container-introducao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-pai-inicio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-box-introducao{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 40%;
+
+}
+
+.p-titulo-introducao{
+    font-size: 2.2rem;
+    width: 60%;
+}
+
+.p-texto-introducao{
+    width: 100%;
+}
+
+.bt-introducao{
+    /* align-self: flex-start; */
+}
+
+.img-taiko{
+    width: 100%;
+}
+
+.div-box-img{
+    width: 20%;
+}
