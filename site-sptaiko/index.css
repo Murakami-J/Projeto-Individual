@@ -170,7 +170,7 @@ nav a{
 }
 
 
-/* ============================ SOBRE ================================ */
+/* ============================ HISTÓRIA ================================ */
 
 .img-petalas{
     position: absolute;
@@ -179,7 +179,7 @@ nav a{
     width: 25vw;
 }
 
-.container-sobre{
+.container-historia{
     width: 120%;
     height: 70vh;
     background-color: white;
@@ -191,7 +191,7 @@ nav a{
     align-items: center;
 }
 
-.div-pai-sobre{
+.div-pai-historia{
     display: flex;
     justify-content: center;
     align-items: center;
