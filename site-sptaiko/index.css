@@ -55,7 +55,7 @@ nav a{
     background-color: #B80000;
     padding: 0.4vw 2.3vw;
     color: white;
-    border-radius: 0.3rem;
+    border-radius: 0.3vw;
     font-weight: 300;
 }
 
@@ -98,14 +98,16 @@ nav a{
     background-color: white;
     border-radius: 0 0 50% 50%;
     margin-left: -9.2rem;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .img-sakura{
     width: 20%;
     position: absolute;
     left: -1%;
-    top: 56%;
+    top: 67%;
 }
 
 .container-introducao{
@@ -125,29 +127,30 @@ nav a{
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    width: 40%;
+    width: 60%;
+    gap: 1vw;
 
 }
 
 .p-titulo-introducao{
-    font-size: 2.2vw;
-    width: 60%;
+    font-size: 2.5vw;
+    width: 80%;
 }
 
 .p-texto-introducao{
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     font-weight: 300;
-    width: 100%;
+    width: 80%;
 }
 
 .bt-introducao{
     background-color: #B80000;
     padding: 0.4vw 1.8vw;
     color: white;
-    border-radius: 0.3rem;
+    border-radius: 0.3vw;
     font-weight: 300;
     border: none;
-    font-size: 1vw;
+    font-size: 1.2vw;
 }
 
 .bt-introducao:hover{
@@ -157,9 +160,39 @@ nav a{
 }
 
 .img-taiko{
-    width: 100%;
+    width: 27vw;
+    border-radius: 2vw;
+    display: flex;
 }
 
 .div-box-img{
     width: 25vw;
+}
+
+
+/* ============================ SOBRE ================================ */
+
+.img-petalas{
+    position: absolute;
+    left: 12%;
+    top: 90%;
+    width: 25vw;
+}
+
+.container-sobre{
+    width: 120%;
+    height: 70vh;
+    background-color: white;
+    border-radius: 50% 50% 0 0;
+    margin-top: 16vw;
+    margin-left: -9.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-pai-sobre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
