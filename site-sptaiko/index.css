@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color: #D28B53;
+
     overflow-x: hidden; 
 }
 
@@ -15,6 +15,9 @@ body{
 nav{
     background-color: rgb(255, 255, 255); 
     display: flex;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
 }
 
 
@@ -92,12 +95,15 @@ nav a{
 
 /* ============================ INÍCIO ================================ */
 
+.img-divisor{
+    position: absolute;
+    top: 65%;
+    z-index: -1;
+    width: 100%;
+}
+
 .container-incio{
-    width: 120%;
-    height: 70vh;
-    background-color: white;
-    border-radius: 0 0 50% 50%;
-    margin-left: -9.2rem;
+    height: 88vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,6 +114,7 @@ nav a{
     position: absolute;
     left: -1%;
     top: 67%;
+   
 }
 
 .container-introducao{
@@ -120,6 +127,8 @@ nav a{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 6vw;
+
 }
 
 .div-box-introducao{
@@ -167,6 +176,7 @@ nav a{
 
 .div-box-img{
     width: 25vw;
+ 
 }
 
 
@@ -179,20 +189,109 @@ nav a{
     width: 25vw;
 }
 
-.container-historia{
-    width: 120%;
-    height: 70vh;
-    background-color: white;
-    border-radius: 50% 50% 0 0;
-    margin-top: 16vw;
-    margin-left: -9.2rem;
+.container-descricao{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    text-indent: 3vw;
+    margin-top: 10vw;
+}
+
+.div-pai-descricao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vw;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+
+    
+}
+
+.p-texto-historia{
+    width: 60%;
+    font-size: 1.3vw;
+    font-weight: 300;
+    text-align: justify;
+    line-height: 2vw; 
+}
+
+.p-titulo-historia{
+    font-size: 2.5vw;
 }
 
 .div-pai-historia{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.p-titulo{
+    margin-bottom: 2vw;
+}
+
+.img-taiko-wallpaper{
+    margin-top: 2vw;
+
+}
+
+/* ============================ SOBRE ================================ */
+
+.img-divisor-sobre{
+    width: 100%;
+}
+
+.div-container-sobre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.div-pai-sobre{
+    background-color: #FAFAD2;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.p-titulo-sobre{
+    font-size: 2.5vw;
+    
+}
+
+.div-box-sobre{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 2vw;
+    margin-top: 5vw;
+}
+
+.p-titulo-sptaiko{
+    font-size: 2vw;
+}
+
+
+.div-texto-sobre{
+    width: 100%;
+    line-height: 2vw; 
+    font-weight: 300;
+    font-size: 1.3vw;
+    text-align: justify;
+}
+
+#p-texto-sobre{
+    margin-block: 1.5vw;
+}
+
+.img-sobre{
+    width: 40%;
 }
