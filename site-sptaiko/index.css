@@ -11,6 +11,22 @@ body{
     overflow-x: hidden; 
 }
 
+html{
+    /* Deixar a rolagem com animação */
+    scroll-behavior: smooth
+}
+
+
+/* ============================ GERAL ================================ */
+.p-titulo{
+    font-size: 2.5vw;
+}
+
+.p-texto{
+    font-size: 1.3vw;
+    font-weight: 300;
+}
+
 /* ============================ MENU ================================ */
 nav{
     background-color: rgb(255, 255, 255); 
@@ -100,6 +116,7 @@ nav a{
     top: 65%;
     z-index: -1;
     width: 100%;
+    
 }
 
 .container-incio{
@@ -142,8 +159,8 @@ nav a{
 }
 
 .p-titulo-introducao{
-    font-size: 2.5vw;
     width: 80%;
+    font-size: 2vw;
 }
 
 .p-texto-introducao{
@@ -194,7 +211,6 @@ nav a{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    text-indent: 3vw;
     margin-top: 10vw;
 }
 
@@ -216,10 +232,12 @@ nav a{
     font-weight: 300;
     text-align: justify;
     line-height: 2vw; 
+    text-indent: 3vw;
 }
 
 .p-titulo-historia{
     font-size: 2.5vw;
+
 }
 
 .div-pai-historia{
@@ -235,7 +253,7 @@ nav a{
 
 .img-taiko-wallpaper{
     margin-top: 2vw;
-
+    width: 60%;
 }
 
 /* ============================ SOBRE ================================ */
@@ -255,9 +273,10 @@ nav a{
 .div-pai-sobre{
     background-color: #FAFAD2;
    display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    padding-top: 3vw;
 }
 
 .p-titulo-sobre{
@@ -266,9 +285,8 @@ nav a{
 }
 
 .div-box-sobre{
-    width: 70%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
     gap: 2vw;
@@ -277,15 +295,17 @@ nav a{
 
 .p-titulo-sptaiko{
     font-size: 2vw;
+    font-weight: 400;
 }
 
 
 .div-texto-sobre{
-    width: 100%;
+    width: 40%;
     line-height: 2vw; 
     font-weight: 300;
     font-size: 1.3vw;
     text-align: justify;
+    
 }
 
 #p-texto-sobre{
@@ -293,5 +313,145 @@ nav a{
 }
 
 .img-sobre{
-    width: 40%;
+    width: 30%;
+}
+
+.p-titulo-sobre{
+    margin-bottom: 0;
+}
+
+.div-auxiliar{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 20%;
+ 
+}
+
+.img-desenvolvedora{
+    width: 100%;
+    border-radius: 2vw;
+}
+
+.div-redes-sociais{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 9vh;
+}
+
+.div-redes-sociais img{
+    width: 100%;
+}
+
+.div-redes-sociais a{
+    width: 15%;
+}
+
+.desenvolvedora{
+    width: 50%;
+}
+
+.gap{
+    margin-bottom: 10%;
+}
+
+
+/* ============================ FOOTER ================================ */
+
+footer{
+    background-color: #2E2E2E;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 20vh;
+}
+
+footer li{
+    text-decoration: none;
+    list-style: none;
+}
+
+.div-footer1{
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    
+
+}
+
+.div-footer2{
+    width: 30%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+
+}
+
+.div-footer3{
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.div-footer3 li{
+    text-decoration: none;
+    list-style: none;
+    margin: 2%;
+}
+
+.div-footer-navegacao{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    width: 25vw;
+}
+
+footer a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 300;
+}
+
+
+.footer-a{
+    position: relative;
+}
+
+.footer-a::after{
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 0.120rem;
+    left: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    transform: scale(0,1);
+    transition: transform 0.3s ease;
+}
+
+.footer-a:hover::after{
+    transform: scale(1,1);
+    width: 100%;
+}
+
+.div-direitos-footer{
+    height: 5vh;
+    background-color: #161616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 300;
 }
