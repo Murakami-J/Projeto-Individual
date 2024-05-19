@@ -100,12 +100,12 @@ input::placeholder{
     cursor: pointer;
 }
 
-span{
+.spanCadastrar{
     color: #B80000;
     font-weight: 400;
 }
 
-span:hover{
+.spanCadastrar:hover{
     color: #d10000;
     text-decoration: underline;
     cursor: pointer;

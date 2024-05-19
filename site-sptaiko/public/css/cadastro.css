@@ -5,9 +5,12 @@
     transform: scaleX(-1);
 }
 
-.div-container-texto{
-    height: 48vh;
-    /* border: 2px solid black; */
+.box{ 
+    width: 55%;
+}
+
+.container{
+    height: 80vh;
 }
 
 .div-container-texto input {
@@ -16,7 +19,7 @@
 }
 
 .div-login-texto {
-    gap: 1vw
+    gap: 0.5vw
 }
 
 .select-regiao{
@@ -44,3 +47,23 @@ option{
 
 }
 
+.span-erro{
+    font-size: 0.6vw;
+    color: transparent;
+    font-weight: 400;
+    align-self: flex-end;
+}
+
+
+.div-login-texto {
+
+    height: 75vh;
+}
+
+.div-container-texto{
+    height: 55vh;
+}
+
+.img-login{
+    height: 81vh;
+}

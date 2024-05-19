@@ -1,131 +1,249 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/cadastro.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/cadastro.css">
+  <script src="./js/sessao.js"></script>
 </head>
+
 <body>
-    <img src="assets/images/seta-preta.png" alt="Seta Voltar" class="seta">
+  <img src="assets/images/seta-preta.png" alt="Seta Voltar" class="seta">
 
-    <div class="container">
-            <div class="box">
-                <div class="div-login-texto">
-                    <p class="p-titulo">CADASTRO</p>
-                    <div class="div-container-texto">
-                        <p class="p-texto">Nome</p>
-                        <input type="text" placeholder="Digite seu nome" id="nome_input">
+  <div class="container">
+    <div class="box">
+      <div class="div-login-texto">
+        <p class="p-titulo">CADASTRO</p>
+        <div class="div-container-texto">
+          <p class="p-texto">Nome</p>
+          <input type="text" placeholder="Digite seu nome" id="nome_input">
+          <span class="span-erro" id="span_erro_nome">.</span>
 
-                        <p class="p-texto">Email</p>
-                        <input type="text" placeholder="seuemail@dominio.com" id="email_input">
+          <p class="p-texto">Email</p>
+          <input type="text" placeholder="seuemail@dominio.com" id="email_input" required="">
 
-                        <p class="p-texto">Região</p>
-                        <select id="select_regiao" class="select-regiao">
-                            <option value="#" >Selecione uma opção</option>
-                            <option value="CT">Centro</option>
-                            <option value="ZL">Zona Leste</option>
-                            <option value="ZN">Zona Norte</option>
-                            <option value="ZO">Zona Oeste</option>
-                            <option value="ZS">Zona Sul</option>
-                        </select>
+          <span class="span-erro" id="span_erro_email">.</span>
 
-                        <p class="p-texto" id="senha_input">Senha</p>
-                        <input type="text" placeholder="Digite sua senha">
+          <p class="p-texto">Região</p>
+          <select id="select_regiao" class="select-regiao">
+            <option value="#">Selecione uma opção</option>
+            <option value="CT">Centro</option>
+            <option value="ZL">Zona Leste</option>
+            <option value="ZN">Zona Norte</option>
+            <option value="ZO">Zona Oeste</option>
+            <option value="ZS">Zona Sul</option>
+          </select>
+          <span class="span-erro" id="span_erro_regiao">.</span>
 
-                        <p class="p-texto">Confirmação de Senha</p>
-                        <input type="text" placeholder="Redigite sua senha" id="confirmacao_senha_input">
+          <p class="p-texto">Senha</p>
+          <input type="text" placeholder="Digite sua senha" id="senha_input">
+          <span class="span-erro" id="span_erro_senha">.</span>
 
-                    </div>
+          <p class="p-texto">Confirmação de Senha</p>
+          <input type="text" placeholder="Redigite sua senha" id="confirmacao_senha_input">
+          <span class="span-erro" id="span_erro_confirmSenha">.</span>
+        </div>
 
-                    <button class="bt-entrar" onclick="cadastrar()">
-                        Cadastrar
-                    </button>
+        <button class="bt-entrar" onclick="cadastrar()">
+          Cadastrar
+        </button>
 
-                    <p class="p-cadastrar">Já possui uma conta? <span>Entrar</span></p>
-                </div>
-                <img src="assets/images/fundo-login.png" alt="Imagem Login" class="img-login">
-            </div>
+        <p class="p-cadastrar">Já possui uma conta? <span class="spanCadastrar">Entrar</span></p>
+      </div>
+
+      <img src="assets/images/fundo-login.png" alt="Imagem Login" class="img-login">
+
     </div>
+  </div>
 
-    <img src="assets/images/divisor-login.png" alt="Divisor" class="divisor-login">
+  <img src="assets/images/divisor-login.png" alt="Divisor" class="divisor-login">
 
-    <img src="assets/images/sakura3.png" alt="Sakura" class="img-sakura">
+  <img src="assets/images/sakura3.png" alt="Sakura" class="img-sakura">
 </body>
+
 </html>
 
 <script>
-    function cadastrar() {
-      //Recupere o valor da nova input pelo nome do id
-      // Agora vá para o método fetch logo abaixo
-      var nomeVar = nome_input.value;
-      var emailVar = email_input.value;
-      var regiaoVar = select_regiao.value;
-      var senhaVar = senha_input.value;
-      var confirmacaoSenhaVar = confirmacao_senha_input.value;
-      
+  function cadastrar() {
 
-    
-      // Enviando o valor da nova input
-      fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          nomeServer: nomeVar,
-          emailServer: emailVar,
-          regiaoServer: regiaoVar,
-          senhaServer: senhaVar,
-        }),
-      })
-        .then(function (resposta) {
-          console.log("resposta: ", resposta);
-  
-          if (resposta.ok) {
-            // cardErro.style.display = "block";
-  
-            // mensagem_erro.innerHTML =
-            //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-  
-            setTimeout(() => {
-              window.location = "login.html";
-            }, "2000");
-  
-            limparFormulario();
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var regiaoVar = select_regiao.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+
+    const NOME = nome_input.value;
+    const EMAIL = email_input.value;
+    const REGIAO = select_regiao.value;
+    const SENHA = senha_input.value;
+    const CONFIRMACAO_SENHA = confirmacao_senha_input.value;
+
+    span_erro_nome.style.color = 'transparent';
+    span_erro_email.style.color = 'transparent';
+    span_erro_regiao.style.color = 'transparent';
+    span_erro_senha.style.color = 'transparent';
+    span_erro_confirmSenha.style.color = 'transparent';
+
+    if (NOME && EMAIL && REGIAO != '#' && SENHA && CONFIRMACAO_SENHA) {
+      const INDICE_ARROBA = EMAIL.indexOf("@");
+      const INDICE_PONTO = EMAIL.indexOf(".");
+
+      if (INDICE_ARROBA == -1 || INDICE_PONTO == -1) {
+        span_erro_email.innerHTML = "Email inválido";
+        span_erro_email.style.color = '#B80000';
+
+      } else {
+        if (SENHA.length < 8) {
+          span_erro_senha.innerHTML = "A senha deve ter pelo menos 8 caracteres";
+          span_erro_senha.style.color = '#B80000';
+        } else {
+          let existeNumero = false;
+
+          for (let numero = 0; numero <= 9; numero++) {
+            const INDICE_NUMERO = SENHA.indexOf(`${numero}`);
+
+            if (INDICE_NUMERO != -1) {
+              existeNumero = true;
+
+              numero = 10;
+            }
+          }
+
+          if (existeNumero == true) {
+            let existeLetraMaiuscula = false;
+            let senha_replace = SENHA;
+
+            senha_replace = senha_replace.replace(/\d+/ig, "")
+
+            for (let posicao = 0; posicao < senha_replace.length; posicao++) {
+              const LETRA_MAIUSCULA = senha_replace[posicao];
+
+              if (LETRA_MAIUSCULA == LETRA_MAIUSCULA.toUpperCase()) {
+                posicao = senha_replace.length;
+                existeLetraMaiuscula = true;
+              }
+            }
+
+            if (existeLetraMaiuscula == false) {
+              span_erro_senha.innerHTML = "A senha deve conter uma letra maiúscula";
+              span_erro_senha.style.color = '#B80000';
+
+            } else {
+
+              if (SENHA != CONFIRMACAO_SENHA) {
+                span_erro_confirmSenha.innerHTML = "As senhas não conferem";
+                span_erro_confirmSenha.style.color = '#B80000';
+
+              } else {
+                // Enviando o valor da nova input
+                fetch("/usuarios/cadastrar", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    regiaoServer: regiaoVar,
+                    senhaServer: senhaVar,
+                  }),
+                })
+                  .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                      // cardErro.style.display = "block";
+
+                      // mensagem_erro.innerHTML =
+                      //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                      setTimeout(() => {
+                        window.location = "login.html";
+                      }, "2000");
+
+                      limparFormulario();
+
+                    } else {
+                      throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                  })
+                  .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    //   finalizarAguardar();
+                  });
+
+                return false;
+              }
+
+              function listar() {
+                fetch("/empresas/listar", {
+                  method: "GET",
+                })
+                  .then(function (resposta) {
+                    resposta.json().then((empresas) => {
+                      empresas.forEach((empresa) => {
+                        listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
+                      });
+                    });
+                  })
+                  .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                  });
+              }
+            }
 
           } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
+            span_erro_senha.innerHTML = "A senha deve conter pelo menos um número";
+            span_erro_senha.style.color = '#B80000';
           }
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
-        //   finalizarAguardar();
-        });
-  
-      return false;
+
+        }
+
+      }
+
+    } else {
+
+      if (!NOME) {
+        span_erro_nome.innerHTML = "Preencha seu nome";
+        span_erro_nome.style.color = '#B80000';
+      }
+
+      if (!EMAIL) {
+        span_erro_email.innerHTML = "Email inválido";
+        span_erro_email.style.color = '#B80000';
+      }
+
+      if (REGIAO == '#') {
+        span_erro_regiao.innerHTML = "Selecione uma Região";
+        span_erro_regiao.style.color = '#B80000';
+
+      }
+
+      if (!SENHA) {
+        span_erro_senha.innerHTML = "Insira uma senha";
+        span_erro_senha.style.color = '#B80000';
+      }
+
+      if(!CONFIRMACAO_SENHA){
+        span_erro_confirmSenha.innerHTML = "As senhas não conferem";
+                span_erro_confirmSenha.style.color = '#B80000';
+      }
+
     }
-  
-    function listar() {
-      fetch("/empresas/listar", {
-        method: "GET",
-      })
-        .then(function (resposta) {
-          resposta.json().then((empresas) => {
-            empresas.forEach((empresa) => {
-              listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
-            });
-          });
-        })
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
-        });
-    }
-  
-    // function sumirMensagem() {
-    //   cardErro.style.display = "none";
-    // }
-  </script>
+
+
+
+  }
+
+  // function sumirMensagem() {
+  //   cardErro.style.display = "none";
+  // }
+</script>
