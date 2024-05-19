@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+<body>
+    <img src="assets/images/seta-preta.png" alt="Seta Voltar" class="seta">
+
+    <div class="container">
+            <div class="box">
+                <div class="div-login-texto">
+                    <p class="p-titulo">CADASTRO</p>
+                    <div class="div-container-texto">
+                        <p class="p-texto">Nome</p>
+                        <input type="text" placeholder="Digite seu nome" id="nome_input">
+
+                        <p class="p-texto">Email</p>
+                        <input type="text" placeholder="seuemail@dominio.com" id="email_input">
+
+                        <p class="p-texto">Região</p>
+                        <select id="select_regiao" class="select-regiao">
+                            <option value="#" >Selecione uma opção</option>
+                            <option value="CT">Centro</option>
+                            <option value="ZL">Zona Leste</option>
+                            <option value="ZN">Zona Norte</option>
+                            <option value="ZO">Zona Oeste</option>
+                            <option value="ZS">Zona Sul</option>
+                        </select>
+
+                        <p class="p-texto" id="senha_input">Senha</p>
+                        <input type="text" placeholder="Digite sua senha">
+
+                        <p class="p-texto">Confirmação de Senha</p>
+                        <input type="text" placeholder="Redigite sua senha" id="confirmacao_senha_input">
+
+                    </div>
+
+                    <button class="bt-entrar" onclick="cadastrar()">
+                        Cadastrar
+                    </button>
+
+                    <p class="p-cadastrar">Já possui uma conta? <span>Entrar</span></p>
+                </div>
+                <img src="assets/images/fundo-login.png" alt="Imagem Login" class="img-login">
+            </div>
+    </div>
+
+    <img src="assets/images/divisor-login.png" alt="Divisor" class="divisor-login">
+
+    <img src="assets/images/sakura3.png" alt="Sakura" class="img-sakura">
+</body>
+</html>
+
+<script>
+    function cadastrar() {
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeVar = nome_input.value;
+      var emailVar = email_input.value;
+      var regiaoVar = select_regiao.value;
+      var senhaVar = senha_input.value;
+      var confirmacaoSenhaVar = confirmacao_senha_input.value;
+      
+
+    
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          regiaoServer: regiaoVar,
+          senhaServer: senhaVar,
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+  
+          if (resposta.ok) {
+            // cardErro.style.display = "block";
+  
+            // mensagem_erro.innerHTML =
+            //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  
+            setTimeout(() => {
+              window.location = "login.html";
+            }, "2000");
+  
+            limparFormulario();
+
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        //   finalizarAguardar();
+        });
+  
+      return false;
+    }
+  
+    function listar() {
+      fetch("/empresas/listar", {
+        method: "GET",
+      })
+        .then(function (resposta) {
+          resposta.json().then((empresas) => {
+            empresas.forEach((empresa) => {
+              listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
+            });
+          });
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+    }
+  
+    // function sumirMensagem() {
+    //   cardErro.style.display = "none";
+    // }
+  </script>

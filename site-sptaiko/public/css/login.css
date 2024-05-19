@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;400;500&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+}
+
+body{
+    background-color: #2E2E2E;
+    overflow-y: hidden;
+    overflow: hidden;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 78vh;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52%;
+    border-radius: 2vw;
+    background-color: white;
+    box-shadow: 0px 4px 23px 0px rgba(255, 255, 255, 0.1)
+
+}
+
+.div-login-texto{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.img-login{
+    width: 50%;
+}
+
+.div-container-texto{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 28vh;
+    width: 70%;
+}
+
+.div-container-texto input{
+    height: 4vh;
+    border-radius: 0.5vw;
+    padding: 0% 4%;
+    font-size: 0.9vw;
+    margin-bottom: 1vw;
+    border: 2px solid black;
+}
+
+.p-texto{
+    font-size: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 0.5vw;
+}
+
+.p-titulo{
+    font-size: 2.5vw;
+    border-bottom: #B80000 solid 0.2rem;
+
+}
+
+input::placeholder{
+    color: #D0D0D0;
+    font-weight: 300;
+    font-size: 0.9vw;
+    
+}
+
+.p-cadastrar{
+    font-weight: 300;
+    font-size: 0.8vw;
+}
+
+.bt-entrar{
+    padding: 0.4vw 3.5vw;
+    font-size: 1.2vw;
+    background-color: #B80000;
+    border: 1px solid black;
+    color: white;
+    border-radius: 0.3vw;
+}
+
+.bt-entrar:hover{
+    background-color: #d10000;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+span{
+    color: #B80000;
+    font-weight: 400;
+}
+
+span:hover{
+    color: #d10000;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.seta{
+    margin-left: 3vw;
+    margin-top: 2vw;
+}
+
+.seta:hover{
+    cursor: pointer;
+}
+
+.divisor-login{
+    position: absolute;
+    top: 75%;
+    z-index: -1;
+    width: 100%;
+}
+
+.img-sakura{
+    position: absolute;
+    top: 5%;
+    left: 82.5%;
+}
