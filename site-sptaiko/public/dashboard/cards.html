@@ -1,11 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>a</title>
+    <title>SPTAIKO</title>
+    <link rel="stylesheet" href="../css/inicio.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
+
 <body>
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   
+    <nav>
+        <div class="div-logo">
+            <img src="../assets/images/logoAnimada.gif" alt="Logo SPTaiko" class="img-logo">
+        </div>
+
+        <div class="nav-container">
+            <ul>
+                <li><a href="">INÍCIO</a></li>
+                <span class="divisor"></span>
+                <li onclick="exibirGrupos()" class="li-seta">GRUPOS  <img src="../assets/images/seta-para-baixo.png" alt="" class="seta-baixo"></li>
+                <span class="divisor"></span>
+                <ul class="ul-grupos" id="ul_grupos">
+                    <li><a href="" id="gp_acal">Acal Taiko</a></li>
+                    <li><a href="" id="gp_futurong">Futurong Taiko</a></li>
+                    <li><a href="" id="gp_himawari">Himawari Taiko</a></li>
+                    <li><a href="" id="gp_ikkon">Ikkon Wadaiko</a></li>
+                    <li><a href="" id="gp_mika">Mika Taiko</a></li>
+                    <li><a href="" id="gp_mugen">Mugen Daiko</a></li>
+                    <li><a href="" id="gp_sakura">Sakura Fubuki Taiko</a></li>
+                    <li><a href="" id="gp_soragoi">Soragoi Wadaiko</a></li>
+                    <li><a href="" id="gp_tenryuu">Tenryuu Wadaiko</a></li>
+                    <li><a href="" id="gp_todoroki">Todoroki Daiko</a></li>
+                </ul>
+                <span class="divisor gp-divisor" id="gp_divisor"></span>
+                <li><a href="">FÓRUM</a></li>
+                <span class="divisor"></span>
+                <li><a href="">EM ALTA</a></li>
+                <span class="divisor"></span>
+            </ul>
+        </div>
+
+
+        <div class="container-sair">
+            <a href="../index.html">
+                <img src="../assets/images/sair.png" alt="Sair">
+                <p>SAIR</p>
+            </a>
+        </div>
+    </nav>
 </body>
+
 </html>
+
+<script>
+    let contador = 0;
+    function exibirGrupos() {
+
+        if (contador % 2 == 0) {
+
+            gp_acal.style.display = 'flex';
+            gp_futurong.style.display = 'flex';
+            gp_himawari.style.display = 'flex';
+            gp_ikkon.style.display = 'flex';
+            gp_mika.style.display = 'flex';
+            gp_mugen.style.display = 'flex';
+            gp_sakura.style.display = 'flex';
+            gp_soragoi.style.display = 'flex';
+            gp_tenryuu.style.display = 'flex';
+            gp_todoroki.style.display = 'flex';
+
+            gp_divisor.style.display = 'block';
+            
+        } else{
+            gp_acal.style.display = 'none';
+            gp_futurong.style.display = 'none';
+            gp_himawari.style.display = 'none';
+            gp_ikkon.style.display = 'none';
+            gp_mika.style.display = 'none';
+            gp_mugen.style.display = 'none';
+            gp_sakura.style.display = 'none';
+            gp_soragoi.style.display = 'none';
+            gp_tenryuu.style.display = 'none';
+            gp_todoroki.style.display = 'none';
+
+            gp_divisor.style.display = 'none';
+        }
+        contador += 1;
+    }
+</script>

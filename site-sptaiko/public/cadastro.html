@@ -19,31 +19,20 @@
         <p class="p-titulo">CADASTRO</p>
         <div class="div-container-texto">
           <p class="p-texto">Nome</p>
-          <input type="text" placeholder="Digite seu nome" id="nome_input">
+          <input type="text" placeholder="Digite seu nome" id="nome_input" maxlength="45">
           <span class="span-erro" id="span_erro_nome">.</span>
 
           <p class="p-texto">Email</p>
-          <input type="text" placeholder="seuemail@dominio.com" id="email_input" required="">
+          <input type="text" placeholder="seuemail@dominio.com" id="email_input" maxlength="264">
 
           <span class="span-erro" id="span_erro_email">.</span>
 
-          <p class="p-texto">Região</p>
-          <select id="select_regiao" class="select-regiao">
-            <option value="#">Selecione uma opção</option>
-            <option value="CT">Centro</option>
-            <option value="ZL">Zona Leste</option>
-            <option value="ZN">Zona Norte</option>
-            <option value="ZO">Zona Oeste</option>
-            <option value="ZS">Zona Sul</option>
-          </select>
-          <span class="span-erro" id="span_erro_regiao">.</span>
-
           <p class="p-texto">Senha</p>
-          <input type="text" placeholder="Digite sua senha" id="senha_input">
+          <input type="password" placeholder="Digite sua senha" id="senha_input" maxlength="45"> 
           <span class="span-erro" id="span_erro_senha">.</span>
 
           <p class="p-texto">Confirmação de Senha</p>
-          <input type="text" placeholder="Redigite sua senha" id="confirmacao_senha_input">
+          <input type="password" placeholder="Redigite sua senha" id="confirmacao_senha_input" maxlength="45">
           <span class="span-erro" id="span_erro_confirmSenha">.</span>
         </div>
 
@@ -51,7 +40,7 @@
           Cadastrar
         </button>
 
-        <p class="p-cadastrar">Já possui uma conta? <span class="spanCadastrar">Entrar</span></p>
+        <p class="p-cadastrar">Já possui uma conta? <a href="login.html"><span class="spanCadastrar">Entrar</span></a></p>
       </div>
 
       <img src="assets/images/fundo-login.png" alt="Imagem Login" class="img-login">
@@ -73,24 +62,21 @@
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
-    var regiaoVar = select_regiao.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
 
     const NOME = nome_input.value;
     const EMAIL = email_input.value;
-    const REGIAO = select_regiao.value;
     const SENHA = senha_input.value;
     const CONFIRMACAO_SENHA = confirmacao_senha_input.value;
 
     span_erro_nome.style.color = 'transparent';
     span_erro_email.style.color = 'transparent';
-    span_erro_regiao.style.color = 'transparent';
     span_erro_senha.style.color = 'transparent';
     span_erro_confirmSenha.style.color = 'transparent';
 
-    if (NOME && EMAIL && REGIAO != '#' && SENHA && CONFIRMACAO_SENHA) {
+    if (NOME && EMAIL && SENHA && CONFIRMACAO_SENHA) {
       const INDICE_ARROBA = EMAIL.indexOf("@");
       const INDICE_PONTO = EMAIL.indexOf(".");
 
@@ -152,7 +138,6 @@
                     // Agora vá para o arquivo routes/usuario.js
                     nomeServer: nomeVar,
                     emailServer: emailVar,
-                    regiaoServer: regiaoVar,
                     senhaServer: senhaVar,
                   }),
                 })
@@ -219,12 +204,6 @@
       if (!EMAIL) {
         span_erro_email.innerHTML = "Email inválido";
         span_erro_email.style.color = '#B80000';
-      }
-
-      if (REGIAO == '#') {
-        span_erro_regiao.innerHTML = "Selecione uma Região";
-        span_erro_regiao.style.color = '#B80000';
-
       }
 
       if (!SENHA) {

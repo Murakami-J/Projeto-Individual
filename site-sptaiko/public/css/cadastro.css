@@ -5,12 +5,9 @@
     transform: scaleX(-1);
 }
 
-.box{ 
-    width: 55%;
-}
 
-.container{
-    height: 80vh;
+.div-container-texto{
+    height: 55vh;
 }
 
 .div-container-texto input {
@@ -55,15 +52,4 @@ option{
 }
 
 
-.div-login-texto {
 
-    height: 75vh;
-}
-
-.div-container-texto{
-    height: 55vh;
-}
-
-.img-login{
-    height: 81vh;
-}
