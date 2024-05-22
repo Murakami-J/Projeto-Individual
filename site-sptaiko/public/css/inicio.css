@@ -6,6 +6,8 @@
     font-family: "Rubik", sans-serif;
 }
 
+/* ============================ NAV ================================ */
+
 nav{
     background-color: #D28B53;
     width: 15%;
@@ -15,6 +17,7 @@ nav{
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    border: 1px black solid;
 }
 
 .div-logo{
@@ -122,4 +125,27 @@ nav{
     font-size: 1.3vw;
     font-weight: 300;
     margin-left: 1vw;
+}
+
+/* ============================ HEADER ================================ */
+
+.header-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-header{
+    background-color: #2E2E2E;
+    height: 10vh;
+    width: 85%;
+    display: flex;
+    align-items: center;
+}
+
+.div-perfil-usuario{
+    background-color: white;
+    width: 5%;
+    height: 8vh;
+    border-radius: 50%;
+    justify-self: end;
 }
