@@ -4,19 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupos</title>
-
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/grupo.css">
+    <script src="teste.js"></script>
 </head>
 <body onload="exibirGrupo()">
+
+    <nav>
+        <div class="div-logo">
+            <img src="../assets/images/logoAnimada.gif" alt="Logo SPTaiko" class="img-logo">
+        </div>
+
+        <div class="nav-container">
+            <ul>
+                <li><a href="cards.html">INÍCIO</a></li>
+                <span class="divisor"></span>
+                <li onclick="exibirGrupos()" class="li-seta">GRUPOS  <img src="../assets/images/seta-para-baixo.png" alt="" class="seta-baixo"></li>
+                <span class="divisor"></span>
+                <ul class="ul-grupos" id="ul_grupos">
+                    <li><a href="" id="gp_acal">Acal Taiko</a></li>
+                    <li><a href="" id="gp_futurong">Futurong Taiko</a></li>
+                    <li><a href="" id="gp_himawari">Himawari Taiko</a></li>
+                    <li><a href="" id="gp_ikkon">Ikkon Wadaiko</a></li>
+                    <li><a href="" id="gp_mika">Mika Taiko</a></li>
+                    <li><a href="" id="gp_mugen">Mugen Daiko</a></li>
+                    <li><a href="" id="gp_sakura">Sakura Fubuki Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_soragoi" onclick="a()">Soragoi Wadaiko</a></li>
+                    <li><a href="" id="gp_tenryuu">Tenryuu Wadaiko</a></li>
+                    <li><a href="" id="gp_todoroki">Todoroki Daiko</a></li>
+                </ul>
+                <li><a href="">EM ALTA</a></li>
+                <span class="divisor"></span>
+            </ul>
+        </div>
+
+
+        <div class="container-sair">
+            <a href="../index.html">
+                <img src="../assets/images/sair.png" alt="Sair">
+                <p>SAIR</p>
+            </a>
+        </div>
+    </nav>
+
+    <div class="header-container">
+        <div class="div-header">
+            <span id="b_usuario">Usuário</span>
+            
+            <div class="div-perfil-usuario">
+        
+            </div>
+        </div>
+    </div>
     
-    <h1>Mural de Avisos</h1>
-    <div class="div-results">
-        <div id="feed_container" class="feed-container">
+    
+    <div class="conteudo-container">
+        <div class="div-results">
+            <div id="feed_container" class="feed-container">
+                <p id="aa">sdfsd</p>
+            </div>
         </div>
     </div>
 </body>
 </html>
 
 <script>
+
+
    function exibirGrupo(){
     fetch("/grupo/listarGrupo").then(function (resposta) {
             if (resposta.ok) {
@@ -59,7 +113,7 @@
                         divCEP.innerHTML = "Rua: <b>" + publicacao.CEP + "</b>";
                         divRua.innerHTML = "CEP: <b>" + publicacao.rua + "</b>";
                         divNumero.innerHTML = "Número: <b>" + publicacao.numero + "</b>";
-                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + "</b>";
+                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + sessionStorage.GRUPO +"</b>";
 
 
                         // Endereço
@@ -92,4 +146,38 @@
     
         });
    }
+
+   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    let contador = 0;
+    function exibirGrupos() {
+
+        if (contador % 2 == 0) {
+
+            gp_acal.style.display = 'flex';
+            gp_futurong.style.display = 'flex';
+            gp_himawari.style.display = 'flex';
+            gp_ikkon.style.display = 'flex';
+            gp_mika.style.display = 'flex';
+            gp_mugen.style.display = 'flex';
+            gp_sakura.style.display = 'flex';
+            gp_soragoi.style.display = 'flex';
+            gp_tenryuu.style.display = 'flex';
+            gp_todoroki.style.display = 'flex';
+
+            
+        } else{
+            gp_acal.style.display = 'none';
+            gp_futurong.style.display = 'none';
+            gp_himawari.style.display = 'none';
+            gp_ikkon.style.display = 'none';
+            gp_mika.style.display = 'none';
+            gp_mugen.style.display = 'none';
+            gp_sakura.style.display = 'none';
+            gp_soragoi.style.display = 'none';
+            gp_tenryuu.style.display = 'none';
+            gp_todoroki.style.display = 'none';
+
+        }
+        contador += 1;
+    }
 </script>

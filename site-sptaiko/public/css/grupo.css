@@ -1,0 +1,9 @@
+.conteudo-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+}
+
+.div-results{
+    width: 50%;
+}

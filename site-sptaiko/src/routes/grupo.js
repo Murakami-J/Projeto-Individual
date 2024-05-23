@@ -7,4 +7,8 @@ router.get("/listarGrupo", function(req, res){
     grupoController.listarGrupo(req, res);
 });
 
+router.post("/teste", function (req, res) {
+    grupoController.teste(req, res);
+});
+
 module.exports = router;
