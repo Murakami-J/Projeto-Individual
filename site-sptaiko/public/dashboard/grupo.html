@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos</title>
+
+</head>
+<body onload="exibirGrupo()">
+    
+    <h1>Mural de Avisos</h1>
+    <div class="div-results">
+        <div id="feed_container" class="feed-container">
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+   function exibirGrupo(){
+    fetch("/grupo/listarGrupo").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+
+                        // Endereço
+                        var divCEP = document.createElement("div");
+                        var divRua = document.createElement("div");
+                        var divNumero = document.createElement("div");
+                        var divComplemento = document.createElement("div");
+
+                        
+                        spanNome.innerHTML = "Nome: <b>" + publicacao.nome + "</b>";
+                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+
+
+                        spanNome.className = "publicacao-nome";
+                        divDescricao.className = "publicacao-descricao";
+
+                        // Endereço
+                        divCEP.innerHTML = "Rua: <b>" + publicacao.CEP + "</b>";
+                        divRua.innerHTML = "CEP: <b>" + publicacao.rua + "</b>";
+                        divNumero.innerHTML = "Número: <b>" + publicacao.numero + "</b>";
+                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + "</b>";
+
+
+                        // Endereço
+                        divRua.className = "publicacao-rua";
+                        divCEP.className = "publicacao-CEP";
+                        divNumero.className = "publicacao-numero";
+                        divComplemento.className = "publicacao-Endereco";
+
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divNumero);
+                        divPublicacao.appendChild(divComplemento);
+
+                        // Endereço
+                        divPublicacao.appendChild(divRua);
+                        divPublicacao.appendChild(divCEP);
+                        divPublicacao.appendChild(divNumero);
+                        divPublicacao.appendChild(divComplemento);
+                  
+                        feed.appendChild(divPublicacao);
+                    }
+
+                  
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+    
+        });
+   }
+</script>
