@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupos</title>
     <link rel="stylesheet" href="../css/inicio.css">
     <link rel="stylesheet" href="../css/grupo.css">
-    <script src="teste.js"></script>
 </head>
-<body onload="exibirGrupo()">
+
+<body onload="teste()">
 
     <nav>
         <div class="div-logo">
@@ -19,7 +20,8 @@
             <ul>
                 <li><a href="cards.html">INÍCIO</a></li>
                 <span class="divisor"></span>
-                <li onclick="exibirGrupos()" class="li-seta">GRUPOS  <img src="../assets/images/seta-para-baixo.png" alt="" class="seta-baixo"></li>
+                <li onclick="exibirGrupos()" class="li-seta">GRUPOS <img src="../assets/images/seta-para-baixo.png"
+                        alt="" class="seta-baixo"></li>
                 <span class="divisor"></span>
                 <ul class="ul-grupos" id="ul_grupos">
                     <li><a href="" id="gp_acal">Acal Taiko</a></li>
@@ -29,9 +31,9 @@
                     <li><a href="" id="gp_mika">Mika Taiko</a></li>
                     <li><a href="" id="gp_mugen">Mugen Daiko</a></li>
                     <li><a href="" id="gp_sakura">Sakura Fubuki Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_soragoi" onclick="a()">Soragoi Wadaiko</a></li>
-                    <li><a href="" id="gp_tenryuu">Tenryuu Wadaiko</a></li>
-                    <li><a href="" id="gp_todoroki">Todoroki Daiko</a></li>
+                    <li><a href="grupo.html" id="gp_soragoi">Soragoi Wadaiko</a></li>
+                    <li><a href="" id="gp_tenryuu" data-id="9">Tenryuu Wadaiko</a></li>
+                    <li><a href="" id="gp_todoroki" data-id="10">Todoroki Daiko</a></li>
                 </ul>
                 <li><a href="">EM ALTA</a></li>
                 <span class="divisor"></span>
@@ -50,14 +52,14 @@
     <div class="header-container">
         <div class="div-header">
             <span id="b_usuario">Usuário</span>
-            
+
             <div class="div-perfil-usuario">
-        
+
             </div>
         </div>
     </div>
-    
-    
+
+
     <div class="conteudo-container">
         <div class="div-results">
             <div id="feed_container" class="feed-container">
@@ -66,13 +68,47 @@
         </div>
     </div>
 </body>
+
 </html>
 
 <script>
 
+    let matriz = [];
+    
+    var idGrupo;
 
-   function exibirGrupo(){
-    fetch("/grupo/listarGrupo").then(function (resposta) {
+    function teste() {
+    if (idGrupo === undefined) {
+        const descendentes = document.querySelectorAll("#ul_grupos li a");
+
+        for (let i = 0; i < descendentes.length; i++) {
+            descendentes[i].addEventListener("click", function (e) {
+                e.preventDefault(); // Prevenir comportamento padrão do link
+
+                // alert('O elemento clicado foi o ' + this.innerHTML);
+            
+                if (this.innerHTML === 'Soragoi Wadaiko') {
+                    idGrupo = 0;
+                } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                    idGrupo = 1;  
+                } else if(this.innerHTML === 'Acal Taiko'){
+                    idGrupo = 3;  
+                }
+
+                // Chama exibirGrupo() aqui se necessário
+                if (idGrupo !== undefined) {
+                    exibirGrupo();
+                }
+            });
+        }
+    } else {
+        exibirGrupo();
+    }
+}
+
+
+    function exibirGrupo() {
+        fetch("/grupo/listarGrupo").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -87,8 +123,19 @@
 
                     var feed = document.getElementById("feed_container");
                     feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
+
+                    for (let i = idGrupo; i < idGrupo + 1; i++) {
                         var publicacao = resposta[i];
+
+                        var pTeste = document.createElement("div");
+
+                        matriz.push(publicacao.nome);
+                        matriz.push(publicacao.descricao);
+                        matriz.push(publicacao.CEP);
+                        matriz.push(publicacao.rua);
+                        matriz.push(publicacao.numero);
+                        matriz.push(publicacao.complemento);
+                        pTeste.innerHTML = resposta.length;
 
                         // criando e manipulando elementos do HTML via JavaScript
                         var divPublicacao = document.createElement("div");
@@ -101,7 +148,7 @@
                         var divNumero = document.createElement("div");
                         var divComplemento = document.createElement("div");
 
-                        
+
                         spanNome.innerHTML = "Nome: <b>" + publicacao.nome + "</b>";
                         divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
 
@@ -113,7 +160,7 @@
                         divCEP.innerHTML = "Rua: <b>" + publicacao.CEP + "</b>";
                         divRua.innerHTML = "CEP: <b>" + publicacao.rua + "</b>";
                         divNumero.innerHTML = "Número: <b>" + publicacao.numero + "</b>";
-                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + sessionStorage.GRUPO +"</b>";
+                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + "</b>";
 
 
                         // Endereço
@@ -132,22 +179,24 @@
                         divPublicacao.appendChild(divCEP);
                         divPublicacao.appendChild(divNumero);
                         divPublicacao.appendChild(divComplemento);
-                  
+
+                        divPublicacao.appendChild(pTeste);
+
                         feed.appendChild(divPublicacao);
                     }
 
-                  
+
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-    
-        });
-   }
 
-   b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+        });
+    }
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     let contador = 0;
     function exibirGrupos() {
 
@@ -164,8 +213,8 @@
             gp_tenryuu.style.display = 'flex';
             gp_todoroki.style.display = 'flex';
 
-            
-        } else{
+
+        } else {
             gp_acal.style.display = 'none';
             gp_futurong.style.display = 'none';
             gp_himawari.style.display = 'none';
