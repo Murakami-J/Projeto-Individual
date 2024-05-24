@@ -87,12 +87,26 @@
 
                 // alert('O elemento clicado foi o ' + this.innerHTML);
             
-                if (this.innerHTML === 'Soragoi Wadaiko') {
+                if (this.innerHTML === 'Acal Taiko') {
                     idGrupo = 0;
-                } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                } else if (this.innerHTML === 'Futurong Taiko') {
                     idGrupo = 1;  
-                } else if(this.innerHTML === 'Acal Taiko'){
+                } else if(this.innerHTML === 'Himawari Taiko'){
                     idGrupo = 3;  
+                } else if(this.innerHTML === 'Ikkon Wadaiko'){
+                    idGrupo = 4;  
+                } else if(this.innerHTML === 'Mika Taiko'){
+                    idGrupo = 5;  
+                } else if(this.innerHTML === 'Mugen Daiko'){
+                    idGrupo = 6;  
+                } else if(this.innerHTML === 'Sakura Fubuki Taiko'){
+                    idGrupo = 7;  
+                } else if(this.innerHTML === 'Soragoi Wadaiko'){
+                    idGrupo = 8;  
+                } else if(this.innerHTML === 'Tenryuu Wadaiko'){
+                    idGrupo = 9;  
+                } else if(this.innerHTML === 'Todoroki Daiko'){
+                    idGrupo = 10;  
                 }
 
                 // Chama exibirGrupo() aqui se necessário
@@ -129,13 +143,13 @@
 
                         var pTeste = document.createElement("div");
 
-                        matriz.push(publicacao.nome);
-                        matriz.push(publicacao.descricao);
-                        matriz.push(publicacao.CEP);
-                        matriz.push(publicacao.rua);
-                        matriz.push(publicacao.numero);
-                        matriz.push(publicacao.complemento);
-                        pTeste.innerHTML = resposta.length;
+                        // matriz.push(publicacao.nome);
+                        // matriz.push(publicacao.descricao);
+                        // matriz.push(publicacao.CEP);
+                        // matriz.push(publicacao.rua);
+                        // matriz.push(publicacao.numero);
+                        // matriz.push(publicacao.complemento);
+                        // pTeste.innerHTML = resposta.length;
 
                         // criando e manipulando elementos do HTML via JavaScript
                         var divPublicacao = document.createElement("div");
@@ -145,8 +159,6 @@
                         // Endereço
                         var divCEP = document.createElement("div");
                         var divRua = document.createElement("div");
-                        var divNumero = document.createElement("div");
-                        var divComplemento = document.createElement("div");
 
 
                         spanNome.innerHTML = "Nome: <b>" + publicacao.nome + "</b>";
@@ -158,10 +170,8 @@
 
                         // Endereço
                         divCEP.innerHTML = "Rua: <b>" + publicacao.CEP + "</b>";
-                        divRua.innerHTML = "CEP: <b>" + publicacao.rua + "</b>";
-                        divNumero.innerHTML = "Número: <b>" + publicacao.numero + "</b>";
-                        divComplemento.innerHTML = "Complemento: <b>" + publicacao.complemento + "</b>";
-
+                        divRua.innerHTML = "CEP: <b>" + publicacao.endereco + "</b>";
+                    
 
                         // Endereço
                         divRua.className = "publicacao-rua";
