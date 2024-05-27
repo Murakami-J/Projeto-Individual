@@ -149,3 +149,19 @@ nav{
     border-radius: 50%;
     justify-self: end;
 }
+
+/* ============================ PUBLICAÇÕES ================================ */
+.publicacoes{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-right{
+    display: flex;
+    justify-content: center;
+}

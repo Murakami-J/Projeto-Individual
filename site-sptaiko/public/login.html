@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Sptaiko</title>
     <link rel="stylesheet" href="css/login.css">
+    <script src="./js/sessao.js"></script>
 </head>
 <body>
     <a href="index.html"><img src="assets/images/seta-branca.png" alt="Seta Voltar" class="seta"></a>
@@ -81,9 +82,9 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
-                    console.log("OPA");
+                    console.log("aaaa" + sessionStorage.ID_USUARIO)
                     
-                    window.location = "./dashboard/cards.html";
+                    window.location = "./dashboard/inicio.html";
                     // setTimeout(function () {
                     // }, 1000); // apenas para exibir o loading
 
