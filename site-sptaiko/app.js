@@ -18,9 +18,8 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var grupoRouter = require("./src/routes/grupo");
-
-
 var publicacoesRouter = require("./src/routes/publicacoes");
+var interacoesRouter = require("./src/routes/interacoes");
 // var aquariosRouter = require("./src/routes/aquarios");
 // var empresasRouter = require("./src/routes/empresas");
 
@@ -34,6 +33,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/grupo", grupoRouter);;
 app.use("/publicacoes", publicacoesRouter);
+app.use("/interacoes", interacoesRouter);
 // app.use("/aquarios", aquariosRouter);
 // app.use("/empresas", empresasRouter);
 

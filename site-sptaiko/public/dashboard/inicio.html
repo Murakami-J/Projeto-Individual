@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../css/inicio.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../js/sessao.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body onload="validarSessao(), atualizarFeed()">
@@ -63,45 +64,63 @@
         <div class="publicacao-container" id="div_publicacao_container">
             <button class="bt-nova-publicacao" onclick="adicionarNovaPublicacao()">
                 <span class="material-symbols-outlined">
-                add_circle
+                    add_circle
                 </span>
                 <p>Nova Publicação</p>
             </button>
-            
+
             <span id="overlay">
-            <div class="publicacoes" id="div_publicacoes">
-                <img src="../assets/images/seta-branca.png" onclick="fecharNovaPublicacao()">
-                <div class="container">
-                    <p>Criar uma nova publicação</p>
-                    <div class="div-form">
-                        <form id="form_postagem" method="post" onsubmit="return publicar()">
-                            <label>
-                                Título
+                <div class="publicacoes" id="div_publicacoes">
+                    <img src="../assets/images/seta-branca.png" onclick="fecharNovaPublicacao()">
+                    <div class="container">
+                        <p>Criar uma nova publicação</p>
+                        <div class="div-form">
+                            <form id="form_postagem" method="post" onsubmit="return publicar()">
+                                <label>
+                                    Título
+                                    <br>
+                                    <input name="titulo" id="titulo" maxlength="100" type="text">
+                                </label>
                                 <br>
-                                <input name="titulo" id="titulo" maxlength="100" type="text">
-                            </label>
-                            <br>
-                            <br>
-                            <label>
-                                Descrição
                                 <br>
-                                <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
-                            </label>
-                            <br>
-                            <br>
-                            <button>Publicar</button>
-                        </form>
+                                <label>
+                                    Descrição
+                                    <br>
+                                    <textarea name="descricao" id="textarea_descricao" maxlength="250"
+                                        rows="5"></textarea>
+                                </label>
+                                <br>
+                                <br>
+                                <button>Publicar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </span>
-        
+            </span>
+
+
             <!-- <h1>Mural de Avisos</h1> -->
             <div class="div-results">
                 <div id="feed_container" class="feed-container">
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="comentarios-pai">
+        <div class="div-comentarios" id="div_comentarios">
+            <div class="container-comentarios">
+                <div class="div-form-comentario">
+                    <form id="form_comentario" method="post" onsubmit="return publicar()">
+                        <label>
+                            <textarea name="descricao-comentario" id="textarea_descricao_comentario" maxlength="250"
+                                rows="5"></textarea>
+                        </label>
+                        <button>Publicar</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
@@ -157,7 +176,7 @@
         document.getElementById("overlay").style.display = "flex";
     }
 
-    function fecharNovaPublicacao(){
+    function fecharNovaPublicacao() {
         div_publicacoes.style.display = 'none';
         document.getElementById("overlay").style.display = "none";
     }
@@ -259,14 +278,23 @@
                         // var btnDeletar = document.createElement("button");
 
 
-                        spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome}</p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
+                        spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
                         divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
                         <p>${publicacao.descricao}</p>
-                        <div class="div-interacoes">
-                            <ion-icon name="heart-outline" class="curtida" id="curtida"></ion-icon>
-                            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                        <div class="div-interacoes" id="div_interacoes">
+
+                            <ion-icon name="heart-outline" class="curtida" id="curtida"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="verificarCheck()">
+                            
+                            <ion-icon name="chatbubble-ellipses-outline" class="comentarios"></ion-icon>
                         </div>
                         `;
+
+                        // <fieldset class="check-image">
+                        //     <label for="like">
+                        //         <input type="checkbox" name="like" id="like">
+                        //         <i></i>
+                        //      </label>
+                        // </fieldset>
 
                         // btnEditar.innerHTML = "Editar";
                         // btnDeletar.innerHTML = "Deletar";
@@ -307,4 +335,172 @@
             finalizarAguardar();
         });
     }
+
+    let fkAutor = '';
+    function listarFkAutor() {
+        fetch("/publicacoes/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+                        fkAutor = publicacao.fkAutor;
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+
+    }
+
+
+    var idPub = '222222222';
+    function verificarCheck() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        // Selecione todos os elementos de checkbox
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Adicione um evento de clique a cada checkbox
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('click', function () {
+                if (this.checked) {
+                    console.log('O checkbox com o ID ' + this.id + ' está selecionado.');
+                    listarFkAutor();
+                    idPub = this.id;
+                    var corpo = {
+                        idPublicacao: this.id,
+                        fk_Autor: fkAutor
+                    }
+                    fetch(`/interacoes/cadastrarCurtida/${idUsuario}`, {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(corpo)
+                    }).then(function (resposta) {
+
+                        console.log("resposta: ", resposta);
+
+                        if (resposta.ok) {
+                            window.alert("Curtida realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                            window.location = "/dashboard/inicio.html";
+
+                        } else if (resposta.status == 404) {
+                            window.alert("Deu 404!");
+                        } else {
+                            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                        }
+                    }).catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+
+                    return false;
+
+                } else {
+                    console.log('O checkbox com o ID ' + this.id + ' não está selecionado.');
+                    idPub = this.id;
+                    // listarFkAutor();
+                    // var idUsuario = sessionStorage.ID_USUARIO;
+                    // var corpo = {
+                    //     idPublicacao: idPub,
+                    //     fk_Autor: fkAutor
+                    // }
+
+                    // console.log("Criar função de apagar post escolhido - ID " + idUsuario, idPub, fkAutor);
+                    // fetch(`/interacoes/deletarCurtida/${idPub}`, {
+                    //     method: "DELETE",
+                    //     headers: {
+                    //         "Content-Type": "application/json"
+                    //     }
+                    // }).then(function (resposta) {
+
+                    //     if (resposta.ok) {
+                    //         window.alert("Comentario deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                    //         window.location = "/dashboard/inicio.html"
+                    //     } else if (resposta.status == 404) {
+                    //         window.alert("Deu 404!");
+                    //     } else {
+                    //         throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                    //     }
+                    // }).catch(function (resposta) {
+                    //     console.log(`#ERRO: ${resposta}`);
+                    // });
+                }
+            });
+        });
+    }
+
+
+    // function cadastrarCurtida() {
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+
+    //     var corpo = {
+    //         titulo: form_postagem.titulo.value,
+    //         descricao: form_postagem.descricao.value
+    //     }
+
+    //     fetch(`/avisos/publicar/${idUsuario}`, {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(corpo)
+    //     }).then(function (resposta) {
+
+    //         console.log("resposta: ", resposta);
+
+    //         if (resposta.ok) {
+    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+    //             window.location = "/dashboard/mural.html";
+    //             limparFormulario();
+    //             finalizarAguardar();
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //         finalizarAguardar();
+    //     });
+
+    //     return false;
+
+    // }
+
+
+    // function deletar() {
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+
+    //     var corpo = {
+    //         idPublicacao: idPub,
+    //         fk_Autor: fkAutor
+    //     }
+
+    //     console.log("Criar função de apagar post escolhido - ID " +  idUsuario, idPub, fkAutor);
+    //     fetch(`/interacoes/deletarCurtida/${idPub}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         }
+    //     }).then(function (resposta) {
+
+    //         if (resposta.ok) {
+    //             window.alert("Comentario deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+    //             window.location = "/dashboard/inicio.html"
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+    // }
 </script>
