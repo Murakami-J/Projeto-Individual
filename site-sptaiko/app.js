@@ -18,9 +18,9 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var grupoRouter = require("./src/routes/grupo");
-var publicacaoRouter = require("./src/routes/publicacoes");
 
-var avisosRouter = require("./src/routes/avisos");
+
+var publicacoesRouter = require("./src/routes/publicacoes");
 // var aquariosRouter = require("./src/routes/aquarios");
 // var empresasRouter = require("./src/routes/empresas");
 
@@ -32,9 +32,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/grupo", grupoRouter);
-app.use("/publicacoes", publicacaoRouter);
-app.use("/avisos", avisosRouter);
+app.use("/grupo", grupoRouter);;
+app.use("/publicacoes", publicacoesRouter);
 // app.use("/aquarios", aquariosRouter);
 // app.use("/empresas", empresasRouter);
 
