@@ -305,7 +305,9 @@ nav{
     display: flex;
     flex-direction: column;
     width: 50%;
-    border: 2px solid #2E2E2E;
+    border-top: 2px solid #2E2E2E;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
     gap: 0.5vw;
 }
 
@@ -314,6 +316,11 @@ nav{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+}
+
+.div-results{
+    width: 100%;
 }
 
 .publicacao-nome{

@@ -15,7 +15,8 @@ function listar() {
             u.senha
         FROM publicacao a
             INNER JOIN usuario u
-                ON a.fkAutor = u.idUsuario;
+                ON a.fkAutor = u.idUsuario
+                ORDER BY DATE_FORMAT(a.dataPublicacao, '%Y/%m/%d %H:%i') DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -12,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-<body onload="validarSessao(), atualizarFeed(), verificarCurtida()">
+<body onload="validarSessao(), atualizarFeed()">
 
     <nav>
         <div class="div-logo">
@@ -392,7 +392,8 @@
 
     }
 
-    let fkAutor = '';
+    let listafkAutor = [];
+    let a = [];
     function listarFkAutor() {
         fetch("/publicacoes/listar").then(function (resposta) {
             if (resposta.ok) {
@@ -400,14 +401,20 @@
                     throw "Nenhum resultado encontrado!!";
                 }
                 resposta.json().then(function (resposta) {
-                    // for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[0];
-                    fkAutor = publicacao.fkAutor;
 
-                    console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + fkAutor)
-                    // }
+                    for (let i = 0; i < resposta.length; i++) {
+                    var publicacao = resposta[i];
 
-                    verificarCheck();
+                    listafkAutor[i] = {
+                        idPublicacao: publicacao.idAviso,
+                        fkAutor: publicacao.fkAutor 
+                    };
+
+                    
+                }
+                verificarCheck();
+                console.log("Dados recebidos: BBBB ", JSON.stringify(listafkAutor));
+
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -435,7 +442,7 @@
         });
     }
 
-
+    let fkAutor = '';
     let contadorCurtidas;
     function handleCheckboxClick() {
         var idUsuario = sessionStorage.ID_USUARIO;
@@ -451,6 +458,15 @@
             const icon = document.getElementById(`icon_curtida${this.id}`);
             icon.name = "heart";
             icon.style.color = "red";
+
+            var idPublicacaoClicado = this.id;
+            console.log(listafkAutor[1].fkAutor)
+            for(let posicao = 0; posicao < listafkAutor.length; posicao++){
+                if(idPublicacaoClicado == listafkAutor[posicao].idPublicacao){
+                    fkAutor = listafkAutor[posicao].fkAutor;
+                }
+            }
+
             console.log('O checkbox com o ID ' + this.id + ' está selecionado.' + fkAutor);
 
             var idPublicacao1 = this.id
@@ -487,7 +503,12 @@
             icon.name = "heart-outline";
             icon.style.color = "black";
             console.log('O checkbox com o ID ' + this.id + ' não está selecionado.');
-
+            var idPublicacaoClicado = this.id;
+            for(let posicao = 0; posicao < listafkAutor.length; posicao++){
+                if(idPublicacaoClicado == listafkAutor[posicao].idPublicacao){
+                    fkAutor = listafkAutor[posicao].fkAutor;
+                }
+            }
             var idPublicacao = this.id
 
             fetch(`/interacoes/listar/${idUsuario}/${idPublicacao}/${fkAutor}`, {
@@ -574,14 +595,6 @@
     //                 });
 
     //                 return false;
-
-
-    function verificarCurtida() {
-
-
-    }
-
-
 
 
 
