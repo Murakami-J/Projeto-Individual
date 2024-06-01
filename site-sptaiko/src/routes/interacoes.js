@@ -17,6 +17,14 @@ router.get("/listar/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.listar(req, res);
 });
 
+router.get("/listarCurtidas/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
+    interacaoController.listarCurtidas(req, res);
+});
+
+router.get("/listarCurtidasPorUsuario/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
+    interacaoController.listarCurtidasPorUsuario(req, res);
+});
+
 router.delete("/deletarCurtida/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.deletarCurtida(req, res);
 });
