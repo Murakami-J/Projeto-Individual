@@ -1,8 +1,8 @@
 var interacaoModel = require("../models/interacaoModel");
 
 function cadastrarCurtida(req, res) {
-    var idPublicacao = req.body.idPublicacao;
-    var fkAutor = req.body.fk_Autor;
+    var idPublicacao = req.params.idPublicacao;
+    var fkAutor = req.params.fkAutor;
     var idUsuario = req.params.idUsuario;
 
     interacaoModel.cadastrarCurtida(idPublicacao, idUsuario, fkAutor)
@@ -37,11 +37,11 @@ function pegarFkAutor(req, res) {
 
 
 function deletarCurtida(req, res) {
-    var idPublicacao = req.body.idPublicacao;
-    var fkAutor = req.body.fk_Autor;
+    var idPublicacao = req.params.idPublicacao;
+    var fkAutor = req.params.fkAutor;
     var idUsuario = req.params.idUsuario;
 
-    interacaoModel.deletarCurtida(idPublicacao, fkAutor, idUsuario)
+    interacaoModel.deletarCurtida(idPublicacao, idUsuario, fkAutor)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -50,15 +50,37 @@ function deletarCurtida(req, res) {
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
 }
 
 
+function listar(req, res) {
+    var idPublicacao = req.params.idPublicacao;
+    var fkAutor = req.params.fkAutor;
+    var idUsuario = req.params.idUsuario;
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + idPublicacao  + idUsuario)
+
+    interacaoModel.listar(idPublicacao, idUsuario, fkAutor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     cadastrarCurtida,
     pegarFkAutor,
-    deletarCurtida
+    deletarCurtida,
+    listar
 }
