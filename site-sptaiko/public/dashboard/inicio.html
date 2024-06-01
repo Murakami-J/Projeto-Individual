@@ -283,7 +283,7 @@
                         <p>${publicacao.descricao}</p>
                         <div class="div-interacoes" id="div_interacoes">
 
-                            <ion-icon name="heart-outline" class="curtida" id="curtida"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="verificarCheck()">
+                            <ion-icon name="heart-outline" class="curtida" id="curtida"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
                             
                             <ion-icon name="chatbubble-ellipses-outline" class="comentarios"></ion-icon>
                         </div>
@@ -344,10 +344,14 @@
                     throw "Nenhum resultado encontrado!!";
                 }
                 resposta.json().then(function (resposta) {
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
+                    // for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[0];
                         fkAutor = publicacao.fkAutor;
-                    }
+
+                        console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" + fkAutor)
+                    // }
+
+                    verificarCheck();
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -361,22 +365,39 @@
 
 
     function verificarCheck() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    // Selecione todos os elementos de checkbox
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    // Remova todos os ouvintes de eventos de clique para evitar a duplicação
+    checkboxes.forEach(function(checkbox) {
+        checkbox.removeEventListener('click', handleCheckboxClick);
+    });
+    // Adicione um evento de clique a cada checkbox
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('click', handleCheckboxClick);
+    });
+}
+
+
+
+    function handleCheckboxClick() {
         var idUsuario = sessionStorage.ID_USUARIO;
 
         // Selecione todos os elementos de checkbox
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        listarFkAutor();
         // Adicione um evento de clique a cada checkbox
+        
+        // checkboxes.forEach(function (checkbox) {
+        //     checkbox.addEventListener('click', function () {
 
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('click', function () {
                 if (this.checked) {
-                    console.log('O checkbox com o ID ' + this.id + ' está selecionado.');
-                   
+                    console.log('O checkbox com o ID ' + this.id + ' está selecionado.' + fkAutor);
+
                     var idPublicacao1 = this.id
                     fetch(`/interacoes/cadastrarCurtida/${idUsuario}/${idPublicacao1}/${fkAutor}`, {
                         method: "POST"
-                   
+
                     }).then(function (resposta) {
 
                         console.log("resposta: ", resposta);
@@ -394,7 +415,7 @@
                         console.log(`#ERRO: ${resposta}`);
                     });
 
-                    return false;
+                    // return false;
 
                 } else {
                     console.log('O checkbox com o ID ' + this.id + ' não está selecionado.');
@@ -411,14 +432,11 @@
                             resposta.json().then(function (resposta) {
                                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-/* =================================================================================================*/
+                                /* =================================================================================================*/
 
                                 fetch(`/interacoes/deletarCurtida/${idUsuario}/${idPublicacao}/${fkAutor}`, {
                                     method: "DELETE",
-                                    // headers: {
-                                    //     "Content-Type": "application/json"
-                                    // },
-                                    // body: JSON.stringify(corpo)
+
                                 }).then(function (resposta) {
 
                                     console.log("resposta: ", resposta);
@@ -436,10 +454,10 @@
                                     console.log(`#ERRO: ${resposta}`);
                                 });
 
-                                return false;
+                                // return false;
 
 
-/* =================================================================================================*/
+                                /* =================================================================================================*/
 
                             });
                         } else {
@@ -450,8 +468,8 @@
                     });
 
                 }
-            });
-        });
+        //     });
+        // });
     }
 
 
@@ -479,6 +497,7 @@
     //                 });
 
     //                 return false;
+
 
 
 
