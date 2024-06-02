@@ -56,8 +56,8 @@ function listarComentarios(idPublicacao, idUsuario) {
             p.descricao,
             p.dataPublicacao,
             c.idComentario,
-            c.fkUsuario NomeUsuario,
-            u.nome,
+            c.fkUsuario,
+            u.nome as  NomeUsuario,
             c.mensagem,
             DATE_FORMAT(c.dataComentario, '%d/%m/%Y %H:%i') as dataComentario
                 FROM Publicacao as p 

@@ -6,6 +6,23 @@
     font-family: "Rubik", sans-serif;
 }
 
+body{
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar{
+    width: 8px;
+}
+body::-webkit-scrollbar-track{
+    background-color: #2E2E2E;
+
+}
+body::-webkit-scrollbar-thumb{
+    border-radius: 100vw;
+    background-color: #B80000;
+
+}
+
 /* ============================ NAV ================================ */
 
 nav{
@@ -142,6 +159,7 @@ nav{
     align-items: center;
     position: fixed;
     z-index: 2;
+    justify-content: space-between;
 }
 
 .div-perfil-usuario{
@@ -149,7 +167,7 @@ nav{
     width: 5%;
     height: 8vh;
     border-radius: 50%;
-    justify-self: end;
+
 }
 
 /* ============================ PUBLICAÇÕES DIV ================================ */
@@ -343,6 +361,10 @@ nav{
 
 .p-titulo-publicacao{
     font-size: 1.2vw;
+    max-width: 40vw; /* Defina o valor que preferir */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 
 .publicacao-descricao{
@@ -466,4 +488,11 @@ input[type=radio]{
 
 input[type="checkbox"]:hover{
     cursor: pointer;
+}
+
+.p-descricao{
+    max-width: 40vw; /* Defina o valor que preferir */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
 }

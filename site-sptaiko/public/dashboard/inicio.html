@@ -87,7 +87,7 @@
                                 <label>
                                     Descrição
                                     <br>
-                                    <textarea name="descricao" id="textarea_descricao" maxlength="250"
+                                    <textarea name="descricao" id="textarea_descricao" maxlength="1000"
                                         rows="5"></textarea>
                                 </label>
                                 <br>
@@ -100,34 +100,39 @@
             </span>
 
             <span id="overlay1">
-            <div class="div-pai-comentarios" id="div_pai_comentarios">
-                <div class="div-container-comentarios">
-                    <div class="div-comentarios-publicacao">
-                     
-                        <div class="div-publicar-comentarios">
+                <div class="div-pai-comentarios" id="div_pai_comentarios">
+                    <div class="div-container-comentarios">
+                        <div class="div-comentarios-publicacao">
 
-                            <input type="text" name="input_comentarios" class="input-comentarios" id="input_comentarios"
-                                placeholder="Escreva um comentário">
-                            <button class="bt-enviar-comentarios" onclick="publicarComentario()">
-                                Enviar
-                            </button>
+                            <div class="div-publicar-comentarios">
 
+                                <input type="text" name="input_comentarios" class="input-comentarios"
+                                    id="input_comentarios" placeholder="Escreva um comentário" maxlength="500">
+                                <button class="bt-enviar-comentarios" onclick="publicarComentario()" id="bt_enviar_comentarios">
+                                    Enviar
+                                </button>
 
-                        </div>
-                        <div id="div_publicacao" class="div-publicacao">
-                            <ion-icon name="close-outline" class="icon-close" onclick="fecharComentarios()"></ion-icon>
-                            
-                            <div id="div_informacoes-pai">
 
                             </div>
-                            <div id="div_comentarios_pai">
+                            <div id="div_publicacao" class="div-publicacao">
+                                <ion-icon name="close-outline" class="icon-close"
+                                    onclick="fecharComentarios()"></ion-icon>
 
+                                <div id="div_informacoes-pai">
+                                    <div id="div_container_pub">
+
+                                    </div>
+                                </div>
+                                <div id="div_comentarios_pai">
+                                    <div id="div_container_comentarios">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </span>
+            </span>
 
             <!-- <h1>Mural de Avisos</h1> -->
             <div class="div-results">
@@ -298,7 +303,7 @@
 
                         spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
                         divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
-                        <p>${publicacao.descricao}</p>
+                        <p class="p-descricao">${publicacao.descricao}</p>
                         <div class="div-interacoes" id="div_interacoes">
                             <div class="container-curtidas">
                                 <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
@@ -444,11 +449,9 @@
                             fkAutor: publicacao.fkAutor
                         };
 
-
                     }
                     verificarCheck();
                     console.log("Dados recebidos: BBBB ", JSON.stringify(listafkAutor));
-
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -604,6 +607,11 @@
         // });
     }
 
+    var divVisivel = localStorage.getItem("divVisivel") === "true";
+    if (divVisivel) {
+        document.getElementById("overlay1").style.display = "flex";
+    }
+
     function comentar() {
 
         var jsonString = JSON.stringify(listafkAutor);
@@ -623,6 +631,12 @@
         // window.location = "/dashboard/comentarios.html"
         var overlay1 = document.getElementById("overlay1");
         overlay1.style.display = "flex";
+        localStorage.setItem("divVisivel", "true");
+
+        var divComentario = document.getElementById("div_container_comentarios");
+        divComentario.innerHTML = "";
+        exibirPublicacao();
+        listarComentarios();
     }
 
 
@@ -655,7 +669,7 @@
 
 
 
-                        var divPublicacao = document.createElement("div");
+                        var divPublicacao = document.getElementById("div_container_pub");
                         divPublicacao.className = "div-container-pub";
 
                         divPublicacao.innerHTML = `
@@ -727,20 +741,20 @@
                     for (let i = 0; i < resposta.length; i++) {
                         var publicacao = resposta[i];
 
-                        var divComentario = document.createElement("div");
-                      
+                        var divComentario = document.getElementById("div_container_comentarios");
 
-                        divComentario.innerHTML = `
+
+                        divComentario.innerHTML += `
                         <div class="div-container-comentarios-pub">
-                                <div class="div-comentarios-pub">
+                                <div class="div-comentarios-pub coment">
                                     <ion-icon name="person-circle" class="usuario-comentario"></ion-icon>
                                     <div class="div-nome-pub">
-                                        <p class="p-nome-comentario">${publicacao.NomeAutor}</p>
+                                        <p class="p-nome-comentario">${publicacao.NomeUsuario}</p>
                                         <p class="p-dataPub-comentario">${publicacao.dataComentario}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <p>${publicacao.mensagem}</p>    
+                                    <p class="mensagem-publicacao">${publicacao.mensagem}</p>    
                                 </div>
                             </div>
                         `;
@@ -748,10 +762,10 @@
                         console.log("a")
                         feed.appendChild(divComentario);
 
-                        
+
 
                     }
-                   
+
 
                 });
             } else {
@@ -789,7 +803,7 @@
             if (resposta.ok) {
                 window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
                 // window.location = "/dashboard/inicio.html";
-              
+
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -804,12 +818,23 @@
 
     }
 
-    function fecharComentarios(){
-        window.location = "/dashboard/inicio.html";
-        var overlay1 = document.getElementById("overlay1");
-        overlay1.style.display = "none";
+
+    function fecharComentarios() {
+        // window.location = "/dashboard/inicio.html";
+        // var overlay1 = document.getElementById("overlay1");
+        // overlay1.style.display = "none";
+
+        document.getElementById("overlay1").style.display = "none";
+        // Remove o estado da div do armazenamento local
+        localStorage.removeItem("divVisivel");
 
     }
+
+
+    document.getElementById("bt_enviar_comentarios").addEventListener("click", function() {
+        // Recarregar a página
+        location.reload();
+    });
 
 
     // function publicarComentario() {
