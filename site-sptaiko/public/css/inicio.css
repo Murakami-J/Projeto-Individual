@@ -140,6 +140,8 @@ nav{
     width: 85%;
     display: flex;
     align-items: center;
+    position: fixed;
+    z-index: 2;
 }
 
 .div-perfil-usuario{
@@ -282,6 +284,8 @@ nav{
     border-radius: 2vw;
     background-color: #2E2E2E;
     color: white;
+    position: fixed;
+    top: 5vw;
 }
 
 .bt-nova-publicacao:hover{
@@ -321,6 +325,7 @@ nav{
 
 .div-results{
     width: 100%;
+    margin-top: 15vh;
 }
 
 .publicacao-nome{
@@ -375,6 +380,9 @@ nav{
     left: 37.2%;
 }
 
+.curtida:hover{
+    cursor: pointer;
+}
 
 input[type=checkbox]  {
     opacity: 0;
@@ -385,9 +393,22 @@ input[type=checkbox]  {
     /* vertical-align: middle; */
 }
 
-.curtida:hover{
+input[type=radio]{
+    opacity: 0;
+    border: 0px;
+    width: 25px;
+    height: 30px;
+}
+
+.radio-comentarios{
+    position: absolute;
+    left: 40%;
+}
+
+.radio-comentarios:hover{
     cursor: pointer;
 }
+
 
 /* .check-image{
     width: 5%;

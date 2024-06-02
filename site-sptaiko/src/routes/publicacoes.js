@@ -19,6 +19,16 @@ router.post("/publicar/:idUsuario", function (req, res) {
     publicacaoController.publicar(req, res);
 });
 
+router.post("/publicarComentario/:idUsuario/:idPublicacao/:fkAutor1/:mensagem", function (req, res) {
+    publicacaoController.publicarComentario(req, res);
+});
+
+// router.post("/publicarComentario/:idUsuario", function (req, res) {
+//     publicacaoController.publicarComentario(req, res);
+// });
+
+
+
 router.put("/editar/:idAviso", function (req, res) {
     publicacaoController.editar(req, res);
 });

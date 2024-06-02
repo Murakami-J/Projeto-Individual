@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sptaiko</title>
     <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/comentarios.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../js/sessao.js"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-<body onload="validarSessao(), atualizarFeed()">
+<body onload="validarSessao(), atualizarFeed(), exibirPublicacao(), listarComentarios()">
 
     <nav>
         <div class="div-logo">
@@ -98,6 +99,35 @@
                 </div>
             </span>
 
+            <span id="overlay1">
+            <div class="div-pai-comentarios" id="div_pai_comentarios">
+                <div class="div-container-comentarios">
+                    <div class="div-comentarios-publicacao">
+                     
+                        <div class="div-publicar-comentarios">
+
+                            <input type="text" name="input_comentarios" class="input-comentarios" id="input_comentarios"
+                                placeholder="Escreva um comentário">
+                            <button class="bt-enviar-comentarios" onclick="publicarComentario()">
+                                Enviar
+                            </button>
+
+
+                        </div>
+                        <div id="div_publicacao" class="div-publicacao">
+                            <ion-icon name="close-outline" class="icon-close" onclick="fecharComentarios()"></ion-icon>
+                            
+                            <div id="div_informacoes-pai">
+
+                            </div>
+                            <div id="div_comentarios_pai">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
 
             <!-- <h1>Mural de Avisos</h1> -->
             <div class="div-results">
@@ -107,6 +137,7 @@
 
         </div>
     </div>
+
 
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
@@ -273,9 +304,12 @@
                                 <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
                                 <p id="p_qtdCurtida${publicacao.idAviso}">0</p>
                             </div>
-                            <ion-icon name="chatbubble-ellipses-outline" class="comentarios"></ion-icon>
+                            <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
+                            <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentar()">
+
                         </div>
                         `;
+
 
                         // <fieldset class="check-image">
                         //     <label for="like">
@@ -393,7 +427,7 @@
     }
 
     let listafkAutor = [];
-    let a = [];
+
     function listarFkAutor() {
         fetch("/publicacoes/listar").then(function (resposta) {
             if (resposta.ok) {
@@ -403,17 +437,17 @@
                 resposta.json().then(function (resposta) {
 
                     for (let i = 0; i < resposta.length; i++) {
-                    var publicacao = resposta[i];
+                        var publicacao = resposta[i];
 
-                    listafkAutor[i] = {
-                        idPublicacao: publicacao.idAviso,
-                        fkAutor: publicacao.fkAutor 
-                    };
+                        listafkAutor[i] = {
+                            idPublicacao: publicacao.idAviso,
+                            fkAutor: publicacao.fkAutor
+                        };
 
-                    
-                }
-                verificarCheck();
-                console.log("Dados recebidos: BBBB ", JSON.stringify(listafkAutor));
+
+                    }
+                    verificarCheck();
+                    console.log("Dados recebidos: BBBB ", JSON.stringify(listafkAutor));
 
                 });
             } else {
@@ -461,8 +495,8 @@
 
             var idPublicacaoClicado = this.id;
             console.log(listafkAutor[1].fkAutor)
-            for(let posicao = 0; posicao < listafkAutor.length; posicao++){
-                if(idPublicacaoClicado == listafkAutor[posicao].idPublicacao){
+            for (let posicao = 0; posicao < listafkAutor.length; posicao++) {
+                if (idPublicacaoClicado == listafkAutor[posicao].idPublicacao) {
                     fkAutor = listafkAutor[posicao].fkAutor;
                 }
             }
@@ -504,8 +538,8 @@
             icon.style.color = "black";
             console.log('O checkbox com o ID ' + this.id + ' não está selecionado.');
             var idPublicacaoClicado = this.id;
-            for(let posicao = 0; posicao < listafkAutor.length; posicao++){
-                if(idPublicacaoClicado == listafkAutor[posicao].idPublicacao){
+            for (let posicao = 0; posicao < listafkAutor.length; posicao++) {
+                if (idPublicacaoClicado == listafkAutor[posicao].idPublicacao) {
                     fkAutor = listafkAutor[posicao].fkAutor;
                 }
             }
@@ -569,6 +603,250 @@
         //     });
         // });
     }
+
+    function comentar() {
+
+        var jsonString = JSON.stringify(listafkAutor);
+        var comentarios = document.getElementsByName("comentarios");
+
+        for (var i = 0; i < comentarios.length; i++) {
+            if (comentarios[i].checked) {
+                console.log("Valor selecionado:", comentarios[i].value);
+                sessionStorage.ID_POSTAGEM = comentarios[i].value;
+                break; // Sai do loop uma vez que encontrou o radio selecionado
+            }
+        }
+
+        sessionStorage.setItem('meuJSON', jsonString);
+
+        // window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
+        // window.location = "/dashboard/comentarios.html"
+        var overlay1 = document.getElementById("overlay1");
+        overlay1.style.display = "flex";
+    }
+
+
+    let fkAutor1;
+    let listafkAutor1 = [];
+    function exibirPublicacao() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var idPublicacao1 = sessionStorage.getItem("ID_POSTAGEM");
+
+        fetch(`/interacoes/exibirPublicacao/${sessionStorage.getItem("ID_POSTAGEM")}`).then(function (resposta) {
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    // var feed = document.getElementById("feed_container");
+                    // var mensagem = document.createElement("span");
+                    // mensagem.innerHTML = "Nenhum resultado encontrado."
+                    // feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    // var feed = document.getElementById("feed_container");
+                    // feed.innerHTML = "";
+                    var feed = document.getElementById("div_informacoes-pai");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+
+
+                        var divPublicacao = document.createElement("div");
+                        divPublicacao.className = "div-container-pub";
+
+                        divPublicacao.innerHTML = `
+                            <div class="div-container-post">
+                                <div class="div-info-usuario">
+                                    <ion-icon name="person-circle" class="usuario"></ion-icon>
+                                    <div class="div-nome-pub">
+                                        <p class="p-nome">${publicacao.nome}</p>
+                                        <p class="p-dataPub">${publicacao.dataPublicacao}</p>
+                                    </div>
+                                </div>
+
+                                <div class="div-descicao-post">
+                                    <p class="p-titulo-publicacao">${publicacao.titulo}</p>
+                                    <p class="p-pub-descricao">${publicacao.descricao}</p>
+                                </div>
+                            </div>
+
+                           
+                        `;
+
+                        console.log("a")
+                        feed.appendChild(divPublicacao);
+
+                        listafkAutor1[i] = {
+                            idPublicacao: publicacao.idPublicacao,
+                            fkAutor: publicacao.fkAutor
+                        };
+                    }
+                    var jsonString1 = JSON.stringify(listafkAutor1);
+                    sessionStorage.setItem('meuJSON1', jsonString1);
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+
+
+    function listarComentarios() {
+        var jsonStringDoStorage = sessionStorage.getItem('meuJSON');
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var jsonDoStorage = JSON.parse(jsonStringDoStorage);
+
+
+
+        fetch(`/interacoes/listarComentarios/${idUsuario}/${sessionStorage.getItem("ID_POSTAGEM")}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    // var feed = document.getElementById("feed_container");
+                    // var mensagem = document.createElement("span");
+                    // mensagem.innerHTML = "Nenhum resultado encontrado."
+                    // feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    // var feed = document.getElementById("feed_container");
+                    // feed.innerHTML = "";
+                    var feed = document.getElementById("div_comentarios_pai");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var divComentario = document.createElement("div");
+                      
+
+                        divComentario.innerHTML = `
+                        <div class="div-container-comentarios-pub">
+                                <div class="div-comentarios-pub">
+                                    <ion-icon name="person-circle" class="usuario-comentario"></ion-icon>
+                                    <div class="div-nome-pub">
+                                        <p class="p-nome-comentario">${publicacao.NomeAutor}</p>
+                                        <p class="p-dataPub-comentario">${publicacao.dataComentario}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>${publicacao.mensagem}</p>    
+                                </div>
+                            </div>
+                        `;
+
+                        console.log("a")
+                        feed.appendChild(divComentario);
+
+                        
+
+                    }
+                   
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+    let fkAutor2;
+    function publicarComentario() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var idPublicacao = sessionStorage.ID_POSTAGEM;
+        fkAutor1 = sessionStorage.ID_POSTAGEM;
+        var mensagem = input_comentarios.value;
+
+
+        for (let posicao = 0; posicao < listafkAutor1.length; posicao++) {
+            if (idPublicacao == listafkAutor1[posicao].idPublicacao) {
+                fkAutor2 = listafkAutor1[posicao].fkAutor;
+            }
+        }
+
+        console.log("AAAAAAAA" + idUsuario, fkAutor1)
+        fetch(`/publicacoes/publicarComentario/${idUsuario}/${idPublicacao}/${fkAutor2}/${mensagem}`, {
+            method: "POST",
+
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                // window.location = "/dashboard/inicio.html";
+              
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+
+        return false;
+
+    }
+
+    function fecharComentarios(){
+        window.location = "/dashboard/inicio.html";
+        var overlay1 = document.getElementById("overlay1");
+        overlay1.style.display = "none";
+
+    }
+
+
+    // function publicarComentario() {
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+
+    //     var corpo = {
+    //         descricao: form_comentario.mensagem.value
+    //     }
+
+    //     fetch(`/publicacoes/publicarComentario/${idUsuario}`, {
+    //         method: "post",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(corpo)
+    //     }).then(function (resposta) {
+
+    //         console.log("resposta: ", resposta);
+
+    //         if (resposta.ok) {
+    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+    //             window.location = "/dashboard/inicio.html";
+    //             limparFormulario();
+    //             finalizarAguardar();
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //         finalizarAguardar();
+    //     });
+
+    //     return false;
+
+    // }
 
 
     // fetch(`/interacoes/deletarCurtida/${idUsuario}`, {
@@ -702,4 +980,7 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
+
+
+
 </script>

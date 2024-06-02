@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sptaiko</title>
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/comentarios.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../js/sessao.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body onload="validarSessao(), exibirPublicacao(), listarComentarios()">
+
+    <nav>
+        <div class="div-logo">
+            <img src="../assets/images/logoAnimada.gif" alt="Logo SPTaiko" class="img-logo">
+        </div>
+
+        <div class="nav-container">
+            <ul>
+                <li><a href="inicio.html">INÍCIO</a></li>
+                <span class="divisor"></span>
+                <li onclick="exibirGrupos()" class="li-seta">GRUPOS <img src="../assets/images/seta-para-baixo.png"
+                        alt="" class="seta-baixo"></li>
+                <span class="divisor"></span>
+                <ul class="ul-grupos" id="ul_grupos">
+                    <li><a href="grupo.html" id="gp_acal">Acal Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_futurong">Futurong Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_himawari">Himawari Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_ikkon">Ikkon Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_mika">Mika Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_mugen">Mugen Daiko</a></li>
+                    <li><a href="grupo.html" id="gp_sakura">Sakura Fubuki Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_soragoi">Soragoi Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_tenryuu">Tenryuu Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_todoroki">Todoroki Daiko</a></li>
+                </ul>
+                <li><a href="">EM ALTA</a></li>
+                <span class="divisor"></span>
+            </ul>
+        </div>
+
+
+        <div class="container-sair">
+            <a href="../index.html">
+                <img src="../assets/images/sair.png" alt="Sair">
+                <p>SAIR</p>
+            </a>
+        </div>
+    </nav>
+
+    <div class="header-container">
+        <div class="div-header">
+            <span id="b_usuario">Usuário</span>
+
+            <div class="div-perfil-usuario">
+            </div>
+        </div>
+    </div>
+
+    <div class="div-pai-comentarios">
+        <div class="div-container-comentarios">
+            <div class="div-comentarios-publicacao">
+                <div class="div-publicar-comentarios">
+                    <input type="text" class="input-comentarios" id="input_comentarios"
+                        placeholder="Escreva um comentário">
+                    <button class="bt-enviar-comentarios">
+                        Enviar
+                    </button>
+
+
+                </div>
+
+                <div id="div_publicacao" class="div-publicacao">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+
+</html>
+
+<script>
+
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO + sessionStorage.ID_USUARIO;
+    let contador = 0;
+    function exibirGrupos() {
+
+        if (contador % 2 == 0) {
+
+            gp_acal.style.display = 'flex';
+            gp_futurong.style.display = 'flex';
+            gp_himawari.style.display = 'flex';
+            gp_ikkon.style.display = 'flex';
+            gp_mika.style.display = 'flex';
+            gp_mugen.style.display = 'flex';
+            gp_sakura.style.display = 'flex';
+            gp_soragoi.style.display = 'flex';
+            gp_tenryuu.style.display = 'flex';
+            gp_todoroki.style.display = 'flex';
+
+
+        } else {
+            gp_acal.style.display = 'none';
+            gp_futurong.style.display = 'none';
+            gp_himawari.style.display = 'none';
+            gp_ikkon.style.display = 'none';
+            gp_mika.style.display = 'none';
+            gp_mugen.style.display = 'none';
+            gp_sakura.style.display = 'none';
+            gp_soragoi.style.display = 'none';
+            gp_tenryuu.style.display = 'none';
+            gp_todoroki.style.display = 'none';
+
+        }
+        contador += 1;
+    }
+
+    function exibirPublicacao() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/interacoes/exibirPublicacao/${sessionStorage.getItem("ID_POSTAGEM")}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    // var feed = document.getElementById("feed_container");
+                    // var mensagem = document.createElement("span");
+                    // mensagem.innerHTML = "Nenhum resultado encontrado."
+                    // feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    // var feed = document.getElementById("feed_container");
+                    // feed.innerHTML = "";
+                    var feed = document.getElementById("div_publicacao");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var divPublicacao = document.createElement("div");
+
+                        divPublicacao.innerHTML = `
+                            <div class="div-container-post">
+                                <div class="div-info-usuario">
+                                    <ion-icon name="person-circle" class="usuario"></ion-icon>
+                                    <div class="div-nome-pub">
+                                        <p class="p-nome">${publicacao.nome}</p>
+                                        <p class="p-dataPub">${publicacao.dataPublicacao}</p>
+                                    </div>
+                                </div>
+
+                                <div class="div-descicao-post">
+                                    <p class="p-titulo-publicacao">${publicacao.titulo}</p>
+                                    <p>${publicacao.descricao}</p>
+                                </div>
+                            </div>
+                        `;
+
+                        console.log("a")
+                        feed.appendChild(divPublicacao);
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+    function listarComentarios() {
+        var jsonStringDoStorage = sessionStorage.getItem('meuJSON');
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var jsonDoStorage = JSON.parse(jsonStringDoStorage);
+
+        fetch(`/interacoes/listarComentarios/${idUsuario}/${sessionStorage.getItem("ID_POSTAGEM")}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    // var feed = document.getElementById("feed_container");
+                    // var mensagem = document.createElement("span");
+                    // mensagem.innerHTML = "Nenhum resultado encontrado."
+                    // feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    // var feed = document.getElementById("feed_container");
+                    // feed.innerHTML = "";
+                    var feed = document.getElementById("div_publicacao");
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var divPublicacao = document.createElement("div");
+
+                        divPublicacao.innerHTML = `
+                        
+                        `;
+
+                        console.log("a")
+                        feed.appendChild(divPublicacao);
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+</script>
