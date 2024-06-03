@@ -1,23 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-*{
+* {
     padding: 0px;
     margin: 0px;
     font-family: "Rubik", sans-serif;
 }
 
-body{
+body {
     overflow-x: hidden;
+
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 8px;
 }
-body::-webkit-scrollbar-track{
+
+body::-webkit-scrollbar-track {
     background-color: #2E2E2E;
 
 }
-body::-webkit-scrollbar-thumb{
+
+body::-webkit-scrollbar-thumb {
     border-radius: 100vw;
     background-color: #B80000;
 
@@ -25,7 +28,7 @@ body::-webkit-scrollbar-thumb{
 
 /* ============================ NAV ================================ */
 
-nav{
+nav {
     background-color: #D28B53;
     width: 15%;
     height: 100vh;
@@ -37,7 +40,7 @@ nav{
     border: 1px black solid;
 }
 
-.div-logo{
+.div-logo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,20 +48,20 @@ nav{
     margin-bottom: 1vw;
 }
 
-.img-logo{
+.img-logo {
     width: 80%;
 }
 
-.nav-container{
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    
+
 }
 
-.nav-container li{
+.nav-container li {
     list-style: none;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
@@ -68,49 +71,49 @@ nav{
     cursor: pointer;
 }
 
-.nav-container li a{
+.nav-container li a {
     text-decoration: none;
     color: white;
     font-size: 1.2vw;
     font-weight: 300;
 }
 
-.nav-container li a:hover{
+.nav-container li a:hover {
     background-color: #ffffff42;
     border-radius: 2px;
 }
 
-.li-seta:hover{
+.li-seta:hover {
     background-color: #ffffff42;
     border-radius: 2px;
 }
 
 
-.ul-grupos{
+.ul-grupos {
     margin-left: 0.5vw;
 }
 
-.ul-grupos li a{
+.ul-grupos li a {
     font-size: 0.8vw;
     display: none;
 }
 
-.ul-grupos li a:hover{
+.ul-grupos li a:hover {
     text-decoration: underline;
 }
 
-.divisor{
+.divisor {
     height: 1px;
     width: 8vw;
     display: block;
     background-color: white;
 }
 
-.gp-divisor{
+.gp-divisor {
     display: none;
 }
 
-.seta-baixo{
+.seta-baixo {
     position: absolute;
     width: 7%;
     left: 67%;
@@ -120,7 +123,7 @@ nav{
 
 }
 
-.container-sair{
+.container-sair {
     width: 50%;
     display: flex;
     justify-content: flex-start;
@@ -130,7 +133,7 @@ nav{
     align-self: flex-start;
 }
 
-.container-sair a{
+.container-sair a {
     display: flex;
     text-decoration: none;
     flex-direction: row;
@@ -146,12 +149,12 @@ nav{
 
 /* ============================ HEADER ================================ */
 
-.header-container{
+.header-container {
     display: flex;
     justify-content: flex-end;
 }
 
-.div-header{
+.div-header {
     background-color: #2E2E2E;
     height: 10vh;
     width: 85%;
@@ -162,7 +165,7 @@ nav{
     justify-content: space-between;
 }
 
-.div-perfil-usuario{
+.div-perfil-usuario {
     background-color: white;
     width: 5%;
     height: 8vh;
@@ -171,12 +174,12 @@ nav{
 }
 
 /* ============================ PUBLICAÇÕES DIV ================================ */
-.publicacao-pai{
+.publicacao-pai {
     display: flex;
     justify-content: flex-end;
 }
 
-.publicacoes{
+.publicacoes {
     margin-left: 16%;
     display: none;
     justify-content: center;
@@ -190,18 +193,18 @@ nav{
     top: 20%;
 }
 
-.publicacoes img{
+.publicacoes img {
     align-self: flex-start;
     width: 2vw;
     margin: 2%;
     margin-left: 3%;
 }
 
-.publicacoes img:hover{
+.publicacoes img:hover {
     cursor: pointer;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -209,10 +212,10 @@ nav{
     height: 100%;
     color: white;
     font-weight: 300;
-   
+
 }
 
-.container p{
+.container p {
     width: 100%;
     align-self: center;
     text-align: center;
@@ -223,35 +226,40 @@ nav{
 
 
 
-.publicacao-container{
-    width: 85%;
+.publicacao-container {
+    width: 80%;
     background-color: #EDD1BA;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-right: 2.2vw;
+    -webkit-box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
 }
 
-.div-form label{
+.div-form label {
     font-size: 1vw;
 }
 
-.div-form input, textarea{
+.div-form input,
+textarea {
     width: 100%;
     border: 1px solid black;
     border-radius: 5px;
     padding: 1%;
 }
 
-.div-form input{
+.div-form input {
     font-weight: 500;
 }
 
-.div-form textarea{
+.div-form textarea {
     height: 16vh;
 }
 
-.div-form button{
+.div-form button {
     align-self: center;
     width: 8vw;
     height: 4vh;
@@ -262,12 +270,12 @@ nav{
     color: white;
 }
 
-.div-form button:hover{
+.div-form button:hover {
     cursor: pointer;
     background-color: #e00000;
 }
 
-#form_postagem{
+#form_postagem {
     display: flex;
     flex-direction: column;
 }
@@ -283,14 +291,14 @@ nav{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
 
-  }
+}
 
 /* ============================ PUBLICAÇÕES ================================ */
 
-.bt-nova-publicacao{
+.bt-nova-publicacao {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -306,24 +314,24 @@ nav{
     top: 5vw;
 }
 
-.bt-nova-publicacao:hover{
+.bt-nova-publicacao:hover {
     background-color: #414141;
     cursor: pointer;
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
 }
 
-.usuario{
+.usuario {
     font-size: 4vw;
 }
 
-.publicacao-feed{
+.publicacao-feed {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -333,7 +341,7 @@ nav{
     gap: 0.5vw;
 }
 
-.feed-container{
+.feed-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -341,33 +349,34 @@ nav{
 
 }
 
-.div-results{
+.div-results {
     width: 100%;
     margin-top: 15vh;
 }
 
-.publicacao-nome{
+.publicacao-nome {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
-.p-nome-usuario{
+.p-nome-usuario {
     font-size: 1.5vw;
 }
 
-.p-data-publicacao{
+.p-data-publicacao {
     font-size: 0.6vw;
 }
 
-.p-titulo-publicacao{
+.p-titulo-publicacao {
     font-size: 1.2vw;
-    max-width: 40vw; /* Defina o valor que preferir */
+    max-width: 40vw;
+    /* Defina o valor que preferir */
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
 
-.publicacao-descricao{
+.publicacao-descricao {
     align-self: center;
     display: flex;
     flex-direction: column;
@@ -376,7 +385,7 @@ nav{
     width: 96%;
 }
 
-.div-interacoes{
+.div-interacoes {
     font-size: 1.5vw;
     display: flex;
     gap: 1vw;
@@ -386,27 +395,27 @@ nav{
 
 
 /*================================ LIKE ================================*/
-.container-curtidas{
+.container-curtidas {
     display: flex;
     align-items: center;
 }
 
-.container-curtidas p{
+.container-curtidas p {
     font-size: 1vw;
 
 }
 
 
-.chk-curtida{
+.chk-curtida {
     position: absolute;
     left: 37.2%;
 }
 
-.curtida:hover{
+.curtida:hover {
     cursor: pointer;
 }
 
-input[type=checkbox]  {
+input[type=checkbox] {
     opacity: 0;
     /* visibility: hidden; */
     border: 0px;
@@ -415,19 +424,19 @@ input[type=checkbox]  {
     /* vertical-align: middle; */
 }
 
-input[type=radio]{
+input[type=radio] {
     opacity: 0;
     border: 0px;
     width: 25px;
     height: 30px;
 }
 
-.radio-comentarios{
+.radio-comentarios {
     position: absolute;
-    left: 40%;
+    left: 41.6%;
 }
 
-.radio-comentarios:hover{
+.radio-comentarios:hover {
     cursor: pointer;
 }
 
@@ -454,14 +463,14 @@ input[type=radio]{
     background:url(../assets/images/coracao-preenchido1.png) no-repeat;
 } */
 
-.comentarios-pai{
+.comentarios-pai {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 
 }
 
-.div-comentarios{
+.div-comentarios {
     /* position: fixed;
     top: 20%; */
     display: flex;
@@ -469,29 +478,30 @@ input[type=radio]{
     width: 85%;
     justify-content: center;
 
-   
+
 }
 
-.container-comentarios{
+.container-comentarios {
     background-color: #2E2E2E;
     width: 40%;
     height: 80vh;
     display: flex;
 }
 
-#form_comentario{
+#form_comentario {
     display: flex;
     flex-direction: row;
     align-self: flex-end;
 }
 
 
-input[type="checkbox"]:hover{
+input[type="checkbox"]:hover {
     cursor: pointer;
 }
 
-.p-descricao{
-    max-width: 40vw; /* Defina o valor que preferir */
+.p-descricao {
+    max-width: 40vw;
+    /* Defina o valor que preferir */
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;

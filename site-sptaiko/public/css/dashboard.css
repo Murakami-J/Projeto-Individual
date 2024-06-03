@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    font-family: "Rubik", sans-serif;
+}
+
+.div-pai-dashboard{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-container-dashboard{
+    width: 85%;
+    height: 100vh;
+    background-color: aqua;
+}
