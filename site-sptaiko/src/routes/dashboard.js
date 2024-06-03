@@ -9,6 +9,10 @@ router.get("/obterDados", function (req, res) {
 
 router.get("/tempo-real", function (req, res) {
     dashboardController.buscarDadosEmTempoReal(req, res);
+});
+
+router.get("/obterRanking", function (req, res) {
+    dashboardController.obterRanking(req, res);
 })
 
 module.exports = router;

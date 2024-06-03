@@ -34,7 +34,7 @@ function obterUltimosDados() {
     return database.executar(instrucaoSql);
 }
 
-function buscarDadosEmTempoReal(idAquario) {
+function buscarDadosEmTempoReal() {
 
     var instrucaoSql = `SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
     FROM (
@@ -66,7 +66,26 @@ function buscarDadosEmTempoReal(idAquario) {
     return database.executar(instrucaoSql);
 }
 
+function obterRanking() {
+
+    var instrucaoSql = `
+    SELECT u.nome,
+	p.titulo, 
+	count(fkUsuario) as qtdCurtida
+	FROM Curtida as c
+		JOIN Publicacao as p ON c.fkPublicacao = p.idPublicacao
+		JOIN Usuario as u ON c.fkAutor = u.idUsuario
+        WHERE YEAR(p.dataPublicacao) = YEAR(CURRENT_DATE()) AND WEEK(p.dataPublicacao) = WEEK(CURRENT_DATE())
+        GROUP BY c.fkPublicacao, c.fkAutor, p.titulo 
+        ORDER BY qtdCurtida DESC LIMIT 5;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     obterUltimosDados,
-    buscarDadosEmTempoReal
+    buscarDadosEmTempoReal,
+    obterRanking
 }

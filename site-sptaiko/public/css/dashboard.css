@@ -10,7 +10,95 @@
 }
 
 .div-container-dashboard{
+    margin-top: 15vh;
+    display: flex;
+    justify-content: space-around;
     width: 85%;
-    height: 100vh;
-    background-color: aqua;
+    /* height: 100vh; */
+    /* background-color: aqua; */
+}
+
+#myChartCanvas{
+    width: 20vw;
+}
+
+.div-grafico{
+    width: 60%;
+    height: 50vh;
+    border: 2px solid black;
+    background-color: #2E2E2E;
+    border-radius: 2vw;
+}
+
+.div-ranking{
+    width: 25%;
+    height: 51vh;
+    background-color: #2E2E2E;
+    display: flex;
+    justify-content: center;
+    border-radius: 2vw;
+}
+
+.div-ranking-container{
+    display: flex;
+    flex-direction: column;
+    /* background-color: blueviolet; */
+    text-align: center;
+    justify-content: center;
+    width: 90%;
+    /* height: 20%; */
+    gap: 1vw;
+}
+
+.div-topUsuarios{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   margin-top: 1vw;
+   background-color: #EDD1BA;
+   border-radius: 1.5vw;
+   height: 5vh;
+}
+
+.div-ranking-titulo{
+    display: flex;
+    justify-content: center;
+   flex-direction: row;
+}
+
+.div-informacao-ranking{
+    text-align: justify;
+    margin-left: 0.5vw;
+    justify-self: flex-end;
+}
+
+.div-ranking-curtida{
+    display: flex;
+    justify-self: flex-end;
+    margin-right: 2vw;
+    gap: 0.3vw;
+}
+
+
+.p-autor{
+    font-size: 0.7vw;
+}
+
+
+.container-topUsuarios{
+    display: flex;
+    margin-left: 1vw;
+}   
+
+.p-titulo-ranking{
+    color: white;
+}
+
+.icon-curtida{
+    color:red;
+    font-size: 1.3vw;
+}
+
+.fire{
+    color: red;
 }
