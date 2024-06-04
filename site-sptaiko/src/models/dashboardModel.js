@@ -84,8 +84,88 @@ function obterRanking() {
     return database.executar(instrucaoSql);
 }
 
+function exibirTotalPublicacoesSemana() {
+
+    var instrucaoSql = `
+    SELECT count(idPublicacao) as totalPubSem
+        FROM Publicacao 
+        WHERE YEAR(dataPublicacao) = YEAR(CURRENT_DATE()) AND WEEK(dataPublicacao) = WEEK(CURRENT_DATE());
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function exibirComentariosPostSemana() {
+
+    var instrucaoSql = `
+    SELECT MAX(qtdComentario) AS maiorNumComentario 
+    FROM (
+        SELECT COUNT(idComentario) AS qtdComentario 
+        FROM Comentario 
+        JOIN Publicacao ON fkPublicacao = idPublicacao
+        WHERE YEAR(dataPublicacao) = YEAR(CURRENT_DATE()) AND WEEK(dataPublicacao) = WEEK(CURRENT_DATE()) 
+        GROUP BY fkPublicacao
+    ) AS SubqueryComentario;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function exibirGrupoMaisMencionado() {
+
+    var instrucaoSql = `
+    SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
+    FROM (
+        SELECT descricao, 'Acal Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Acal Taiko%'
+        UNION ALL
+        SELECT descricao, 'Futurong Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Futurong Taiko%'
+        UNION ALL
+        SELECT descricao, 'Himawari Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Himawari Taiko%'
+        UNION ALL
+        SELECT descricao, 'Ikkon Wadaiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Ikkon Wadaiko%'
+        UNION ALL
+        SELECT descricao, 'Mika Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Mika Taiko%'
+        UNION ALL
+        SELECT descricao, 'Mugen Daiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Mugen Daiko%'
+        UNION ALL
+        SELECT descricao, 'Sakura Fubuki Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Sakura Fubuki Taiko%'
+        UNION ALL
+        SELECT descricao, 'Soragoi Wadaiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Soragoi Wadaiko%'
+        UNION ALL
+        SELECT descricao, 'Tenryuu Wadaiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Tenryuu Wadaiko%'
+        UNION ALL
+        SELECT descricao, 'Todoroki Daiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Todoroki Daiko%'
+        -- Adicione mais UNION ALL para cada grupo que você quer contar
+    ) AS grupos_mencionados
+    GROUP BY nomeGrupo
+    ORDER BY qtdTotalMencao DESC LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function exibirUsuarioMaisPublicacao() {
+
+    var instrucaoSql = `
+    SELECT nome,
+		count(fkAutor) as qtdPublicacao
+        FROM Usuario
+            JOIN Publicacao ON fkAutor = idUsuario
+            WHERE YEAR(dataPublicacao) = YEAR(CURRENT_DATE()) AND WEEK(dataPublicacao) = WEEK(CURRENT_DATE())
+            GROUP BY nome
+            ORDER BY qtdPublicacao DESC LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     obterUltimosDados,
     buscarDadosEmTempoReal,
-    obterRanking
+    obterRanking,
+    exibirTotalPublicacoesSemana,
+    exibirComentariosPostSemana,
+    exibirGrupoMaisMencionado,
+    exibirUsuarioMaisPublicacao
 }

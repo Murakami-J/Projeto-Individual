@@ -38,4 +38,8 @@ router.delete("/deletarCurtida/:idUsuario/:idPublicacao/:fkAutor", function (req
     interacaoController.deletarCurtida(req, res);
 });
 
+router.get("/exibirQtdComentarios/:idPublicacao", function (req, res) {
+    interacaoController.exibirQtdComentarios(req, res);
+});
+
 module.exports = router;

@@ -64,6 +64,12 @@
         </div>
     </div>
 
+    <div class="div-container-titulo-grafico">
+        <span class="material-symbols-outlined">
+            local_fire_department
+        </span>
+        <p>Grupos mais mencionados durante a semana</p>
+    </div>
     <div class="div-pai-dashboard">
         <div class="div-container-dashboard">
             <div class="div-grafico" id="div_grafico">
@@ -83,6 +89,48 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <div class="div-pai-kpi">
+        <div class="div-container-kpi">
+            <div class="div-box-kpi">
+                <div class="div-kpi">
+                    <p class="kpi-titulo">Total de publicações da semana</p>
+                    <div class="div-kpi-info">
+                        <ion-icon name="reader-outline" class="icon-publicacao"></ion-icon>
+                        <p class="p-kpi" id="p_kpi_1">0</p>
+                    </div>
+                </div>
+                <div class="div-kpi">
+                    <p class="kpi-titulo">Maior número de comentários em posts da semana</p>
+                    <div class="div-kpi-info">
+                        <ion-icon name="chatbubble-ellipses-outline" class="icon-publicacao"></ion-icon>
+                        <p class="p-kpi" id="p_kpi_2">0</p>
+                    </div>
+                </div>
+                <div class="div-kpi">
+                    <p class="kpi-titulo">Grupo mais mencionado durante a semana</p>
+                    <div class="div-kpi-info">
+                        <ion-icon name="flame-outline" class="icon-publicacao"></ion-icon>
+                        <!-- <ion-icon name="notifications-outline" class="icon-publicacao"></ion-icon> -->
+                        <p class="p-kpi p-kpi-gp" id="p_kpi_3">Nenhum</p>
+                    </div>
+                </div>
+                <div class="div-kpi">
+                    <p class="kpi-titulo">Usuário com mais posts durante a semana</p>
+                    <div class="div-kpi-info kpi-4">
+                        <div class="div-kpi-usuario">
+                            <ion-icon name="person-circle-outline" class="icon-publicacao"></ion-icon>
+                            <p class="p-kpi p-kpi-gp" id="p_kpi_4">Nenhum</p>
+                        </div>
+                        <div class="div-kpi-qtdPub">
+                            <ion-icon name="reader-outline" class="icon-qtdPub"></ion-icon>
+                            <p id="p_kpi_4_1">0</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -131,6 +179,10 @@
     let proximaAtualizacao;
     window.onload = obterDadosGrafico();
     window.onload = obterRanking();
+    window.onload = exibirTotalPublicacoesSemana();
+    window.onload = exibirComentariosPostSemana();
+    window.onload = exibirGrupoMaisMencionado();
+    window.onload = exibirUsuarioMaisPublicacao();
 
     function obterDadosGrafico() {
         if (proximaAtualizacao != undefined) {
@@ -172,24 +224,48 @@
             labels: labels,
             datasets: [{
                 label: 'Menções',
+                color: 'white',
                 data: [],
                 fill: false,
                 borderColor: 'white',
-                backgroundColor: '#B80000',
+                backgroundColor: [
+                    '#B80000',
+                ],
                 tension: 0.1
             }],
+        };
 
-            options: {
-                title: {
-                    display: true,
-                    text: 'Custom Chart Title'
+        let opcoes = {
+            title: {
+                display: true,
+                text: 'Custom Chart Title'
+            },
+            chartArea: {
+                backgroundColor: 'rgba(251, 85, 85, 0.4)'
+            },
+            responsive: true,
+            maintainAspectRatio: false, // Isso permite definir o tamanho manualmente
+            aspectRatio: 1,
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#fff'
+                    }
                 },
-                chartArea: {
-                    backgroundColor: 'rgba(251, 85, 85, 0.4)'
+                y: {
+                    ticks: {
+                        color: '#fff'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
                 }
             }
         };
-
 
 
         console.log('----------------------------------------------')
@@ -216,6 +292,7 @@
         const config = {
             type: 'bar',
             data: dados,
+            options: opcoes
         };
 
         // Adicionando gráfico criado em div na tela
@@ -318,7 +395,7 @@
                                     
                                     </span> 
                                     <div class="div-informacao-ranking">
-                                        <p>${topUsuarios.titulo}</p>
+                                        <p class="p-titulo-ranking-autor" id="a">${topUsuarios.titulo}</p>
                                         <p class="p-autor">Por: ${topUsuarios.nome}</p>
                                     </div>
                                 </div>
@@ -352,6 +429,149 @@
             console.error(resposta);
 
         });
+
+    }
+
+    function exibirTotalPublicacoesSemana() {
+        
+        fetch(`/dashboard/exibirTotalPublicacoesSemana`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.totalPubSem) {
+                            var totalPub = document.getElementById(`p_kpi_1`);
+                            totalPub.innerHTML = publicacao.totalPubSem;
+
+                        }
+
+                
+
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+    function exibirComentariosPostSemana() {
+        
+        fetch(`/dashboard/exibirComentariosPostSemana`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.maiorNumComentario) {
+                            var totalPub = document.getElementById(`p_kpi_2`);
+                            totalPub.innerHTML = publicacao.maiorNumComentario;
+
+                        }
+
+                
+
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+    function exibirGrupoMaisMencionado() {
+        
+        fetch(`/dashboard/exibirGrupoMaisMencionado`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.nomeGrupo) {
+                            var totalPub = document.getElementById(`p_kpi_3`);
+                            totalPub.innerHTML = publicacao.nomeGrupo;
+
+                        }
+
+                
+
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
+    function exibirUsuarioMaisPublicacao() {
+        
+        fetch(`/dashboard/exibirUsuarioMaisPublicacao`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.nome) {
+                            var totalPubUser = document.getElementById(`p_kpi_4`);
+                            totalPubUser.innerHTML = publicacao.nome;
+
+                            var totalPub = document.getElementById(`p_kpi_4_1`);
+                            totalPub.innerHTML = publicacao.qtdPublicacao;
+
+                        }
+
+                
+
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
 
     }
 

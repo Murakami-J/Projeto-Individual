@@ -191,7 +191,7 @@
 
 
 .mensagem-publicacao {
-    max-width: 25vw; /* Defina o valor que preferir */
+    max-width: 25vw; 
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -203,15 +203,16 @@
 }
 
 .p-pub-descricao{
-    max-width: 40vw; /* Defina o valor que preferir */
+    max-width: 40vw; 
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
 
 .p-titulo-publicacao{
-    max-width: 40vw; /* Defina o valor que preferir */
+    max-width: 40vw; 
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
+

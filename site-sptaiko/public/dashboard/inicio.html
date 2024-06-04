@@ -80,7 +80,7 @@
                                 <label>
                                     Título
                                     <br>
-                                    <input name="titulo" id="titulo" maxlength="100" type="text">
+                                    <input name="titulo" id="titulo" maxlength="45" type="text">
                                 </label>
                                 <br>
                                 <br>
@@ -108,7 +108,8 @@
 
                                 <input type="text" name="input_comentarios" class="input-comentarios"
                                     id="input_comentarios" placeholder="Escreva um comentário" maxlength="500">
-                                <button class="bt-enviar-comentarios" onclick="publicarComentario()" id="bt_enviar_comentarios">
+                                <button class="bt-enviar-comentarios" onclick="publicarComentario()"
+                                    id="bt_enviar_comentarios">
                                     Enviar
                                 </button>
 
@@ -309,9 +310,11 @@
                                 <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
                                 <p id="p_qtdCurtida${publicacao.idAviso}">0</p>
                             </div>
-                            <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
-                            <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentar()">
-
+                            <div class="container-comentario">
+                                <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
+                                <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentar()">
+                                <p id="p_qtdComentario${publicacao.idAviso}">0</p>
+                            </div>    
                         </div>
                         `;
 
@@ -384,6 +387,8 @@
                         });
 
                     }
+                    exibirQtdComentarios();
+                   
                     fetch(`/interacoes/listarCurtidasPorUsuario/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
                         if (resposta.ok) {
                             if (resposta.status == 204) {
@@ -605,6 +610,7 @@
         }
         //     });
         // });
+
     }
 
     var divVisivel = localStorage.getItem("divVisivel") === "true";
@@ -778,6 +784,39 @@
 
     }
 
+    function exibirQtdComentarios() {
+        var idPublicacao = sessionStorage.getItem("ID_POSTAGEM");
+
+        fetch(`/interacoes/exibirQtdComentarios/${idPublicacao}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.qtdComentario) {
+                            var p_comentario = document.getElementById(`p_qtdComentario${publicacao.fkPublicacao}`);
+                            p_comentario.innerHTML = publicacao.qtdComentario;
+
+                        }
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
     let fkAutor2;
     function publicarComentario() {
         var idUsuario = sessionStorage.ID_USUARIO;
@@ -831,7 +870,7 @@
     }
 
 
-    document.getElementById("bt_enviar_comentarios").addEventListener("click", function() {
+    document.getElementById("bt_enviar_comentarios").addEventListener("click", function () {
         // Recarregar a página
         location.reload();
     });

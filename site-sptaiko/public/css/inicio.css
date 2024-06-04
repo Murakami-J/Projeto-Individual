@@ -506,3 +506,13 @@ input[type="checkbox"]:hover {
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
+
+.container-comentario{
+    display: flex;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+.container-comentario p {
+    font-size: 1vw;
+}
