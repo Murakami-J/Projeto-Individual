@@ -23,9 +23,9 @@ router.get("/pesquisarPublicacao/:publicacaoPesquisada", function (req, res) {
     publicacaoController.pesquisarPublicacao(req, res);
 });
 
-// router.post("/publicarComentario/:idUsuario", function (req, res) {
-//     publicacaoController.publicarComentario(req, res);
-// });
+router.post("/publicarComentario/:idUsuario/:idPublicacao/:fkAutor2/:mensagem", function (req, res) {
+    publicacaoController.publicarComentario(req, res);
+});
 
 
 

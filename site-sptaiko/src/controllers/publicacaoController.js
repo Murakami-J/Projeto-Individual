@@ -113,7 +113,7 @@ function publicarComentario(req, res) {
     var mensagem = req.params.mensagem;
     var idUsuario = req.params.idUsuario;
     var idPublicacao = req.params.idPublicacao;
-    var fkAutor1 = req.params.fkAutor1;
+    var fkAutor2 = req.params.fkAutor2;
 
     if (idPublicacao == undefined) {
         res.status(400).send("O título está indefinido!");
@@ -122,7 +122,7 @@ function publicarComentario(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        publicacaoModel.publicarComentario(mensagem, idUsuario, idPublicacao, fkAutor1, mensagem)
+        publicacaoModel.publicarComentario(idUsuario, idPublicacao, fkAutor2, mensagem)
             .then(
                 function (resultado) {
                     res.json(resultado);

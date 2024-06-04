@@ -195,8 +195,6 @@
         contador += 1;
     }
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
     function limparFormulario() {
         document.getElementById("form_postagem").reset();
     }
@@ -289,28 +287,37 @@
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
-
                 resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    exibirPublicacoes(resposta);
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
 
-                    var feed = document.getElementById("feed_container");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
+    }
 
-                        // criando e manipulando elementos do HTML via JavaScript
-                        var divPublicacao = document.createElement("div");
-                        var spanID = document.createElement("span");
-                        var spanTitulo = document.createElement("span");
-                        var spanNome = document.createElement("span");
-                        var divDescricao = document.createElement("div");
-                        var divButtons = document.createElement("div");
-                        // var btnEditar = document.createElement("button");
-                        // var btnDeletar = document.createElement("button");
+    function exibirPublicacoes(resposta) {
+        var feed = document.getElementById("feed_container");
+        feed.innerHTML = "";
+        for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
+
+            // criando e manipulando elementos do HTML via JavaScript
+            var divPublicacao = document.createElement("div");
+            var spanID = document.createElement("span");
+            var spanTitulo = document.createElement("span");
+            var spanNome = document.createElement("span");
+            var divDescricao = document.createElement("div");
+            var divButtons = document.createElement("div");
+            // var btnEditar = document.createElement("button");
+            // var btnDeletar = document.createElement("button");
 
 
-                        spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
-                        divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
+            spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
+            divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
                         <p class="p-descricao">${publicacao.descricao}</p>
                         <div class="div-interacoes" id="div_interacoes">
                             <div class="container-curtidas">
@@ -325,124 +332,30 @@
                         </div>
                         `;
 
+            divPublicacao.className = "publicacao-feed";
+            spanTitulo.id = "inputNumero" + publicacao.idAviso;
+            spanNome.className = "publicacao-nome";
+            spanTitulo.className = "publicacao-titulo";
+            divDescricao.className = "publicacao-descricao";
+            divButtons.className = "div-buttons"
 
-                        // <fieldset class="check-image">
-                        //     <label for="like">
-                        //         <input type="checkbox" name="like" id="like">
-                        //         <i></i>
-                        //      </label>
-                        // </fieldset>
+            divPublicacao.appendChild(spanID);
+            divPublicacao.appendChild(spanNome);
+            divPublicacao.appendChild(spanTitulo);
+            divPublicacao.appendChild(divDescricao);
+            divPublicacao.appendChild(divButtons);
 
-                        // btnEditar.innerHTML = "Editar";
-                        // btnDeletar.innerHTML = "Deletar";
+            feed.appendChild(divPublicacao);
 
-                        divPublicacao.className = "publicacao-feed";
-                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
-                        spanNome.className = "publicacao-nome";
-                        spanTitulo.className = "publicacao-titulo";
-                        divDescricao.className = "publicacao-descricao";
+            var idPublicacao = publicacao.idAviso;
+            var fkAutor = publicacao.fkAutor;
 
-                        divButtons.className = "div-buttons"
-
-                        // btnEditar.className = "publicacao-btn-editar"
-                        // btnEditar.id = "btnEditar" + publicacao.idAviso;
-                        // btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
-
-                        // btnDeletar.className = "publicacao-btn-editar"
-                        // btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
-
-                        divPublicacao.appendChild(spanID);
-                        divPublicacao.appendChild(spanNome);
-                        divPublicacao.appendChild(spanTitulo);
-                        divPublicacao.appendChild(divDescricao);
-                        divPublicacao.appendChild(divButtons);
-                        // divButtons.appendChild(btnEditar);
-                        // divButtons.appendChild(btnDeletar);
-                        feed.appendChild(divPublicacao);
-
-
-                        var idUsuario = sessionStorage.ID_USUARIO;
-                        var idPublicacao = publicacao.idAviso;
-                        var fkAutor = publicacao.fkAutor;
-
-                        fetch(`/interacoes/listarCurtidas/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
-                            if (resposta.ok) {
-                                if (resposta.status == 204) {
-                                    throw "Nenhum resultado encontrado!!";
-                                }
-                                resposta.json().then(function (resposta) {
-                                    for (let i = 0; i < resposta.length; i++) {
-                                        var publicacao = resposta[i];
-
-                                        if (publicacao.curtida) {
-                                            var p_curtida = document.getElementById(`p_qtdCurtida${publicacao.fkPublicacao}`);
-                                            p_curtida.innerHTML = publicacao.curtida;
-
-                                        }
-
-
-                                    }
-
-                                });
-                            } else {
-                                throw ('Houve um erro na API!');
-                            }
-                        }).catch(function (resposta) {
-                            console.error(resposta);
-
-                        });
-
-                    }
-                    exibirQtdComentarios();
-
-                    fetch(`/interacoes/listarCurtidasPorUsuario/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
-                        if (resposta.ok) {
-                            if (resposta.status == 204) {
-                                throw "Nenhum resultado encontrado!!";
-                            }
-                            resposta.json().then(function (resposta) {
-                                for (let i = 0; i < resposta.length; i++) {
-                                    var publicacao = resposta[i];
-
-                                    console.log(publicacao.fkUsuario)
-                                    const icon = document.getElementById(`icon_curtida${publicacao.fkPublicacao}`);
-
-                                    if (idUsuario == publicacao.fkUsuario) {
-                                        console.log("Já curtiu esse comentario")
-                                        icon.name = "heart";
-                                        icon.style.color = "red";
-
-                                    } else {
-                                        console.log("Não curtiu")
-                                        icon.name = "heart-outline";
-                                        icon.style.color = "black";
-                                    }
-
-                                }
-
-                            });
-                        } else {
-                            throw ('Houve um erro na API!');
-                        }
-                    }).catch(function (resposta) {
-                        console.error(resposta);
-
-                    });
-
-
-                    finalizarAguardar();
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-            finalizarAguardar();
-        });
-
+            listarCurtidas(idPublicacao, fkAutor);
+            listarCurtidasPorUsuario(idPublicacao, fkAutor);
+        }
+        exibirQtdComentarios();
     }
-
+    
     let listafkAutor = [];
 
     function listarFkAutor() {
@@ -619,6 +532,74 @@
         // });
 
     }
+
+    function listarCurtidas(idPublicacao, fkAutor) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/interacoes/listarCurtidas/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        if (publicacao.curtida) {
+                            var p_curtida = document.getElementById(`p_qtdCurtida${publicacao.fkPublicacao}`);
+                            p_curtida.innerHTML = publicacao.curtida;
+
+                        }
+
+
+                    }
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
+    function listarCurtidasPorUsuario(idPublicacao, fkAutor) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/interacoes/listarCurtidasPorUsuario/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        console.log(publicacao.fkUsuario)
+                        const icon = document.getElementById(`icon_curtida${publicacao.fkPublicacao}`);
+
+                        if (idUsuario == publicacao.fkUsuario) {
+                            console.log("Já curtiu esse comentario")
+                            icon.name = "heart";
+                            icon.style.color = "red";
+
+                        } else {
+                            console.log("Não curtiu")
+                            icon.name = "heart-outline";
+                            icon.style.color = "black";
+                        }
+
+                    }
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
 
     var divVisivel = localStorage.getItem("divVisivel") === "true";
     if (divVisivel) {
@@ -828,9 +809,8 @@
     function publicarComentario() {
         var idUsuario = sessionStorage.ID_USUARIO;
         var idPublicacao = sessionStorage.ID_POSTAGEM;
-        fkAutor1 = sessionStorage.ID_POSTAGEM;
+        // fkAutor1 = sessionStorage.ID_POSTAGEM;
         var mensagem = input_comentarios.value;
-
 
         for (let posicao = 0; posicao < listafkAutor1.length; posicao++) {
             if (idPublicacao == listafkAutor1[posicao].idPublicacao) {
@@ -878,94 +858,30 @@
 
     function pesquisarPublicacao() {
         const publicacaoPesquisada = document.getElementById("input_pesquisar").value;
+        if(publicacaoPesquisada){
 
-        fetch(`/publicacoes/pesquisarPublicacao/${publicacaoPesquisada}`).then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-
-                    throw "Nenhum resultado encontrado!!";
-                }
-
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                    var feed = document.getElementById("feed_container");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
-
-                        // criando e manipulando elementos do HTML via JavaScript
-                        var divPublicacao = document.createElement("div");
-                        var spanID = document.createElement("span");
-                        var spanTitulo = document.createElement("span");
-                        var spanNome = document.createElement("span");
-                        var divDescricao = document.createElement("div");
-                        var divButtons = document.createElement("div");
-                        // var btnEditar = document.createElement("button");
-                        // var btnDeletar = document.createElement("button");
-
-
-                        spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
-                        divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
-                            <p class="p-descricao">${publicacao.descricao}</p>
-                            <div class="div-interacoes" id="div_interacoes">
-                                <div class="container-curtidas">
-                                    <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
-                                    <p id="p_qtdCurtida${publicacao.idAviso}">0</p>
-                                </div>
-                                <div class="container-comentario">
-                                    <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
-                                    <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentar()">
-                                    <p id="p_qtdComentario${publicacao.idAviso}">0</p>
-                                </div>    
-                            </div>
-                            `;
-
-
-                        // <fieldset class="check-image">
-                        //     <label for="like">
-                        //         <input type="checkbox" name="like" id="like">
-                        //         <i></i>
-                        //      </label>
-                        // </fieldset>
-
-                        // btnEditar.innerHTML = "Editar";
-                        // btnDeletar.innerHTML = "Deletar";
-
-                        divPublicacao.className = "publicacao-feed";
-                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
-                        spanNome.className = "publicacao-nome";
-                        spanTitulo.className = "publicacao-titulo";
-                        divDescricao.className = "publicacao-descricao";
-
-                        divButtons.className = "div-buttons"
-
-                        // btnEditar.className = "publicacao-btn-editar"
-                        // btnEditar.id = "btnEditar" + publicacao.idAviso;
-                        // btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
-
-                        // btnDeletar.className = "publicacao-btn-editar"
-                        // btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
-
-                        divPublicacao.appendChild(spanID);
-                        divPublicacao.appendChild(spanNome);
-                        divPublicacao.appendChild(spanTitulo);
-                        divPublicacao.appendChild(divDescricao);
-                        divPublicacao.appendChild(divButtons);
-                        // divButtons.appendChild(btnEditar);
-                        // divButtons.appendChild(btnDeletar);
-                        feed.appendChild(divPublicacao);
-
-
+            fetch(`/publicacoes/pesquisarPublicacao/${publicacaoPesquisada}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+    
+                        throw "Nenhum resultado encontrado!!";
                     }
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
+    
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                        exibirPublicacoes(resposta);
+                       
+                    });
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+        }else{
+            atualizarFeed();
+        }
 
 
 

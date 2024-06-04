@@ -60,7 +60,7 @@ function pesquisarPublicacao(publicacaoPesquisada) {
     FROM publicacao a
         INNER JOIN usuario u
             ON a.fkAutor = u.idUsuario
-            WHERE descricao LIKE '%${publicacaoPesquisada}%'
+            WHERE descricao LIKE '%${publicacaoPesquisada}%' OR titulo LIKE '%${publicacaoPesquisada}%'
             ORDER BY DATE_FORMAT(a.dataPublicacao, '%Y/%m/%d %H:%i') DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -97,10 +97,10 @@ function publicar(titulo, descricao, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function publicarComentario(mensagem, idUsuario, idPublicacao, fkAutor1) {
+function publicarComentario( idUsuario, idPublicacao, fkAutor2, mensagem) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", mensagem, idUsuario);
     var instrucaoSql = `
-        INSERT INTO Comentario (fkUsuario, fkPublicacao, fkAutor, mensagem, dataComentario) VALUES ('${idUsuario}', '${idPublicacao}', ${fkAutor1}, '${mensagem}',now());
+        INSERT INTO Comentario (fkUsuario, fkPublicacao, fkAutor, mensagem, dataComentario) VALUES ('${idUsuario}', '${idPublicacao}', ${fkAutor2}, '${mensagem}',now());
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
