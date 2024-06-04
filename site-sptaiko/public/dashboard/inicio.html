@@ -55,9 +55,16 @@
 
     <div class="header-container">
         <div class="div-header">
-            <span id="b_usuario">Usuário</span>
-
+            <div class="header-titulo">
+                <p>Publicações</p>
+            </div>
+            <div class="header-pesquisar">
+                <input type="text" placeholder="Pesquisar" id="input_pesquisar" onkeyup="pesquisarPublicacao()">
+                <ion-icon name="search-outline" class="icon-pesquisar"></ion-icon>
+            </div>
             <div class="div-perfil-usuario">
+                <ion-icon name="person-circle" class="header-icon-perfil"></ion-icon>
+                <span id="b_usuario">Usuário</span>
             </div>
         </div>
     </div>
@@ -388,7 +395,7 @@
 
                     }
                     exibirQtdComentarios();
-                   
+
                     fetch(`/interacoes/listarCurtidasPorUsuario/${idUsuario}/${idPublicacao}/${fkAutor}`).then(function (resposta) {
                         if (resposta.ok) {
                             if (resposta.status == 204) {
@@ -857,23 +864,113 @@
 
     }
 
-
     function fecharComentarios() {
-        // window.location = "/dashboard/inicio.html";
-        // var overlay1 = document.getElementById("overlay1");
-        // overlay1.style.display = "none";
-
         document.getElementById("overlay1").style.display = "none";
         // Remove o estado da div do armazenamento local
         localStorage.removeItem("divVisivel");
 
     }
-
-
     document.getElementById("bt_enviar_comentarios").addEventListener("click", function () {
         // Recarregar a página
         location.reload();
     });
+
+
+    function pesquisarPublicacao() {
+        const publicacaoPesquisada = document.getElementById("input_pesquisar").value;
+
+        fetch(`/publicacoes/pesquisarPublicacao/${publicacaoPesquisada}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanID = document.createElement("span");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var divButtons = document.createElement("div");
+                        // var btnEditar = document.createElement("button");
+                        // var btnDeletar = document.createElement("button");
+
+
+                        spanNome.innerHTML = `<ion-icon name="person-circle" class="usuario"></ion-icon> <div><p class="p-nome-usuario">${publicacao.nome} </p><p class="p-data-publicacao">${publicacao.dataPublicacao}</p></div>`;
+                        divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
+                            <p class="p-descricao">${publicacao.descricao}</p>
+                            <div class="div-interacoes" id="div_interacoes">
+                                <div class="container-curtidas">
+                                    <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
+                                    <p id="p_qtdCurtida${publicacao.idAviso}">0</p>
+                                </div>
+                                <div class="container-comentario">
+                                    <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
+                                    <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentar()">
+                                    <p id="p_qtdComentario${publicacao.idAviso}">0</p>
+                                </div>    
+                            </div>
+                            `;
+
+
+                        // <fieldset class="check-image">
+                        //     <label for="like">
+                        //         <input type="checkbox" name="like" id="like">
+                        //         <i></i>
+                        //      </label>
+                        // </fieldset>
+
+                        // btnEditar.innerHTML = "Editar";
+                        // btnDeletar.innerHTML = "Deletar";
+
+                        divPublicacao.className = "publicacao-feed";
+                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
+                        spanNome.className = "publicacao-nome";
+                        spanTitulo.className = "publicacao-titulo";
+                        divDescricao.className = "publicacao-descricao";
+
+                        divButtons.className = "div-buttons"
+
+                        // btnEditar.className = "publicacao-btn-editar"
+                        // btnEditar.id = "btnEditar" + publicacao.idAviso;
+                        // btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
+
+                        // btnDeletar.className = "publicacao-btn-editar"
+                        // btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+
+                        divPublicacao.appendChild(spanID);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divButtons);
+                        // divButtons.appendChild(btnEditar);
+                        // divButtons.appendChild(btnDeletar);
+                        feed.appendChild(divPublicacao);
+
+
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+
+    }
+
 
 
     // function publicarComentario() {

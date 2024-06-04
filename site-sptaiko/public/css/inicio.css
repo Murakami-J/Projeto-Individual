@@ -163,14 +163,57 @@ nav {
     position: fixed;
     z-index: 2;
     justify-content: space-between;
+    color: white;
 }
 
 .div-perfil-usuario {
-    background-color: white;
-    width: 5%;
-    height: 8vh;
-    border-radius: 50%;
+    /* width: 10%; */
+    display: flex;
+    align-items: center;
+    margin-right: 2vw;
+}
 
+.div-perfil-usuario span{
+    font-size: 1.5vw;
+    display: none;
+}
+
+.header-icon-perfil{
+    font-size: 4vw;
+}
+
+.header-titulo{
+    margin-left: 2vw;
+}
+
+.header-titulo p{
+    font-size: 1.5vw;
+}
+
+.header-pesquisar{
+    display: flex;
+    align-items: center;
+    width: 30%;
+    gap: 0.5vw;
+}
+
+.header-pesquisar input{
+    width: 90%;
+    border-radius: 1vw;
+    padding: 0.5vh;
+    background-color: transparent;
+    border: 2px white solid;
+    color: white;
+    padding-left: 0.5vw;
+}
+
+.icon-pesquisar{
+    font-size: 1.5vw;
+}
+
+input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
 }
 
 /* ============================ PUBLICAÇÕES DIV ================================ */

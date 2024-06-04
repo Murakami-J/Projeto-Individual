@@ -44,6 +44,29 @@ function pesquisarDescricao(texto) {
     return database.executar(instrucaoSql);
 }
 
+function pesquisarPublicacao(publicacaoPesquisada) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
+    var instrucaoSql = `
+    SELECT 
+        a.idPublicacao AS idAviso,
+        a.titulo,
+        a.descricao,
+        a.fkAutor,
+        DATE_FORMAT(a.dataPublicacao, '%d/%m/%Y %H:%i') as dataPublicacao,
+        u.idUsuario AS idUsuario,
+        u.nome,
+        u.email,
+        u.senha
+    FROM publicacao a
+        INNER JOIN usuario u
+            ON a.fkAutor = u.idUsuario
+            WHERE descricao LIKE '%${publicacaoPesquisada}%'
+            ORDER BY DATE_FORMAT(a.dataPublicacao, '%Y/%m/%d %H:%i') DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function listarPorUsuario(idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
     var instrucaoSql = `
@@ -108,5 +131,6 @@ module.exports = {
     publicar,
     editar,
     deletar,
-    publicarComentario
+    publicarComentario,
+    pesquisarPublicacao
 }
