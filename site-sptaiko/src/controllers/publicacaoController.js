@@ -16,10 +16,11 @@ function listar(req, res) {
 
 
 function listarInformacoesPublicacao(req, res) {
-    var idPublicacao = req.params.idPublicacao;
-    var fkAutor = req.params.fkAutor;
+    var idPublicacaoEdicao = req.params.idPublicacaoEdicao;
+    var idUsuario = req.params.idUsuario;
+    console.log("aaaaaaaaaaaaaa " + idPublicacaoEdicao)
 
-    publicacaoModel.listarInformacoesPublicacao(idPublicacao, fkAutor).then(function (resultado) {
+    publicacaoModel.listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -157,8 +158,8 @@ function publicarComentario(req, res) {
 }
 
 function editar(req, res) {
-    var novaDescricao = req.body.descricao;
-    var novoTitulo = req.body.descricao;
+    var novaDescricao = req.params.descricaoPublicacao;
+    var novoTitulo = req.params.tituloPublicacao;
     var idPublicacao = req.params.idPublicacao;
     var fkAutor = req.params.fkAutor;
 
@@ -178,22 +179,23 @@ function editar(req, res) {
 
 }
 
-function deletar(req, res) {
-    var idAviso = req.params.idAviso;
+async function deletarPublicacao(req, res) {
+    try {
+        var idPublicacao = req.params.idPublicacao;
+        var fkAutor = req.params.fkAutor;
 
-    publicacaoModel.deletar(idAviso)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+        const [resultado1, resultado2, resultado3] = await Promise.all([
+            publicacaoModel.deletarComentario(idPublicacao, fkAutor),
+            publicacaoModel.deletarCurtida(idPublicacao, fkAutor),
+            publicacaoModel.deletarPublicacao(idPublicacao, fkAutor)
+        ]);
+
+        res.json({ resultado1, resultado2, resultado3 });
+    } catch (erro) {
+        console.error(erro);
+        console.error("Houve um erro ao deletar o post: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    }
 }
 
 module.exports = {
@@ -202,7 +204,7 @@ module.exports = {
     pesquisarDescricao,
     publicar,
     editar,
-    deletar,
+    deletarPublicacao,
     publicarComentario,
     pesquisarPublicacao,
     listarInformacoesPublicacao

@@ -570,3 +570,88 @@ input[type="checkbox"]:hover {
     color: red;
     cursor: pointer;
 }
+
+/* =============================================== */
+
+.div-pai-aviso-deletar{
+    margin-left: 16%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: #2E2E2E;
+    width: 30%;
+    height: 35vh;
+    border-radius: 1vw;
+    position: fixed;
+    top: 30%;
+    z-index: 2;
+}
+
+.div-pai-aviso-deletar p{
+    color: white;
+}
+
+.div-container-aviso-deletar{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 2vw;
+}
+
+.div-titulo-aviso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5vw;
+}
+
+.div-bt-aviso{
+    display: flex;
+    gap: 2vw;
+}
+
+.div-bt-aviso button{
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+   padding-top: 0.5vw;
+   padding-bottom: 0.5vw;
+   padding-left: 1vw;
+   padding-right: 1vw;
+   border-radius: 2vw;
+}
+
+.div-bt-aviso button:hover{
+    cursor: pointer;
+
+}
+
+#bt_exluir_aviso{
+    background-color: rgb(255, 101, 101);
+}
+
+#bt_exluir_aviso:hover{
+    background-color: rgb(255, 69, 69);
+}
+
+#bt_cancelar_aviso:hover{
+    background-color: rgba(255, 255, 255, 0.155);
+}
+
+#overlay2{
+        position: fixed;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+}

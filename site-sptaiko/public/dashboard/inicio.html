@@ -77,6 +77,7 @@
                 <p>Nova Publicação</p>
             </button>
 
+
             <span id="overlay">
                 <div class="publicacoes" id="div_publicacoes">
                     <img src="../assets/images/seta-branca.png" onclick="fecharNovaPublicacao()">
@@ -142,6 +143,25 @@
                 </div>
             </span>
 
+            <span id="overlay2">
+                <div class="div-pai-aviso-deletar">
+                    <div class="div-container-aviso-deletar">
+                        <div class="div-titulo-aviso">
+                            <p>Tem certeza que deseja excluir</p>
+                            <p>"Publicacao" ?</p>
+                        </div>
+                        <div class="div-bt-aviso">
+                            <button id="bt_cancelar_aviso" onclick="fecharAvisoDeletar()">
+                                Cancelar
+                            </button>
+                            <button id="bt_exluir_aviso">
+                                Sim, excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </span>
+
             <div class="div-results">
                 <div id="feed_container" class="feed-container">
                 </div>
@@ -149,7 +169,6 @@
 
         </div>
     </div>
-
 
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
@@ -208,41 +227,69 @@
         document.getElementById("overlay").style.display = "none";
     }
 
+    // function publicar() {
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+    //     var titulo = form_postagem.titulo.value;
+    //     var descriccao = form_postagem.descricao.value;
+
+    //     fetch(`/publicacoes/publicar/${idUsuario}/${titulo}/${descricao}`, {
+    //         method: "post",
+
+
+    //     }).then(function (resposta) {
+
+    //         console.log("resposta: ", resposta);
+
+    //         if (resposta.ok) {
+    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+    //             // window.location = "/dashboard/inicio.html";
+    //             limparFormulario();
+    //             finalizarAguardar();
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //         finalizarAguardar();
+    //     });
+
+    //     return false;
+
+    // }
+
     function publicar() {
         var idUsuario = sessionStorage.ID_USUARIO;
-
-        var corpo = {
-            titulo: form_postagem.titulo.value,
-            descricao: form_postagem.descricao.value
-        }
+        var titulo = form_postagem.titulo.value;
+        var descricao = form_postagem.descricao.value;
 
         fetch(`/publicacoes/publicar/${idUsuario}`, {
-            method: "post",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(corpo)
+            body: JSON.stringify({
+                titulo: titulo,
+                descricao: descricao
+            })
         }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
             if (resposta.ok) {
                 window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
                 window.location = "/dashboard/inicio.html";
-                limparFormulario();
-                finalizarAguardar();
+                // limparFormulario();
+                // finalizarAguardar();
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                throw new Error("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+        }).catch(function (erro) {
+            console.error(`#ERRO: ${erro}`);
+            // finalizarAguardar();
         });
 
         return false;
-
     }
 
     // function editar(idAviso) {
@@ -253,27 +300,27 @@
 
     // }
 
-    function deletar(idAviso) {
-        console.log("Criar função de apagar post escolhido - ID" + idAviso);
-        fetch(`/publicacoes/deletar/${idAviso}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+    // function deletarPublicacao(idPublicacao, fkAutor) {
+    //     console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
+    //     fetch(`/publicacoes/deletarPublicacao/${idPublicacao}/${fkAutor}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         }
+    //     }).then(function (resposta) {
 
-            if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                window.location = "/dashboard/inicio.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
+    //         if (resposta.ok) {
+    //             window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+    //             window.location = "/dashboard/inicio.html"
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+    // }
 
     let qtdCurtida = 0;
     function atualizarFeed() {
@@ -312,8 +359,6 @@
             var spanNome = document.createElement("span");
             var divDescricao = document.createElement("div");
             var divButtons = document.createElement("div");
-            // var btnEditar = document.createElement("button");
-            // var btnDeletar = document.createElement("button");
             var divContainer = document.createElement("div");
             divContainer.className = "div-container-info-pub";
 
@@ -362,91 +407,107 @@
             var idPublicacao = publicacao.idAviso;
             var fkAutor = publicacao.fkAutor;
 
-            if (idUsuario == fkAutor) {
-                exibirOpcoesAutor(divContainer, idPublicacao, fkAutor);
-        
-            }
             listarCurtidas(idPublicacao, fkAutor);
-            listarCurtidasPorUsuario(idPublicacao, fkAutor);
+            if (idUsuario == fkAutor) {
+                // exibirOpcoesAutor(divContainer, idPublicacao, fkAutor);
+            }
         }
+        listarCurtidasPorUsuario(idPublicacao, fkAutor);
         exibirQtdComentarios();
     }
-    
-    function exibirOpcoesAutor(divContainer, idPublicacao, fkAutor) {
-        divContainer.innerHTML += `
-        <div>
-            <ion-icon name="create-outline" class="icon-opcao" onclick="editar(${idPublicacao}, ${fkAutor})"></ion-icon>
-            <ion-icon name="trash-outline" class="icon-opcao"></ion-icon>
-            </div>
-            `;
+
+    // function exibirOpcoesAutor(divContainer, idPublicacao, fkAutor) {
+    //     divContainer.innerHTML += `
+    //     <div>
+    //         <ion-icon name="create-outline" id="${idPublicacao}" class="icon-opcao")" onclick="editar(${idPublicacao}, ${fkAutor})"></ion-icon>
+    //         <ion-icon name="trash-outline" class="icon-opcao" onclick="exibirAvisoDeletar(${idPublicacao}, ${fkAutor})"></ion-icon>
+    //         </div>
+    //         `;
+    // }
+
+    function exibirAvisoDeletar(idPublicacao, fkAutor) {
+        let avisoExcluir = document.getElementById('overlay2')
+        avisoExcluir.style.display = 'flex'
+
+        document.getElementById('bt_exluir_aviso').onclick = function () {
+            deletarPublicacao(idPublicacao, fkAutor);
         }
-        
-        function editar(idPublicacao, fkAutor) {
-        listarInformacoesPublicacao(idPublicacao, fkAutor);
-        adicionarNovaPublicacao();
-
-        bt_publicar.innerText = 'Editar';
-        p_titulo_formulario.innerText = 'Editar sua publicação';
-
-        let a = document.getElementById('bt_publicar')
-        //  a.onclick = `${editarPublicacao(idPublicacao, fkAutor)}`;
-
     }
 
-    function listarInformacoesPublicacao(idPublicacao, fkAutor){
-        fetch("/publicacoes/listarInformacoesPublicacao/idPublicacao/fkAutor").then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then(function (resposta) {
-
-                    let tituloFormulario = document.getElementById("titulo");
-                    let descricaoFormulario = document.getElementById("textarea_descricao");
-                    console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
-                        
-                        tituloFormulario.value =  `${publicacao.titulo}`;
-                        descricaoFormulario.value = publicacao.descricao;
-
-                    }
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-
-        });
+    function fecharAvisoDeletar() {
+        let avisoExcluir = document.getElementById('overlay2')
+        avisoExcluir.style.display = 'none'
     }
 
-    function editarPublicacao(idPublicacao, fkAutor) {
-        fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                titulo: titulo.value,
-                descricao: textarea_descricao.value
 
-            })
-        }).then(function (resposta) {
 
-            if (resposta.ok) {
-                window.alert("Post atualizado com sucesso pelo usuario de email: " + "!");
-                fecharNovaPublicacao();
-                window.location = "/dashboard/inicio.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
+
+    // function editar(idPublicacao, fkAutor) {
+    //     adicionarNovaPublicacao();
+    //     listarInformacoesPublicacao(idPublicacao, fkAutor);
+
+    //     bt_publicar.innerText = 'Editar';
+    //     p_titulo_formulario.innerText = 'Editar sua publicação';
+
+    //     document.getElementById('bt_publicar').onclick = function () {
+    //         editarPublicacao(idPublicacao, fkAutor);
+    //     }
+
+    // }
+
+    // function listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario) {
+    //     fetch(`/publicacoes/listarInformacoesPublicacao/${idPublicacaoEdicao}/${idUsuario}`).then(function (resposta) {
+    //         if (resposta.ok) {
+    //             if (resposta.status == 204) {
+    //                 throw "Nenhum resultado encontrado!!";
+    //             }
+    //             resposta.json().then(function (resposta) {
+
+    //                 let tituloFormulario = document.getElementById("titulo");
+    //                 let descricaoFormulario = document.getElementById("textarea_descricao");
+
+    //                 console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
+    //                 for (let i = 0; i < resposta.length; i++) {
+    //                     var publicacao = resposta[i];
+
+    //                     tituloFormulario.value = `${publicacao.titulo}`;
+    //                     descricaoFormulario.value = publicacao.descricao;
+    //                     console.log(' AQUI ' + publicacao.titulo)
+
+
+    //                 }
+    //             });
+    //         } else {
+    //             throw ('Houve um erro na API!');
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.error(resposta);
+
+    //     });
+    // }
+
+    // function editarPublicacao(idPublicacao, fkAutor) {
+    //     var idUsuario = sessionStorage.ID_USUARIO;
+    //     const tituloPublicacao = titulo.value;
+    //     const descricaoPublicacao = textarea_descricao.value;
+    //     fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}/${tituloPublicacao}/${descricaoPublicacao}`, {
+    //         method: "PUT"
+    //     }).then(function (resposta) {
+
+    //         if (resposta.ok) {
+    //             window.alert(`Post editado com sucesso pelo usuario ${idUsuario}`);
+    //             fecharNovaPublicacao();
+    //             window.location = "/dashboard/inicio.html";
+
+    //         } else if (resposta.status == 404) {
+    //             window.alert("Deu 404!");
+    //         } else {
+    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //     });
+    // }
 
     let listafkAutor = [];
 
@@ -641,7 +702,6 @@
                             p_curtida.innerHTML = publicacao.curtida;
 
                         }
-
 
                     }
 
@@ -919,8 +979,8 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-                // window.location = "/dashboard/inicio.html";
+                window.alert("Comentário realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.location = "/dashboard/inicio.html";
 
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");

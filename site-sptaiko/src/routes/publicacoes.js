@@ -23,7 +23,7 @@ router.get("/pesquisarPublicacao/:publicacaoPesquisada", function (req, res) {
     publicacaoController.pesquisarPublicacao(req, res);
 });
 
-router.get("/listarInformacoesPublicacao/:idPublicacao/:fkAutor", function (req, res) {
+router.get("/listarInformacoesPublicacao/:idPublicacaoEdicao/:idUsuario", function (req, res) {
     publicacaoController.listarInformacoesPublicacao(req, res);
 });
 
@@ -31,12 +31,12 @@ router.post("/publicarComentario/:idUsuario/:idPublicacao/:fkAutor2/:mensagem", 
     publicacaoController.publicarComentario(req, res);
 });
 
-router.put("/editar/:idPublicacao/:fkAutor", function (req, res) {
+router.put("/editar/:idPublicacao/:fkAutor/:tituloPublicacao/:descricaoPublicacao", function (req, res) {
     publicacaoController.editar(req, res);
 });
 
-router.delete("/deletar/:idAviso", function (req, res) {
-    publicacaoController.deletar(req, res);
+router.delete("/deletarPublicacao/:idPublicacao/:fkAutor", function (req, res) {
+    publicacaoController.deletarPublicacao(req, res);
 });
 
 module.exports = router;
