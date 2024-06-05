@@ -162,6 +162,34 @@
                 </div>
             </span>
 
+            <span id="overlay3">
+                    <div class="publicacoes">
+                        <img src="../assets/images/seta-branca.png" onclick="fecharEdicaoPublicacao()">
+                        <div class="container">
+                            <p id="p_titulo_formulario">Criar uma nova publicação</p>
+                            <div class="div-form">
+                                <form id="form_edicao" method="post">
+                                    <label>
+                                        Título
+                                        <br>
+                                        <input name="titulo" id="titulo_edicao" maxlength="45" type="text">
+                                    </label>
+                                    <br>
+                                    <br>
+                                    <label>
+                                        Descrição
+                                        <br>
+                                        <textarea name="descricao" id="textarea_edicao" maxlength="1000"
+                                            rows="5"></textarea>
+                                    </label>
+                                    <br>
+                                    <br>
+                                    <button id="bt_edicao">Publicar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>         
+            </span>
             <div class="div-results">
                 <div id="feed_container" class="feed-container">
                 </div>
@@ -227,37 +255,6 @@
         document.getElementById("overlay").style.display = "none";
     }
 
-    // function publicar() {
-    //     var idUsuario = sessionStorage.ID_USUARIO;
-    //     var titulo = form_postagem.titulo.value;
-    //     var descriccao = form_postagem.descricao.value;
-
-    //     fetch(`/publicacoes/publicar/${idUsuario}/${titulo}/${descricao}`, {
-    //         method: "post",
-
-
-    //     }).then(function (resposta) {
-
-    //         console.log("resposta: ", resposta);
-
-    //         if (resposta.ok) {
-    //             window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-    //             // window.location = "/dashboard/inicio.html";
-    //             limparFormulario();
-    //             finalizarAguardar();
-    //         } else if (resposta.status == 404) {
-    //             window.alert("Deu 404!");
-    //         } else {
-    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //         finalizarAguardar();
-    //     });
-
-    //     return false;
-
-    // }
 
     function publicar() {
         var idUsuario = sessionStorage.ID_USUARIO;
@@ -409,21 +406,21 @@
 
             listarCurtidas(idPublicacao, fkAutor);
             if (idUsuario == fkAutor) {
-                // exibirOpcoesAutor(divContainer, idPublicacao, fkAutor);
+                exibirOpcoesAutor(divContainer, idPublicacao, fkAutor);
             }
         }
         listarCurtidasPorUsuario(idPublicacao, fkAutor);
         exibirQtdComentarios();
     }
 
-    // function exibirOpcoesAutor(divContainer, idPublicacao, fkAutor) {
-    //     divContainer.innerHTML += `
-    //     <div>
-    //         <ion-icon name="create-outline" id="${idPublicacao}" class="icon-opcao")" onclick="editar(${idPublicacao}, ${fkAutor})"></ion-icon>
-    //         <ion-icon name="trash-outline" class="icon-opcao" onclick="exibirAvisoDeletar(${idPublicacao}, ${fkAutor})"></ion-icon>
-    //         </div>
-    //         `;
-    // }
+    function exibirOpcoesAutor(divContainer, idPublicacao, fkAutor) {
+        divContainer.innerHTML += `
+        <div>
+            <ion-icon name="create-outline" id="${idPublicacao}" class="icon-opcao")" onclick="editar(${idPublicacao}, ${fkAutor})"></ion-icon>
+            <ion-icon name="trash-outline" class="icon-opcao" onclick="exibirAvisoDeletar(${idPublicacao}, ${fkAutor})"></ion-icon>
+            </div>
+            `;
+    }
 
     function exibirAvisoDeletar(idPublicacao, fkAutor) {
         let avisoExcluir = document.getElementById('overlay2')
@@ -442,72 +439,82 @@
 
 
 
-    // function editar(idPublicacao, fkAutor) {
-    //     adicionarNovaPublicacao();
-    //     listarInformacoesPublicacao(idPublicacao, fkAutor);
+    function editar(idPublicacao, fkAutor) {
+        exibirEdicaoPublicacao();
+        listarInformacoesPublicacao(idPublicacao, fkAutor);
 
-    //     bt_publicar.innerText = 'Editar';
-    //     p_titulo_formulario.innerText = 'Editar sua publicação';
+        bt_publicar.innerText = 'Editar';
+        p_titulo_formulario.innerText = 'Editar sua publicação';
 
-    //     document.getElementById('bt_publicar').onclick = function () {
-    //         editarPublicacao(idPublicacao, fkAutor);
-    //     }
+        document.getElementById('bt_edicao').onclick = function () {
+            editarPublicacao(idPublicacao, fkAutor);
+        }
 
-    // }
+    }
 
-    // function listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario) {
-    //     fetch(`/publicacoes/listarInformacoesPublicacao/${idPublicacaoEdicao}/${idUsuario}`).then(function (resposta) {
-    //         if (resposta.ok) {
-    //             if (resposta.status == 204) {
-    //                 throw "Nenhum resultado encontrado!!";
-    //             }
-    //             resposta.json().then(function (resposta) {
+    function exibirEdicaoPublicacao(){
+        let telaEdicao = document.getElementById("overlay3");
+        telaEdicao.style.display = 'flex';
+    }
 
-    //                 let tituloFormulario = document.getElementById("titulo");
-    //                 let descricaoFormulario = document.getElementById("textarea_descricao");
+    function fecharEdicaoPublicacao(){
+        let telaEdicao = document.getElementById("overlay3");
+        telaEdicao.style.display = 'flex';
+    }
 
-    //                 console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
-    //                 for (let i = 0; i < resposta.length; i++) {
-    //                     var publicacao = resposta[i];
+    function listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario) {
+        fetch(`/publicacoes/listarInformacoesPublicacao/${idPublicacaoEdicao}/${idUsuario}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
 
-    //                     tituloFormulario.value = `${publicacao.titulo}`;
-    //                     descricaoFormulario.value = publicacao.descricao;
-    //                     console.log(' AQUI ' + publicacao.titulo)
+                    let tituloFormulario = document.getElementById("titulo_edicao");
+                    let descricaoFormulario = document.getElementById("textarea_edicao");
+
+                    console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        tituloFormulario.value = `${publicacao.titulo}`;
+                        descricaoFormulario.value = publicacao.descricao;
+                        console.log(' AQUI ' + publicacao.titulo)
 
 
-    //                 }
-    //             });
-    //         } else {
-    //             throw ('Houve um erro na API!');
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.error(resposta);
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
 
-    //     });
-    // }
+        });
+    }
 
-    // function editarPublicacao(idPublicacao, fkAutor) {
-    //     var idUsuario = sessionStorage.ID_USUARIO;
-    //     const tituloPublicacao = titulo.value;
-    //     const descricaoPublicacao = textarea_descricao.value;
-    //     fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}/${tituloPublicacao}/${descricaoPublicacao}`, {
-    //         method: "PUT"
-    //     }).then(function (resposta) {
+    function editarPublicacao(idPublicacao, fkAutor) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        const tituloPublicacao = titulo_edicao.value;
+        const descricaoPublicacao = textarea_edicao.value;
+        fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}/${tituloPublicacao}/${descricaoPublicacao}`, {
+            method: "PUT"
+        }).then(function (resposta) {
 
-    //         if (resposta.ok) {
-    //             window.alert(`Post editado com sucesso pelo usuario ${idUsuario}`);
-    //             fecharNovaPublicacao();
-    //             window.location = "/dashboard/inicio.html";
+            if (resposta.ok) {
+                window.alert(`Post editado com sucesso pelo usuario ${idUsuario}`);
+                fecharNovaPublicacao();
+                window.location = "/dashboard/inicio.html";
 
-    //         } else if (resposta.status == 404) {
-    //             window.alert("Deu 404!");
-    //         } else {
-    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //     });
-    // }
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
     let listafkAutor = [];
 
