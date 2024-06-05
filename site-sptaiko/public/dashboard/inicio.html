@@ -148,7 +148,7 @@
                     <div class="div-container-aviso-deletar">
                         <div class="div-titulo-aviso">
                             <p>Tem certeza que deseja excluir</p>
-                            <p>"Publicacao" ?</p>
+                            <p id="p_aviso_titulo">"Publicacao" ?</p>
                         </div>
                         <div class="div-bt-aviso">
                             <button id="bt_cancelar_aviso" onclick="fecharAvisoDeletar()">
@@ -166,7 +166,7 @@
                     <div class="publicacoes">
                         <img src="../assets/images/seta-branca.png" onclick="fecharEdicaoPublicacao()">
                         <div class="container">
-                            <p id="p_titulo_formulario">Criar uma nova publicação</p>
+                            <p id="p_titulo_formulario">Editar sua publicação</p>
                             <div class="div-form">
                                 <form id="form_edicao" method="post">
                                     <label>
@@ -184,7 +184,7 @@
                                     </label>
                                     <br>
                                     <br>
-                                    <button id="bt_edicao">Publicar</button>
+                                    <button id="bt_edicao">Editar</button>
                                 </form>
                             </div>
                         </div>
@@ -289,35 +289,28 @@
         return false;
     }
 
-    // function editar(idAviso) {
-    //     sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
-    //     console.log("cliquei em editar - " + idAviso);
-    //     window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
-    //     window.location = "/dashboard/edicao-aviso.html"
 
-    // }
+    function deletarPublicacao(idPublicacao, fkAutor) {
+        console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
+        fetch(`/publicacoes/deletarPublicacao/${idPublicacao}/${fkAutor}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
 
-    // function deletarPublicacao(idPublicacao, fkAutor) {
-    //     console.log("Criar função de apagar post escolhido - ID" + idPublicacao);
-    //     fetch(`/publicacoes/deletarPublicacao/${idPublicacao}/${fkAutor}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         }
-    //     }).then(function (resposta) {
-
-    //         if (resposta.ok) {
-    //             window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-    //             window.location = "/dashboard/inicio.html"
-    //         } else if (resposta.status == 404) {
-    //             window.alert("Deu 404!");
-    //         } else {
-    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //     });
-    // }
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "/dashboard/inicio.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
     let qtdCurtida = 0;
     function atualizarFeed() {
@@ -423,6 +416,7 @@
     }
 
     function exibirAvisoDeletar(idPublicacao, fkAutor) {
+        exibirTituloPublicacaoEdicao(idPublicacao, fkAutor);
         let avisoExcluir = document.getElementById('overlay2')
         avisoExcluir.style.display = 'flex'
 
@@ -436,15 +430,40 @@
         avisoExcluir.style.display = 'none'
     }
 
+    function exibirTituloPublicacaoEdicao(idPublicacao, fkAutor){
+        fetch(`/publicacoes/exibirTituloPublicacaoEdicao/${idPublicacao}/${fkAutor}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+
+                    let tituloPublicacaoEdicao = document.getElementById("p_aviso_titulo");
+                 
+
+                    console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        tituloPublicacaoEdicao.innerHTML = `"${publicacao.titulo}"`
+                     
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+
+        });
+    }
+
 
 
 
     function editar(idPublicacao, fkAutor) {
         exibirEdicaoPublicacao();
         listarInformacoesPublicacao(idPublicacao, fkAutor);
-
-        bt_publicar.innerText = 'Editar';
-        p_titulo_formulario.innerText = 'Editar sua publicação';
 
         document.getElementById('bt_edicao').onclick = function () {
             editarPublicacao(idPublicacao, fkAutor);
@@ -459,7 +478,7 @@
 
     function fecharEdicaoPublicacao(){
         let telaEdicao = document.getElementById("overlay3");
-        telaEdicao.style.display = 'flex';
+        telaEdicao.style.display = 'none';
     }
 
     function listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario) {
@@ -479,9 +498,6 @@
 
                         tituloFormulario.value = `${publicacao.titulo}`;
                         descricaoFormulario.value = publicacao.descricao;
-                        console.log(' AQUI ' + publicacao.titulo)
-
-
                     }
                 });
             } else {
@@ -497,14 +513,15 @@
         var idUsuario = sessionStorage.ID_USUARIO;
         const tituloPublicacao = titulo_edicao.value;
         const descricaoPublicacao = textarea_edicao.value;
+
         fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}/${tituloPublicacao}/${descricaoPublicacao}`, {
             method: "PUT"
         }).then(function (resposta) {
 
             if (resposta.ok) {
                 window.alert(`Post editado com sucesso pelo usuario ${idUsuario}`);
-                fecharNovaPublicacao();
                 window.location = "/dashboard/inicio.html";
+                fecharNovaPublicacao();
 
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
@@ -536,7 +553,6 @@
 
                     }
                     verificarCheck();
-                    console.log("Dados recebidos: BBBB ", JSON.stringify(listafkAutor));
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -872,8 +888,6 @@
         var jsonStringDoStorage = sessionStorage.getItem('meuJSON');
         var idUsuario = sessionStorage.ID_USUARIO;
         var jsonDoStorage = JSON.parse(jsonStringDoStorage);
-
-
 
         fetch(`/interacoes/listarComentarios/${idUsuario}/${sessionStorage.getItem("ID_POSTAGEM")}`).then(function (resposta) {
             if (resposta.ok) {

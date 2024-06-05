@@ -222,7 +222,7 @@ input:focus {
 
 .publicacoes {
     margin-left: 16%;
-    /* display: none; */
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -675,4 +675,9 @@ input[type="checkbox"]:hover {
 
 .container-editar{
     display: flex;
+}
+
+#form_edicao {
+    display: flex;
+    flex-direction: column;
 }

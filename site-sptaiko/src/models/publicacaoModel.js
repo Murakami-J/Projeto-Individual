@@ -88,6 +88,17 @@ function listarPorUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function exibirTituloPublicacaoEdicao(idPublicacaoEdicao, fkAutor) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+    var instrucaoSql = `
+        SELECT titulo
+            FROM Publicacao 
+            WHERE idPublicacao = ${idPublicacaoEdicao} AND fkAutor = ${fkAutor};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarInformacoesPublicacao()");
 
@@ -167,5 +178,6 @@ module.exports = {
     pesquisarPublicacao,
     listarInformacoesPublicacao,
     deletarComentario,
-    deletarCurtida
+    deletarCurtida,
+    exibirTituloPublicacaoEdicao
 }
