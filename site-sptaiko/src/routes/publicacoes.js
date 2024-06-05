@@ -23,7 +23,7 @@ router.get("/pesquisarPublicacao/:publicacaoPesquisada", function (req, res) {
     publicacaoController.pesquisarPublicacao(req, res);
 });
 
-router.get("/listarInformacoesPublicacao/:idPublicacao/:idUsuario", function (req, res) {
+router.get("/listarInformacoesPublicacao/:idPublicacaoEdicao/:idUsuario", function (req, res) {
     publicacaoController.listarInformacoesPublicacao(req, res);
 });
 
