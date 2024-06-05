@@ -23,13 +23,15 @@ router.get("/pesquisarPublicacao/:publicacaoPesquisada", function (req, res) {
     publicacaoController.pesquisarPublicacao(req, res);
 });
 
+router.get("/listarInformacoesPublicacao/:idPublicacao/:fkAutor", function (req, res) {
+    publicacaoController.listarInformacoesPublicacao(req, res);
+});
+
 router.post("/publicarComentario/:idUsuario/:idPublicacao/:fkAutor2/:mensagem", function (req, res) {
     publicacaoController.publicarComentario(req, res);
 });
 
-
-
-router.put("/editar/:idAviso", function (req, res) {
+router.put("/editar/:idPublicacao/:fkAutor", function (req, res) {
     publicacaoController.editar(req, res);
 });
 

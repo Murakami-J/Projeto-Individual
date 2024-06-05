@@ -88,6 +88,18 @@ function listarPorUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function listarInformacoesPublicacao(idPublicacao, fkAutor) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarInformacoesPublicacao()");
+    var instrucaoSql = `
+        SELECT titulo,
+                descricao
+                FROM Publicacao
+                WHERE idPublicacao = ${idPublicacao} AND fkAutor = ${fkAutor};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function publicar(titulo, descricao, idUsuario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", titulo, descricao, idUsuario);
     var instrucaoSql = `
@@ -106,10 +118,11 @@ function publicarComentario( idUsuario, idPublicacao, fkAutor2, mensagem) {
     return database.executar(instrucaoSql);
 }
 
-function editar(novaDescricao, idAviso) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idAviso);
+function editar(novaDescricao, novoTitulo, idPublicacao, fkAutor) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idPublicacao, fkAutor, novoTitulo);
     var instrucaoSql = `
-        UPDATE Publicacao SET descricao = '${novaDescricao}' WHERE idPublicacao = ${idAviso};
+        UPDATE Publicacao SET descricao = '${novaDescricao}', titulo = '${novoTitulo}' 
+        WHERE idPublicacao = ${idPublicacao} AND fkAutor = ${fkAutor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -132,5 +145,6 @@ module.exports = {
     editar,
     deletar,
     publicarComentario,
-    pesquisarPublicacao
+    pesquisarPublicacao,
+    listarInformacoesPublicacao
 }

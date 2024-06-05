@@ -53,10 +53,12 @@
 
     <div class="header-container">
         <div class="div-header">
-            <span id="b_usuario">Usuário</span>
-
+            <div class="header-titulo">
+                <p>Publicações</p>
+            </div>
             <div class="div-perfil-usuario">
-
+                <ion-icon name="person-circle" class="header-icon-perfil"></ion-icon>
+               
             </div>
         </div>
     </div>
@@ -67,6 +69,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
 
 </html>
@@ -90,9 +94,7 @@
 
         for (let i = 0; i < descendentes.length; i++) {
             descendentes[i].addEventListener("click", function (e) {
-                e.preventDefault(); // Prevenir comportamento padrão do link
-
-                // alert('O elemento clicado foi o ' + this.innerHTML);
+                e.preventDefault(); 
             
                 if (this.innerHTML === 'Acal Taiko') {
                     idGrupo = 0;
@@ -116,17 +118,15 @@
                     idGrupo = 9;  
                 }
 
-                // Chama exibirGrupo() aqui se necessário
                 if (idGrupo !== undefined) {
                     exibirGrupo();
                 }
             });
         }
     } else {
-        exibirGrupo();
+        exibirGrupo()
     }
 }
-
 
     function exibirGrupo() {
         fetch("/grupo/listarGrupo").then(function (resposta) {
@@ -251,7 +251,7 @@
         });
     }
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     let contador = 0;
     function exibirGrupos() {
 

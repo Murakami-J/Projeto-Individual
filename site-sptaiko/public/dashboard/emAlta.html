@@ -113,7 +113,6 @@
                     <p class="kpi-titulo">Grupo mais mencionado durante a semana</p>
                     <div class="div-kpi-info">
                         <ion-icon name="flame-outline" class="icon-publicacao"></ion-icon>
-                        <!-- <ion-icon name="notifications-outline" class="icon-publicacao"></ion-icon> -->
                         <p class="p-kpi p-kpi-gp" id="p_kpi_3">Nenhum</p>
                     </div>
                 </div>
@@ -139,14 +138,11 @@
 </body>
 
 <script>
-
-
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO + sessionStorage.ID_USUARIO;
     let contador = 0;
     function exibirGrupos() {
 
         if (contador % 2 == 0) {
-
             gp_acal.style.display = 'flex';
             gp_futurong.style.display = 'flex';
             gp_himawari.style.display = 'flex';
@@ -157,8 +153,6 @@
             gp_soragoi.style.display = 'flex';
             gp_tenryuu.style.display = 'flex';
             gp_todoroki.style.display = 'flex';
-
-
         } else {
             gp_acal.style.display = 'none';
             gp_futurong.style.display = 'none';
@@ -170,7 +164,6 @@
             gp_soragoi.style.display = 'none';
             gp_tenryuu.style.display = 'none';
             gp_todoroki.style.display = 'none';
-
         }
         contador += 1;
     }
@@ -187,7 +180,6 @@
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
-
         fetch(`/dashboard/obterDados/`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -195,7 +187,6 @@
                     resposta.reverse();
 
                     plotarGrafico(resposta);
-
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -206,13 +197,7 @@
             });
     }
 
-
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta) {
-
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
@@ -322,50 +307,14 @@
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
-
-
-
-
-                    if (novoRegistro[0].qtdTotalMencao == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].qtdTotalMencao)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-
-                        for (let posicao = 0; posicao < novoRegistro.length; posicao++) {
-                            // dados.labels.shift(); // apagar o primeiro
-                            // dados.labels.push(novoRegistro[posicao].nomeGrupo); // incluir um novo momento
-
-                            // dados.datasets[posicao].data.shift();  // apagar o primeiro de umidade
-                            // dados.datasets[0].data.push(novoRegistro[posicao].qtdTotalMencao); // incluir uma nova medida de umidade
-
-                            // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                            // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                            myChart.update();
-
-                        }
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    // proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                // proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart), 2000);
             }
         })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
+         .catch(function (error) {
+             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
     }
 
 
@@ -432,7 +381,7 @@
     }
 
     function exibirTotalPublicacoesSemana() {
-        
+
         fetch(`/dashboard/exibirTotalPublicacoesSemana`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -452,8 +401,6 @@
 
                         }
 
-                
-
                     }
                 });
             } else {
@@ -467,7 +414,7 @@
     }
 
     function exibirComentariosPostSemana() {
-        
+
         fetch(`/dashboard/exibirComentariosPostSemana`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -486,9 +433,6 @@
                             totalPub.innerHTML = publicacao.maiorNumComentario;
 
                         }
-
-                
-
                     }
                 });
             } else {
@@ -502,7 +446,7 @@
     }
 
     function exibirGrupoMaisMencionado() {
-        
+
         fetch(`/dashboard/exibirGrupoMaisMencionado`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -519,11 +463,7 @@
                         if (publicacao.nomeGrupo) {
                             var totalPub = document.getElementById(`p_kpi_3`);
                             totalPub.innerHTML = publicacao.nomeGrupo;
-
                         }
-
-                
-
                     }
                 });
             } else {
@@ -532,12 +472,10 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
-
-
     }
 
     function exibirUsuarioMaisPublicacao() {
-        
+
         fetch(`/dashboard/exibirUsuarioMaisPublicacao`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -557,11 +495,7 @@
 
                             var totalPub = document.getElementById(`p_kpi_4_1`);
                             totalPub.innerHTML = publicacao.qtdPublicacao;
-
                         }
-
-                
-
                     }
                 });
             } else {
@@ -573,7 +507,4 @@
 
 
     }
-
-
-
 </script>
