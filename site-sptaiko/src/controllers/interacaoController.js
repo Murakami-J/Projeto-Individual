@@ -136,10 +136,10 @@ function exibirQtdComentarios(req, res) {
         });
 }
 
-function exibirPublicacao(req, res) {
+function selecionarPublicacao(req, res) {
     var idPublicacao = req.params.idPublicacao;
 
-    interacaoModel.exibirPublicacao(idPublicacao)
+    interacaoModel.selecionarPublicacao(idPublicacao)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -181,6 +181,6 @@ module.exports = {
     listarCurtidas,
     listarCurtidasPorUsuario,
     listarComentarios,
-    exibirPublicacao,
+    selecionarPublicacao,
     exibirQtdComentarios
 }

@@ -9,9 +9,6 @@ router.post("/cadastrarCurtida/:idUsuario/:idPublicacao/:fkAutor", function (req
 })
 
 
-// router.get("/pegarFkAutor", function (req, res) {
-//     interacaoController.pegarFkAutor(req, res);
-// });
 
 router.get("/listar/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.listar(req, res);
@@ -21,8 +18,8 @@ router.get("/listarComentarios/:idUsuario/:idPublicacao", function (req, res) {
     interacaoController.listarComentarios(req, res);
 });
 
-router.get("/exibirPublicacao/:idPublicacao", function (req, res) {
-    interacaoController.exibirPublicacao(req, res);
+router.get("/selecionarPublicacao/:idPublicacao", function (req, res) {
+    interacaoController.selecionarPublicacao(req, res);
 });
 
 
