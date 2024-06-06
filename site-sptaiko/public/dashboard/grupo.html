@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="../css/inicio.css">
     <link rel="stylesheet" href="../css/grupo.css">
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body onload="teste()">
+<body onload="exibirMenuGrupos()">
 
     <nav>
         <div class="div-logo">
@@ -58,7 +58,7 @@
             </div>
             <div class="div-perfil-usuario">
                 <ion-icon name="person-circle" class="header-icon-perfil"></ion-icon>
-               
+
             </div>
         </div>
     </div>
@@ -77,8 +77,8 @@
 
 <script>
 
-    const listaLogos = ['https://yt3.googleusercontent.com/ytc/AIdro_l8MJn-c3WKPF_VkT7E7gB22nENtBpJbDn1L0S2cMXfSFk=s900-c-k-c0x00ffffff-no-rj', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAibuzSGTPjj2gmjIZvtEr1az7xX_q1WvGhROCvScTA&s', 
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkXZfmbm0ywoOP42hhP4EtHfULl47Ca367CBFQu2f7Nw&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSthXQkVnRR7O7qAWNRNN0Zhssw2Mo9w5mug-rLDe3GQ&s','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1z5MBICgpl1Gs6D7YzA0hIikr2uwtGHiDcW2owrQag&s', 'https://images.squarespace-cdn.com/content/v1/61e7fda5448c37073e4c01fd/3e3aa8c1-e8ec-4083-b425-a74a271a60cb/Untitled+design+%286%29.png', 'https://media.nippobrasilia.com.br/2018/05/logo-taiko-sakura-fubuki-wadaiko-sao-paulo-sp200x200.gif','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-tW6y2k-1tknNrA1Twybcjx5KBLsmK5F_dZ0_Wol7g&s', 'https://media.nippobrasilia.com.br/2019/08/tenryuu-wadaiko-sao-miguel-paulista-sp.gif', 'https://yt3.googleusercontent.com/LkwPAY95YAVcte7IY7pYmb4mKavSOzmJkJ1mZz4LDAbP4E9IloBquWP_QLoXEZkjNZY-t5JQfQ=s900-c-k-c0x00ffffff-no-rj'];
+    const listaLogos = ['https://yt3.googleusercontent.com/ytc/AIdro_l8MJn-c3WKPF_VkT7E7gB22nENtBpJbDn1L0S2cMXfSFk=s900-c-k-c0x00ffffff-no-rj', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAibuzSGTPjj2gmjIZvtEr1az7xX_q1WvGhROCvScTA&s',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkXZfmbm0ywoOP42hhP4EtHfULl47Ca367CBFQu2f7Nw&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSthXQkVnRR7O7qAWNRNN0Zhssw2Mo9w5mug-rLDe3GQ&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1z5MBICgpl1Gs6D7YzA0hIikr2uwtGHiDcW2owrQag&s', 'https://images.squarespace-cdn.com/content/v1/61e7fda5448c37073e4c01fd/3e3aa8c1-e8ec-4083-b425-a74a271a60cb/Untitled+design+%286%29.png', 'https://media.nippobrasilia.com.br/2018/05/logo-taiko-sakura-fubuki-wadaiko-sao-paulo-sp200x200.gif', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-tW6y2k-1tknNrA1Twybcjx5KBLsmK5F_dZ0_Wol7g&s', 'https://media.nippobrasilia.com.br/2019/08/tenryuu-wadaiko-sao-miguel-paulista-sp.gif', 'https://yt3.googleusercontent.com/LkwPAY95YAVcte7IY7pYmb4mKavSOzmJkJ1mZz4LDAbP4E9IloBquWP_QLoXEZkjNZY-t5JQfQ=s900-c-k-c0x00ffffff-no-rj'];
 
     const listaImagens = ['https://media.portalnipponja.com.br/uploads/2023/12/14151832/Apresentacao-da-Parada-Taiko.jpg', 'https://lh4.googleusercontent.com/proxy/DB0RqE4KsfIILTxODtLEBjSPgZnWwp5iPrXGrcMieNl2FQy8UgeId10hJeK8FgX_KEMNNFB7iRPU03Fjyt7Dyum0AxSEs1FA_nVn_B6JGB2WQ05f6g6JGsc9TtjoWLco-1QE7if9drIh', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/156749561_122036603258585_981260719892841597_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DKKUK3riZTYQ7kNvgHmCLAX&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB7BBa4AJRqXjOaSf585bsW-RZi5Fsdj0uAfybJkJstng&oe=667A0062', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/242692763_2657858447856851_624503789297605737_n.jpg?stp=dst-jpg_p180x540&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Tqh9amWJ4YQQ7kNvgFircUF&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYDZbS-jvOMshNohFOo9PtzA0vSpm-A2nF8ynDuj-05nHw&oe=665861AB', 'https://static.wixstatic.com/media/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg/v1/fill/w_260,h_177,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/305995644_590482452650229_8900571232597188012_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=WiFfgxFOztEQ7kNvgE4PrZ2&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB3YC-LWgsPDRCZhQxCSd1JUxLlN1DZp064Ykcfp2f0_A&oe=66586F66', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45984638_1737706736339467_8522701616330047488_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Mqt2q64SYPkQ7kNvgH14d4V&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYCGPGJxhnIhSTS7BsBpyPuIJPAg6Hf5m5KpLuxp4o0mNQ&oe=667A2C7C', 'https://live.staticflickr.com/414/19869648573_22c21a9c07_b.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlL3PKRixvaLD_uBHri1pNhHmcfbqSYKYBD_DCMUf3mA&s'];
 
@@ -88,45 +88,45 @@
 
     var idGrupo;
 
-    function teste() {
-    if (idGrupo === undefined) {
-        const descendentes = document.querySelectorAll("#ul_grupos li a");
+    function exibirMenuGrupos() {
+        if (idGrupo === undefined) {
+            const descendentes = document.querySelectorAll("#ul_grupos li a");
 
-        for (let i = 0; i < descendentes.length; i++) {
-            descendentes[i].addEventListener("click", function (e) {
-                e.preventDefault(); 
-            
-                if (this.innerHTML === 'Acal Taiko') {
-                    idGrupo = 0;
-                } else if (this.innerHTML === 'Futurong Taiko') {
-                    idGrupo = 1;  
-                } else if(this.innerHTML === 'Himawari Taiko'){
-                    idGrupo = 2;  
-                } else if(this.innerHTML === 'Ikkon Wadaiko'){
-                    idGrupo = 3;  
-                } else if(this.innerHTML === 'Mika Taiko'){
-                    idGrupo = 4;  
-                } else if(this.innerHTML === 'Mugen Daiko'){
-                    idGrupo = 5;  
-                } else if(this.innerHTML === 'Sakura Fubuki Taiko'){
-                    idGrupo = 6;  
-                } else if(this.innerHTML === 'Soragoi Wadaiko'){
-                    idGrupo = 7;  
-                } else if(this.innerHTML === 'Tenryuu Wadaiko'){
-                    idGrupo = 8;  
-                } else if(this.innerHTML === 'Todoroki Daiko'){
-                    idGrupo = 9;  
-                }
+            for (let i = 0; i < descendentes.length; i++) {
+                descendentes[i].addEventListener("click", function (e) {
+                    e.preventDefault();
 
-                if (idGrupo !== undefined) {
-                    exibirGrupo();
-                }
-            });
+                    if (this.innerHTML === 'Acal Taiko') {
+                        idGrupo = 0;
+                    } else if (this.innerHTML === 'Futurong Taiko') {
+                        idGrupo = 1;
+                    } else if (this.innerHTML === 'Himawari Taiko') {
+                        idGrupo = 2;
+                    } else if (this.innerHTML === 'Ikkon Wadaiko') {
+                        idGrupo = 3;
+                    } else if (this.innerHTML === 'Mika Taiko') {
+                        idGrupo = 4;
+                    } else if (this.innerHTML === 'Mugen Daiko') {
+                        idGrupo = 5;
+                    } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                        idGrupo = 6;
+                    } else if (this.innerHTML === 'Soragoi Wadaiko') {
+                        idGrupo = 7;
+                    } else if (this.innerHTML === 'Tenryuu Wadaiko') {
+                        idGrupo = 8;
+                    } else if (this.innerHTML === 'Todoroki Daiko') {
+                        idGrupo = 9;
+                    }
+
+                    if (idGrupo !== undefined) {
+                        exibirGrupo();
+                    }
+                });
+            }
+        } else {
+            exibirGrupo()
         }
-    } else {
-        exibirGrupo()
     }
-}
 
     function exibirGrupo() {
         fetch("/grupo/listarGrupo").then(function (resposta) {
@@ -152,23 +152,23 @@
 
                         // Div pai
                         var divGrupo = document.createElement("div");
-                                
+
                         // Descrição ====================================================
                         var divLogo = document.createElement("div");
                         divLogo.innerHTML = `<img src="${listaLogos[idGrupo]}" class="img-logo-grupo">`;
                         var divNome = document.createElement("div");
                         divNome.innerHTML = grupo.nome.toUpperCase();
                         var divDescricao = document.createElement("div");
-                        divDescricao.innerHTML = grupo.descricao ;
-                        
+                        divDescricao.innerHTML = grupo.descricao;
+
                         // Contatos ====================================================
                         var divContato = document.createElement("div");
                         var divInformacao = document.createElement("div");
 
                         var divEndereco = document.createElement("div");
-                        divEndereco.innerHTML =  grupo.endereco;
+                        divEndereco.innerHTML = grupo.endereco;
                         var divCEP = document.createElement("div");
-                        divCEP.innerHTML = "São Paulo - SP, "  + grupo.CEP + "</b>";
+                        divCEP.innerHTML = "São Paulo - SP, " + grupo.CEP + "</b>";
                         var divLocalizacao = document.createElement("div");
                         divLocalizacao.innerHTML = `<span class="material-symbols-outlined" >distance</span>`;
                         var divEmail = document.createElement("div");
@@ -197,18 +197,18 @@
                         divLogo.className = "grupo-logo";
                         divNome.className = "grupo-nome";
                         divDescricao.className = "grupo-descricao";
-                        divContato.className = "grupo-contato";          
-                        divInformacao.className = "grupo-informacao";  
-                        divEndereco.className = "grupo-endereco";  
-                        divLocalizacao.className = "grupo-localizacao" ;   
-                        divCEP.className = "grupo-CEP";                   
+                        divContato.className = "grupo-contato";
+                        divInformacao.className = "grupo-informacao";
+                        divEndereco.className = "grupo-endereco";
+                        divLocalizacao.className = "grupo-localizacao";
+                        divCEP.className = "grupo-CEP";
                         divEmail.className = "grupo-email";
-                        divTelefone.className = "grupo-telefone";                   
-                        divRedeSocial.className = "grupo-rede-social"; 
+                        divTelefone.className = "grupo-telefone";
+                        divRedeSocial.className = "grupo-rede-social";
                         divMidia.className = "grupo-midia";
                         divImagem.className = "grupo-imagem";
                         divVideo.className = "grupo-video";
-                        
+
                         divGrupo.appendChild(divLogo);
                         divGrupo.appendChild(divContato);
                         divGrupo.appendChild(divLocalizacao);

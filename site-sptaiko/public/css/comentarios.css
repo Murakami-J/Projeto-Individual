@@ -216,3 +216,8 @@
     word-wrap: break-word;
 }
 
+.div-form{
+    display: flex;
+    flex-direction: column;
+}
+
