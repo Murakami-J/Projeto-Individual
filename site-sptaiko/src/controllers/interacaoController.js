@@ -62,8 +62,6 @@ function listar(req, res) {
     var fkAutor = req.params.fkAutor;
     var idUsuario = req.params.idUsuario;
 
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + idPublicacao  + idUsuario)
-
     interacaoModel.listar(idPublicacao, idUsuario, fkAutor)
         .then(function (resultado) {
             if (resultado.length > 0) {

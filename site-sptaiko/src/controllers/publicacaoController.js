@@ -15,23 +15,6 @@ function listar(req, res) {
 }
 
 
-function listarInformacoesPublicacao(req, res) {
-    var idPublicacaoEdicao = req.params.idPublicacaoEdicao;
-    var idUsuario = req.params.idUsuario;
-    console.log("aaaaaaaaaaaaaa " + idPublicacaoEdicao)
-
-    publicacaoModel.listarInformacoesPublicacao(idPublicacaoEdicao, idUsuario).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
 
 function exibirTituloPublicacaoEdicao(req, res) {
     var idPublicacaoEdicao = req.params.idPublicacaoEdicao;
@@ -117,10 +100,11 @@ function pesquisarPublicacao(req, res) {
         );
 }
 
+// PUBLICAÇÃO ===================================================================================================
 function publicar(req, res) {
-    var titulo = req.body.titulo;
-    var descricao = req.body.descricao;
-    var idUsuario = req.params.idUsuario;
+    let titulo = req.body.titulo;
+    let descricao = req.body.descricao;
+    let idUsuario = req.params.idUsuario;
 
     if (titulo == undefined) {
         res.status(400).send("O título está indefinido!");
@@ -174,27 +158,7 @@ function publicarComentario(req, res) {
     }
 }
 
-function editar(req, res) {
-    var novaDescricao = req.params.descricaoPublicacao;
-    var novoTitulo = req.params.tituloPublicacao;
-    var idPublicacao = req.params.idPublicacao;
-    var fkAutor = req.params.fkAutor;
 
-    publicacaoModel.editar(novaDescricao, novoTitulo, idPublicacao, fkAutor)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
 
 async function deletarPublicacao(req, res) {
     try {
@@ -215,15 +179,55 @@ async function deletarPublicacao(req, res) {
     }
 }
 
+// EDITAR ==============================================================================
+function exibirInformacoesPublicacao(req, res) {
+    const idPublicacao = req.params.idPublicacao;
+    const fkAutor = req.params.fkAutor;
+
+    publicacaoModel.exibirInformacoesPublicacao(idPublicacao, fkAutor).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function editar(req, res) {
+    var novaDescricao = req.params.descricaoPublicacao;
+    var novoTitulo = req.params.tituloPublicacao;
+    var idPublicacao = req.params.idPublicacao;
+    var fkAutor = req.params.fkAutor;
+
+    publicacaoModel.editar(novaDescricao, novoTitulo, idPublicacao, fkAutor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     listar,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,
-    editar,
     deletarPublicacao,
     publicarComentario,
     pesquisarPublicacao,
-    listarInformacoesPublicacao,
-    exibirTituloPublicacaoEdicao
+    exibirTituloPublicacaoEdicao,
+    // EDIÇÃO 
+    exibirInformacoesPublicacao,
+    editar
 }
