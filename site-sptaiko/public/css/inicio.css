@@ -681,3 +681,11 @@ input[type="checkbox"]:hover {
     display: flex;
     flex-direction: column;
 }
+
+input::placeholder{
+    opacity: 0.5;
+}
+
+textarea::placeholder{
+    opacity: 0.5;
+}
