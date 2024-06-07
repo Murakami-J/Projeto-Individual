@@ -228,10 +228,10 @@ input:focus {
     flex-direction: column;
     background-color: #2E2E2E;
     width: 50%;
-    height: 65vh;
+    height: 75vh;
     border-radius: 1vw;
     position: fixed;
-    top: 20%;
+    top: 17%;
 }
 
 .publicacoes img {
@@ -688,4 +688,9 @@ input::placeholder{
 
 textarea::placeholder{
     opacity: 0.5;
+}
+
+.div-publicacao-img img{
+    width: 100%;
+    border-radius: 1vw;
 }

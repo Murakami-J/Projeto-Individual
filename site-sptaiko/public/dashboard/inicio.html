@@ -103,10 +103,13 @@
                                 <br>
                                 <br>
                                 <label>
-                                    Imagem:
-                                    <input type="text" name="imagem" id="imagem"> 
+                                    Imagem
+                                    <input type="text" name="imagem" id="imagem" placeholder="Insira a url da imagem"> 
                                 </label>
+                                <br>
+                                <br>
                                 <button id="bt_publicar">Publicar</button>
+                                
                             </form>
                         </div>
                     </div>
@@ -185,6 +188,12 @@
                             </label>
                             <br>
                             <br>
+                            <label>
+                                Imagem
+                                <input type="text" name="imagem_edicao" id="imagem_edicao"> 
+                            </label>
+                            <br>
+                            <br>
                             <button id="bt_edicao">Editar</button>
                         </div>
                     </div>
@@ -199,7 +208,7 @@
 
         </div>
     </div>
-
+   
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
@@ -290,11 +299,16 @@
 
                 divDescricao.innerHTML = `<p class="p-titulo-publicacao">${publicacao.titulo}</p> 
                         <p class="p-descricao">${publicacao.descricao}</p>
+                        <div class="div-publicacao-img">
+                            <img src="${publicacao.urlImagem}" alt="">
+                        </div>
+
                         <div class="div-interacoes" id="div_interacoes">
                             <div class="container-curtidas">
                                 <ion-icon name="heart-outline" class="curtida" id="icon_curtida${publicacao.idAviso}"></ion-icon><input type="checkbox" class="chk-curtida" id="${publicacao.idAviso}" onclick="listarFkAutor()">
                                 <p id="p_qtdCurtida${publicacao.idAviso}">0</p>
                             </div>
+
                             <div class="container-comentario">
                                 <ion-icon name="chatbubble-ellipses-outline" class="comentarios" id="icon_id"></ion-icon>
                                 <input type="radio" class="radio-comentarios" name="comentarios" value="${publicacao.idAviso}" onclick="comentario.exibirModal()">
@@ -351,6 +365,7 @@
         publicar: function () {
             const titulo = form_postagem.titulo.value;
             const descricao = form_postagem.descricao.value;
+            const imagem = form_postagem.imagem.value;
 
             fetch(`/publicacoes/publicar/${usuario.id}`, {
                 method: "POST",
@@ -359,7 +374,8 @@
                 },
                 body: JSON.stringify({
                     titulo: titulo,
-                    descricao: descricao
+                    descricao: descricao,
+                    imagem: imagem
                 })
             }).then(function (resposta) {
                 if (resposta.ok) {
@@ -484,6 +500,7 @@
                     resposta.json().then(function (resposta) {
                         const tituloFormularioEdicao = document.getElementById("titulo_edicao");
                         const descricaoFormularioEdicao = document.getElementById("textarea_edicao");
+                        const urlImagemEdicao = document.getElementById("imagem_edicao");
 
                         console.log("Dados recebidos: INFOPUB ", JSON.stringify(resposta));
                         for (let i = 0; i < resposta.length; i++) {
@@ -491,6 +508,7 @@
 
                             tituloFormularioEdicao.value = publicacao.titulo;
                             descricaoFormularioEdicao.value = publicacao.descricao;
+                            urlImagemEdicao.value = publicacao.urlImagem
                         }
                     });
                 } else {

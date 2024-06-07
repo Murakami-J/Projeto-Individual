@@ -104,6 +104,7 @@ function pesquisarPublicacao(req, res) {
 function publicar(req, res) {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
+    let imagem = req.body.imagem;
     let idUsuario = req.params.idUsuario;
 
     if (titulo == undefined) {
@@ -113,7 +114,7 @@ function publicar(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        publicacaoModel.publicar(titulo, descricao, idUsuario)
+        publicacaoModel.publicar(titulo, descricao, imagem, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
