@@ -14,8 +14,8 @@ function listar() {
             u.nome,
             u.email,
             u.senha
-        FROM publicacao a
-            INNER JOIN usuario u
+        FROM Publicacao a
+            INNER JOIN Usuario u
                 ON a.fkAutor = u.idUsuario
                 ORDER BY DATE_FORMAT(a.dataPublicacao, '%Y/%m/%d %H:%i') DESC;
     `;
@@ -37,7 +37,7 @@ function pesquisarDescricao(texto) {
             u.email,
             u.senha
         FROM aviso a
-            INNER JOIN usuario u
+            INNER JOIN Usuario u
                 ON a.fk_usuario = u.id
         WHERE a.descricao LIKE '${texto}';
     `;
@@ -58,8 +58,8 @@ function pesquisarPublicacao(publicacaoPesquisada) {
         u.nome,
         u.email,
         u.senha
-    FROM publicacao a
-        INNER JOIN usuario u
+    FROM Publicacao a
+        INNER JOIN Usuario u
             ON a.fkAutor = u.idUsuario
             WHERE descricao LIKE '%${publicacaoPesquisada}%' OR titulo LIKE '%${publicacaoPesquisada}%'
             ORDER BY DATE_FORMAT(a.dataPublicacao, '%Y/%m/%d %H:%i') DESC;
@@ -81,7 +81,7 @@ function listarPorUsuario(idUsuario) {
             u.email,
             u.senha
         FROM Publicacao a
-            INNER JOIN usuario u
+            INNER JOIN Usuario u
                 ON a.fkAutor = u.idUsuario
         WHERE u.idUsuario = ${idUsuario};
     `;

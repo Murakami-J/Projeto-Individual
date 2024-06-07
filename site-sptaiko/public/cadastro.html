@@ -52,6 +52,16 @@
   <img src="assets/images/divisor-login.png" alt="Divisor" class="divisor-login">
 
   <img src="assets/images/sakura3.png" alt="Sakura" class="img-sakura">
+
+
+  <span id="overlay">
+    <div class="publicacoes">
+      <div class="container-loading">
+        <img src="assets/images/carregar.gif" alt="">
+        <p>Cadastro realizado com sucesso!</p>
+      </div>
+    </div>
+  </span>
 </body>
 
 </html>
@@ -131,6 +141,8 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
+                      const loading = document.getElementById('overlay')
+                      loading.style.display = 'flex'
                       setTimeout(() => {
                         window.location = "login.html";
                       }, "2000");
