@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body onload="exibirMenuGrupos()">
+<body onload="grupos.exibirMenuGrupos()">
 
     <nav>
         <div class="div-logo">
@@ -22,7 +22,7 @@
             <ul>
                 <li><a href="inicio.html">INÍCIO</a></li>
                 <span class="divisor"></span>
-                <li onclick="exibirGrupos()" class="li-seta">GRUPOS <img src="../assets/images/seta-para-baixo.png"
+                <li onclick="listarGrupos()" class="li-seta">GRUPOS <img src="../assets/images/seta-para-baixo.png"
                         alt="" class="seta-baixo"></li>
                 <span class="divisor"></span>
                 <ul class="ul-grupos" id="ul_grupos">
@@ -66,6 +66,25 @@
     <div class="conteudo-container">
         <div class="div-results">
             <div id="feed_container" class="feed-container">
+                <div class="div-grupo">
+                    <div class="div-titulo-abt">
+                        <p class="p-titulo-abt">VENHA CONHECER OS GRUPOS DE TAIKO EM SÃO PAULO</p>
+                    </div>
+                    <div class="div-container-abt">
+                        <div class="div-descricao-abt">
+                            <img src="https://media.nippobrasilia.com.br/2016/03/logo-associacao-brasileira-de-taiko-abt-sao-paulo-sp300x281.jpg"
+                                alt="">
+                            <p>A Associação Brasileira de Taiko (ABT) foi fundada para unir e conduzir as atividades em
+                                prol do desenvolvimento e manutenção da cultura do Taiko.</p>
+                        </div>
+                        <iframe width="560" height="315"
+                            src="https://www.youtube.com/embed/NnD8Gy7Bk48?si=qVMA8kj6jWs33OjT"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -76,56 +95,50 @@
 </html>
 
 <script>
-
-    const listaLogos = ['https://yt3.googleusercontent.com/ytc/AIdro_l8MJn-c3WKPF_VkT7E7gB22nENtBpJbDn1L0S2cMXfSFk=s900-c-k-c0x00ffffff-no-rj', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAibuzSGTPjj2gmjIZvtEr1az7xX_q1WvGhROCvScTA&s',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkXZfmbm0ywoOP42hhP4EtHfULl47Ca367CBFQu2f7Nw&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSthXQkVnRR7O7qAWNRNN0Zhssw2Mo9w5mug-rLDe3GQ&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1z5MBICgpl1Gs6D7YzA0hIikr2uwtGHiDcW2owrQag&s', 'https://images.squarespace-cdn.com/content/v1/61e7fda5448c37073e4c01fd/3e3aa8c1-e8ec-4083-b425-a74a271a60cb/Untitled+design+%286%29.png', 'https://media.nippobrasilia.com.br/2018/05/logo-taiko-sakura-fubuki-wadaiko-sao-paulo-sp200x200.gif', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-tW6y2k-1tknNrA1Twybcjx5KBLsmK5F_dZ0_Wol7g&s', 'https://media.nippobrasilia.com.br/2019/08/tenryuu-wadaiko-sao-miguel-paulista-sp.gif', 'https://yt3.googleusercontent.com/LkwPAY95YAVcte7IY7pYmb4mKavSOzmJkJ1mZz4LDAbP4E9IloBquWP_QLoXEZkjNZY-t5JQfQ=s900-c-k-c0x00ffffff-no-rj'];
-
-    const listaImagens = ['https://media.portalnipponja.com.br/uploads/2023/12/14151832/Apresentacao-da-Parada-Taiko.jpg', 'https://lh4.googleusercontent.com/proxy/DB0RqE4KsfIILTxODtLEBjSPgZnWwp5iPrXGrcMieNl2FQy8UgeId10hJeK8FgX_KEMNNFB7iRPU03Fjyt7Dyum0AxSEs1FA_nVn_B6JGB2WQ05f6g6JGsc9TtjoWLco-1QE7if9drIh', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/156749561_122036603258585_981260719892841597_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DKKUK3riZTYQ7kNvgHmCLAX&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB7BBa4AJRqXjOaSf585bsW-RZi5Fsdj0uAfybJkJstng&oe=667A0062', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/242692763_2657858447856851_624503789297605737_n.jpg?stp=dst-jpg_p180x540&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Tqh9amWJ4YQQ7kNvgFircUF&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYDZbS-jvOMshNohFOo9PtzA0vSpm-A2nF8ynDuj-05nHw&oe=665861AB', 'https://static.wixstatic.com/media/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg/v1/fill/w_260,h_177,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/305995644_590482452650229_8900571232597188012_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=WiFfgxFOztEQ7kNvgE4PrZ2&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB3YC-LWgsPDRCZhQxCSd1JUxLlN1DZp064Ykcfp2f0_A&oe=66586F66', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45984638_1737706736339467_8522701616330047488_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Mqt2q64SYPkQ7kNvgH14d4V&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYCGPGJxhnIhSTS7BsBpyPuIJPAg6Hf5m5KpLuxp4o0mNQ&oe=667A2C7C', 'https://live.staticflickr.com/414/19869648573_22c21a9c07_b.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlL3PKRixvaLD_uBHri1pNhHmcfbqSYKYBD_DCMUf3mA&s'];
-
-    const listaImagens2 = ['https://media.portalnipponja.com.br/uploads/2023/07/20150540/Parada-Taiko-conduziu-as-autoridades-do-torii-ate-o-palco.jpg', 'http://futurong.org.br/wp-content/uploads/2021/05/projeto-social-futebol-para-criancas.jpg', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/34885606_10209440868778610_8038271718143295488_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZeanMwnFmNIQ7kNvgGZeF5c&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBp2z2juhZ0jRKDk4_Se5zGdKVbPVWFowsjYHy6Re-q5A&oe=667A1DD0', 'https://pr1.nicelocal.br.com/a8GF_qGSP3qVnOihCk17Eg/1120x700,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2SgYqYwkfoNn4MRW4B7viFzR-fAJQXFOoL0WouPF8W0phSokKVWnenzfbAsa-u6UAg', 'https://www.mundook.com.br/wp-content/uploads/2018/02/taiko-mika-youtien.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://tatuapebairro.com.br/wp-content/uploads/2021/10/Grupo-Taiko-Sakura-Fubuki-1.jpeg', 'https://www.mundook.com.br/wp-content/uploads/2017/09/Soragoi-Wadaiko-ACREC.jpg', 'https://live.staticflickr.com/1812/30147515458_4085ae7b3b_b.jpg', 'https://catracalivre.com.br/wp-content/uploads/2010/10/todoroki_m.jpg'];
-
-    const listaVideos = ['https://www.youtube.com/embed/nDHHErC_GX4?si=ix6L11TwOoQ1Mvjh', 'https://www.facebook.com/watch/?v=560508158056690', 'https://www.youtube.com/embed/1wC-dJ9YWAg?si=pAjk2VsL1eyAE-4G', 'https://www.youtube.com/embed/pkC4CANqPWI?si=3oiqdf50S86oOnHN', 'https://www.youtube.com/embed/UKhYy0PiluQ?si=_XK7DejD6L3jRjil', '', 'https://www.youtube.com/embed/zquVpyd3fxA?si=cvY4hErpgqZawpM_', 'https://www.youtube.com/embed/_9eWcW7KQVc?si=9NAVD9sBqvHTTi4f', 'https://www.youtube.com/embed/jNdwBRrDXe0?si=URfRklnu56tsR4dC', 'https://www.youtube.com/embed/EVr44MEddHE?si=LngxhNXb7iPV2161']
-
-    var idGrupo;
-
-    function exibirMenuGrupos() {
-        if (idGrupo === undefined) {
-            const descendentes = document.querySelectorAll("#ul_grupos li a");
-
-            for (let i = 0; i < descendentes.length; i++) {
-                descendentes[i].addEventListener("click", function (e) {
-                    e.preventDefault();
-
-                    if (this.innerHTML === 'Acal Taiko') {
-                        idGrupo = 0;
-                    } else if (this.innerHTML === 'Futurong Taiko') {
-                        idGrupo = 1;
-                    } else if (this.innerHTML === 'Himawari Taiko') {
-                        idGrupo = 2;
-                    } else if (this.innerHTML === 'Ikkon Wadaiko') {
-                        idGrupo = 3;
-                    } else if (this.innerHTML === 'Mika Taiko') {
-                        idGrupo = 4;
-                    } else if (this.innerHTML === 'Mugen Daiko') {
-                        idGrupo = 5;
-                    } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
-                        idGrupo = 6;
-                    } else if (this.innerHTML === 'Soragoi Wadaiko') {
-                        idGrupo = 7;
-                    } else if (this.innerHTML === 'Tenryuu Wadaiko') {
-                        idGrupo = 8;
-                    } else if (this.innerHTML === 'Todoroki Daiko') {
-                        idGrupo = 9;
-                    }
-
-                    if (idGrupo !== undefined) {
-                        exibirGrupo();
-                    }
-                });
+    let idGrupo;
+    const grupos = {
+        exibirMenuGrupos: function () {
+            if (idGrupo === undefined) {
+                const descendentes = document.querySelectorAll("#ul_grupos li a");
+                for (let i = 0; i < descendentes.length; i++) {
+                    descendentes[i].addEventListener("click", function (e) {
+                        e.preventDefault();
+                        if (this.innerHTML === 'Acal Taiko') {
+                            idGrupo = 0;
+                        } else if (this.innerHTML === 'Futurong Taiko') {
+                            idGrupo = 1;
+                        } else if (this.innerHTML === 'Himawari Taiko') {
+                            idGrupo = 2;
+                        } else if (this.innerHTML === 'Ikkon Wadaiko') {
+                            idGrupo = 3;
+                        } else if (this.innerHTML === 'Mika Taiko') {
+                            idGrupo = 4;
+                        } else if (this.innerHTML === 'Mugen Daiko') {
+                            idGrupo = 5;
+                        } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                            idGrupo = 6;
+                        } else if (this.innerHTML === 'Soragoi Wadaiko') {
+                            idGrupo = 7;
+                        } else if (this.innerHTML === 'Tenryuu Wadaiko') {
+                            idGrupo = 8;
+                        } else if (this.innerHTML === 'Todoroki Daiko') {
+                            idGrupo = 9;
+                        }
+                        if (idGrupo !== undefined) {
+                            exibirGrupo();
+                        }
+                    });
+                }
             }
-        } else {
-            exibirGrupo()
-        }
+        },
+        listaLogos: ['https://yt3.googleusercontent.com/ytc/AIdro_l8MJn-c3WKPF_VkT7E7gB22nENtBpJbDn1L0S2cMXfSFk=s900-c-k-c0x00ffffff-no-rj', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbAibuzSGTPjj2gmjIZvtEr1az7xX_q1WvGhROCvScTA&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkXZfmbm0ywoOP42hhP4EtHfULl47Ca367CBFQu2f7Nw&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSthXQkVnRR7O7qAWNRNN0Zhssw2Mo9w5mug-rLDe3GQ&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1z5MBICgpl1Gs6D7YzA0hIikr2uwtGHiDcW2owrQag&s', 'https://images.squarespace-cdn.com/content/v1/61e7fda5448c37073e4c01fd/3e3aa8c1-e8ec-4083-b425-a74a271a60cb/Untitled+design+%286%29.png', 'https://media.nippobrasilia.com.br/2018/05/logo-taiko-sakura-fubuki-wadaiko-sao-paulo-sp200x200.gif', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-tW6y2k-1tknNrA1Twybcjx5KBLsmK5F_dZ0_Wol7g&s', 'https://media.nippobrasilia.com.br/2019/08/tenryuu-wadaiko-sao-miguel-paulista-sp.gif', 'https://yt3.googleusercontent.com/LkwPAY95YAVcte7IY7pYmb4mKavSOzmJkJ1mZz4LDAbP4E9IloBquWP_QLoXEZkjNZY-t5JQfQ=s900-c-k-c0x00ffffff-no-rj'],
+
+        listaImagens: ['https://media.portalnipponja.com.br/uploads/2023/12/14151832/Apresentacao-da-Parada-Taiko.jpg', 'https://lh4.googleusercontent.com/proxy/DB0RqE4KsfIILTxODtLEBjSPgZnWwp5iPrXGrcMieNl2FQy8UgeId10hJeK8FgX_KEMNNFB7iRPU03Fjyt7Dyum0AxSEs1FA_nVn_B6JGB2WQ05f6g6JGsc9TtjoWLco-1QE7if9drIh', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/156749561_122036603258585_981260719892841597_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DKKUK3riZTYQ7kNvgHmCLAX&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB7BBa4AJRqXjOaSf585bsW-RZi5Fsdj0uAfybJkJstng&oe=667A0062', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/242692763_2657858447856851_624503789297605737_n.jpg?stp=dst-jpg_p180x540&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=q0bk-tMY5dcQ7kNvgH5JRfP&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBtVqpNz8u2S_hW4oTAG0hGi7SllC3QP2WznNSp0ncjEg&oe=66686BEB', 'https://static.wixstatic.com/media/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg/v1/fill/w_260,h_177,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/305995644_590482452650229_8900571232597188012_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=pFwVZz624aMQ7kNvgE1oS4F&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBg9nFIptykzTAoDu--wEgQd4bTrZ_KVj3mEphRb_PH9w&oe=66684166', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45984638_1737706736339467_8522701616330047488_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Mqt2q64SYPkQ7kNvgH14d4V&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYCGPGJxhnIhSTS7BsBpyPuIJPAg6Hf5m5KpLuxp4o0mNQ&oe=667A2C7C', 'https://live.staticflickr.com/414/19869648573_22c21a9c07_b.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlL3PKRixvaLD_uBHri1pNhHmcfbqSYKYBD_DCMUf3mA&s'],
+
+        listaImagens2: ['https://media.portalnipponja.com.br/uploads/2023/07/20150540/Parada-Taiko-conduziu-as-autoridades-do-torii-ate-o-palco.jpg', 'http://futurong.org.br/wp-content/uploads/2021/05/projeto-social-futebol-para-criancas.jpg', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/34885606_10209440868778610_8038271718143295488_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZeanMwnFmNIQ7kNvgGZeF5c&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBp2z2juhZ0jRKDk4_Se5zGdKVbPVWFowsjYHy6Re-q5A&oe=667A1DD0', 'https://pr1.nicelocal.br.com/a8GF_qGSP3qVnOihCk17Eg/1120x700,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2SgYqYwkfoNn4MRW4B7viFzR-fAJQXFOoL0WouPF8W0phSokKVWnenzfbAsa-u6UAg', 'https://www.mundook.com.br/wp-content/uploads/2018/02/taiko-mika-youtien.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://tatuapebairro.com.br/wp-content/uploads/2021/10/Grupo-Taiko-Sakura-Fubuki-1.jpeg', 'https://www.mundook.com.br/wp-content/uploads/2017/09/Soragoi-Wadaiko-ACREC.jpg', 'https://live.staticflickr.com/1812/30147515458_4085ae7b3b_b.jpg', 'https://catracalivre.com.br/wp-content/uploads/2010/10/todoroki_m.jpg'],
+        listaVideos: ['https://www.youtube.com/embed/nDHHErC_GX4?si=ix6L11TwOoQ1Mvjh', 'https://www.facebook.com/watch/?v=560508158056690', 'https://www.youtube.com/embed/1wC-dJ9YWAg?si=pAjk2VsL1eyAE-4G', 'https://www.youtube.com/embed/pkC4CANqPWI?si=3oiqdf50S86oOnHN', 'https://www.youtube.com/embed/UKhYy0PiluQ?si=_XK7DejD6L3jRjil', '', 'https://www.youtube.com/embed/zquVpyd3fxA?si=cvY4hErpgqZawpM_', 'https://www.youtube.com/embed/_9eWcW7KQVc?si=9NAVD9sBqvHTTi4f', 'https://www.youtube.com/embed/jNdwBRrDXe0?si=URfRklnu56tsR4dC', 'https://www.youtube.com/embed/EVr44MEddHE?si=LngxhNXb7iPV2161']
+
     }
 
     function exibirGrupo() {
@@ -138,7 +151,6 @@
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
-
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
@@ -147,15 +159,11 @@
 
                     for (let i = idGrupo; i < idGrupo + 1; i++) {
                         var grupo = resposta[i];
-
-                        // criando e manipulando elementos do HTML via JavaScript
-
-                        // Div pai
                         var divGrupo = document.createElement("div");
 
                         // Descrição ====================================================
                         var divLogo = document.createElement("div");
-                        divLogo.innerHTML = `<img src="${listaLogos[idGrupo]}" class="img-logo-grupo">`;
+                        divLogo.innerHTML = `<img src="${grupos.listaLogos[idGrupo]}" class="img-logo-grupo">`;
                         var divNome = document.createElement("div");
                         divNome.innerHTML = grupo.nome.toUpperCase();
                         var divDescricao = document.createElement("div");
@@ -186,10 +194,10 @@
                         // Mídia  ====================================================
                         var divMidia = document.createElement("div");
                         var divImagem = document.createElement("div");
-                        divImagem.innerHTML = `<img src="${listaImagens[idGrupo]}" class="img-rede-social">
-                        <img src="${listaImagens2[idGrupo]}" class="img-rede-social">`;
+                        divImagem.innerHTML = `<img src="${grupos.listaImagens[idGrupo]}" class="img-rede-social">
+                        <img src="${grupos.listaImagens2[idGrupo]}" class="img-rede-social">`;
                         var divVideo = document.createElement("div");
-                        divVideo.innerHTML = `<iframe width="500vw" height="300vh" src="${listaVideos[idGrupo]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        divVideo.innerHTML = `<iframe width="500vw" height="300vh" src="${grupos.listaVideos[idGrupo]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         `;
 
                         // Adicionando Classes para as divs ====================================================
@@ -239,8 +247,6 @@
                         divGrupo.innerHTML += `<button class="material-symbols-outlined" id= "favorito">favorite</button>`
                         feed.appendChild(divGrupo);
                     }
-
-
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -251,12 +257,10 @@
         });
     }
 
-    // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
     let contador = 0;
-    function exibirGrupos() {
-
+    function listarGrupos() {
         if (contador % 2 == 0) {
-
             gp_acal.style.display = 'flex';
             gp_futurong.style.display = 'flex';
             gp_himawari.style.display = 'flex';
@@ -267,8 +271,6 @@
             gp_soragoi.style.display = 'flex';
             gp_tenryuu.style.display = 'flex';
             gp_todoroki.style.display = 'flex';
-
-
         } else {
             gp_acal.style.display = 'none';
             gp_futurong.style.display = 'none';
@@ -280,7 +282,6 @@
             gp_soragoi.style.display = 'none';
             gp_tenryuu.style.display = 'none';
             gp_todoroki.style.display = 'none';
-
         }
         contador += 1;
     }

@@ -28,7 +28,7 @@
           <span class="span-erro" id="span_erro_email">.</span>
 
           <p class="p-texto">Senha</p>
-          <input type="password" placeholder="Digite sua senha" id="senha_input" maxlength="45"> 
+          <input type="password" placeholder="Digite sua senha" id="senha_input" maxlength="45">
           <span class="span-erro" id="span_erro_senha">.</span>
 
           <p class="p-texto">Confirmação de Senha</p>
@@ -40,7 +40,8 @@
           Cadastrar
         </button>
 
-        <p class="p-cadastrar">Já possui uma conta? <a href="login.html"><span class="spanCadastrar">Entrar</span></a></p>
+        <p class="p-cadastrar">Já possui uma conta? <a href="login.html"><span class="spanCadastrar">Entrar</span></a>
+        </p>
       </div>
 
       <img src="assets/images/fundo-login.png" alt="Imagem Login" class="img-login">
@@ -57,14 +58,10 @@
 
 <script>
   function cadastrar() {
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-
 
     const NOME = nome_input.value;
     const EMAIL = email_input.value;
@@ -79,11 +76,9 @@
     if (NOME && EMAIL && SENHA && CONFIRMACAO_SENHA) {
       const INDICE_ARROBA = EMAIL.indexOf("@");
       const INDICE_PONTO = EMAIL.indexOf(".");
-
       if (INDICE_ARROBA == -1 || INDICE_PONTO == -1) {
         span_erro_email.innerHTML = "Email inválido";
         span_erro_email.style.color = '#B80000';
-
       } else {
         if (SENHA.length < 8) {
           span_erro_senha.innerHTML = "A senha deve ter pelo menos 8 caracteres";
@@ -93,23 +88,17 @@
 
           for (let numero = 0; numero <= 9; numero++) {
             const INDICE_NUMERO = SENHA.indexOf(`${numero}`);
-
             if (INDICE_NUMERO != -1) {
               existeNumero = true;
-
               numero = 10;
             }
           }
-
           if (existeNumero == true) {
             let existeLetraMaiuscula = false;
             let senha_replace = SENHA;
-
             senha_replace = senha_replace.replace(/\d+/ig, "")
-
             for (let posicao = 0; posicao < senha_replace.length; posicao++) {
               const LETRA_MAIUSCULA = senha_replace[posicao];
-
               if (LETRA_MAIUSCULA == LETRA_MAIUSCULA.toUpperCase()) {
                 posicao = senha_replace.length;
                 existeLetraMaiuscula = true;
@@ -119,13 +108,10 @@
             if (existeLetraMaiuscula == false) {
               span_erro_senha.innerHTML = "A senha deve conter uma letra maiúscula";
               span_erro_senha.style.color = '#B80000';
-
             } else {
-
               if (SENHA != CONFIRMACAO_SENHA) {
                 span_erro_confirmSenha.innerHTML = "As senhas não conferem";
                 span_erro_confirmSenha.style.color = '#B80000';
-
               } else {
                 // Enviando o valor da nova input
                 fetch("/usuarios/cadastrar", {
@@ -145,11 +131,6 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                      // cardErro.style.display = "block";
-
-                      // mensagem_erro.innerHTML =
-                      //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
                       setTimeout(() => {
                         window.location = "login.html";
                       }, "2000");
@@ -162,7 +143,6 @@
                   })
                   .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
-                    //   finalizarAguardar();
                   });
 
                 return false;
@@ -211,18 +191,12 @@
         span_erro_senha.style.color = '#B80000';
       }
 
-      if(!CONFIRMACAO_SENHA){
+      if (!CONFIRMACAO_SENHA) {
         span_erro_confirmSenha.innerHTML = "As senhas não conferem";
-                span_erro_confirmSenha.style.color = '#B80000';
+        span_erro_confirmSenha.style.color = '#B80000';
       }
 
     }
-
-
-
   }
 
-  // function sumirMensagem() {
-  //   cardErro.style.display = "none";
-  // }
 </script>

@@ -57,7 +57,7 @@
 
     <div class="header-container">
         <div class="div-header">
-            <span id="b_usuario">Usuário</span>
+    
             <div class="div-perfil-usuario">
             </div>
         </div>
@@ -133,15 +133,12 @@
         </div>
     </div>
 
-
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO + sessionStorage.ID_USUARIO;
     let contador = 0;
     function exibirGrupos() {
-
         if (contador % 2 == 0) {
             gp_acal.style.display = 'flex';
             gp_futurong.style.display = 'flex';
@@ -278,7 +275,6 @@
             data: dados,
             options: opcoes
         };
-
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
             document.getElementById(`myChartCanvas`),
@@ -288,19 +284,12 @@
         // setTimeout(() => atualizarGrafico(dados, myChart), 2000);
     }
 
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
     function atualizarGrafico(dados, myChart) {
         fetch(`/dashboard/tempo-real`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
                     obterdados();
-                    // alertar(novoRegistro, idAquario);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
@@ -317,7 +306,6 @@
 
     const numRank = ['counter_1', 'counter_2', 'counter_3', 'counter_4', 'counter_5']
     function obterRanking() {
-
         fetch("/dashboard/obterRanking").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -331,8 +319,6 @@
                     for (let i = 0; i < resposta.length; i++) {
                         console.log("AQUI: " + JSON.stringify(resposta));
                         var topUsuarios = resposta[i];
-
-
                         ranking.innerHTML += `
                             <div class="div-topUsuarios">
                                 <div class="container-topUsuarios">
@@ -363,7 +349,6 @@
                         } else if (contador == 4) {
                             span_numRank4.innerHTML = `${numRank[4]}`
                         }
-
                         contador += 1;
                     }
                 });
@@ -372,13 +357,10 @@
             }
         }).catch(function (resposta) {
             console.error(resposta);
-
         });
-
     }
 
     function exibirTotalPublicacoesSemana() {
-
         fetch(`/dashboard/exibirTotalPublicacoesSemana`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -395,9 +377,7 @@
                         if (publicacao.totalPubSem) {
                             var totalPub = document.getElementById(`p_kpi_1`);
                             totalPub.innerHTML = publicacao.totalPubSem;
-
                         }
-
                     }
                 });
             } else {
@@ -406,16 +386,12 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
-
-
     }
 
     function exibirComentariosPostSemana() {
-
         fetch(`/dashboard/exibirComentariosPostSemana`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-
                     throw "Nenhum resultado encontrado!!";
                 }
 
@@ -428,7 +404,6 @@
                         if (publicacao.maiorNumComentario) {
                             var totalPub = document.getElementById(`p_kpi_2`);
                             totalPub.innerHTML = publicacao.maiorNumComentario;
-
                         }
                     }
                 });
@@ -438,8 +413,6 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
-
-
     }
 
     function exibirGrupoMaisMencionado() {
@@ -472,14 +445,12 @@
     }
 
     function exibirUsuarioMaisPublicacao() {
-
         fetch(`/dashboard/exibirUsuarioMaisPublicacao`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
 
                     throw "Nenhum resultado encontrado!!";
                 }
-
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
@@ -501,7 +472,6 @@
         }).catch(function (resposta) {
             console.error(resposta);
         });
-
 
     }
 </script>

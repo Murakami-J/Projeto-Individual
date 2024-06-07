@@ -85,19 +85,14 @@
                     console.log("aaaa" + sessionStorage.ID_USUARIO)
                     
                     window.location = "./dashboard/inicio.html";
-                    // setTimeout(function () {
-                    // }, 1000); // apenas para exibir o loading
-
                 });
 
             } else {
-
                 console.log("Houve um erro ao tentar realizar o login!");
                 alert("Usuário Inválido");
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    // finalizarAguardar(texto);
                 });
             }
 

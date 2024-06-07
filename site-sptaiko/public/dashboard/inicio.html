@@ -61,7 +61,7 @@
                 <p>Publicações</p>
             </div>
             <div class="header-pesquisar">
-                <input type="text" placeholder="Pesquisar" id="input_pesquisar" onkeyup="pesquisarPublicacao()">
+                <input type="text" placeholder="Pesquisar" id="input_pesquisar" onkeyup="atualizarFeed()">
                 <ion-icon name="search-outline" class="icon-pesquisar"></ion-icon>
             </div>
             <div class="div-perfil-usuario">
@@ -316,6 +316,14 @@
 
                 feed.appendChild(divPublicacao);
 
+                const publicacaoPesquisada = document.getElementById("input_pesquisar").value.toUpperCase();
+                const posicaoDescricao = publicacao.descricao.toUpperCase().indexOf(publicacaoPesquisada);
+                const posicaoTitulo = publicacao.titulo.toUpperCase().indexOf(publicacaoPesquisada);
+
+                if(posicaoDescricao == -1 && posicaoTitulo == -1){
+                    divPublicacao.style.display = 'none';
+                }
+
                 var idPublicacao = publicacao.idAviso;
                 var fkAutor = publicacao.fkAutor;
 
@@ -326,6 +334,7 @@
             }
             curtida.listarPorUsuario(idPublicacao, fkAutor);
             comentario.exibirTotal();
+
         },
         exibirOpcoesAutor: function (divContainer, idPublicacao, fkAutor) {
             divContainer.innerHTML += `
@@ -361,6 +370,7 @@
             }).catch(function (erro) {
                 console.error(`#ERRO: ${erro}`);
             });
+            
             return false;
         }
     }
@@ -881,34 +891,45 @@
         }
     }
 
-
     // ARRUMAR SISTEMA DE PESQUISA !!!!!!!!!!!!!!!!!!!!!
 
-    function pesquisarPublicacao() {
+    function pesquisarPublicacao(resposta){
         const publicacaoPesquisada = document.getElementById("input_pesquisar").value;
-        if (publicacaoPesquisada) {
-            fetch(`/publicacoes/pesquisarPublicacao/${publicacaoPesquisada}`).then(function (resposta) {
-                if (resposta.ok) {
-                    if (resposta.status == 204) {
-                        throw "Nenhum resultado encontrado!!";
-                    }
-                    resposta.json().then(function (resposta) {
-                        console.log("Dados recebidos: ", JSON.stringify(resposta));
-                        publicacao.exibir(resposta);
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-        } else {
-            atualizarFeed();
-        }
-
-
-
+       
     }
 
+    // function pesquisarPublicacao() {
+    //     const publicacaoPesquisada = document.getElementById("input_pesquisar").value;
+    //     if (publicacaoPesquisada) {
+    //         fetch(`/publicacoes/pesquisarPublicacao/${publicacaoPesquisada}`).then(function (resposta) {
+    //             if (resposta.ok) {
+    //                 if (resposta.status == 204) {
+    //                     throw "Nenhum resultado encontrado!!";
+    //                 }
+    //                 resposta.json().then(function (resposta) {
+    //                     console.log("Dados recebidos: ", JSON.stringify(resposta));
+    //                     publicacao.exibir(resposta);
+    //                 });
+    //             } else {
+    //                 throw ('Houve um erro na API!');
+    //             }
+    //         }).catch(function (resposta) {
+    //             console.error(resposta);
+    //         });
+    //     } else {
+    //         atualizarFeed();
+    //     }
+    // }
 
+    // function pesquisarEnter(){
+    //     const inputPesquisar = document.getElementById('input_pesquisar');
+    //     inputPesquisar.onkeypress = function (event){
+    //         if(event.keyCode == 13){
+    //             event.preventDefault();
+    //             if(inputPesquisar.value != ''){
+    //                 pesquisarPublicacao()
+    //             }
+    //         }
+    //     }
+    // }
 </script>
