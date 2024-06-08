@@ -295,7 +295,6 @@
 
     const idUsuario = sessionStorage.ID_USUARIO;
 
-
     // PUBLICAÇÃO =======================================================================================
 
     function limparFormulario() {
@@ -375,8 +374,9 @@
                 const publicacaoPesquisada = document.getElementById("input_pesquisar").value.toUpperCase();
                 const posicaoDescricao = publicacao.descricao.toUpperCase().indexOf(publicacaoPesquisada);
                 const posicaoTitulo = publicacao.titulo.toUpperCase().indexOf(publicacaoPesquisada);
+                const posicaoUsuario = publicacao.nome.toUpperCase().indexOf(publicacaoPesquisada);
 
-                if (posicaoDescricao == -1 && posicaoTitulo == -1) {
+                if (posicaoDescricao == -1 && posicaoTitulo == -1 && posicaoUsuario == -1) {
                     divPublicacao.style.display = 'none';
                 }
 
@@ -489,7 +489,7 @@
             });
         },
         exibirTitulo: function (idPublicacao, fkAutor) {
-            fetch(`/publicacoes/exibirTituloPublicacaoEdicao/${idPublicacao}/${fkAutor}`).then(function (resposta) {
+            fetch(`/publicacoes/exibirTituloPublicacaoDeletar/${idPublicacao}/${fkAutor}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         throw "Nenhum resultado encontrado!!";
@@ -626,7 +626,6 @@
             console.error(resposta);
 
         });
-
     }
 
     const curtida = {
@@ -750,7 +749,7 @@
             icon.name = "heart";
             icon.style.color = "red";
             var idPublicacaoClicado = this.id;
-            // console.log(listafkAutor[1].fkAutor)
+
             for (let posicao = 0; posicao < listafkAutor.length; posicao++) {
                 if (idPublicacaoClicado == listafkAutor[posicao].idPublicacao) {
                     fkAutor = listafkAutor[posicao].fkAutor;
@@ -934,7 +933,7 @@
                     fkAutor2 = listafkAutor1[posicao].fkAutor;
                 }
             }
-            fetch(`/publicacoes/publicarComentario/${usuario.id}/${idPublicacao}/${fkAutor2}/${mensagem}`, {
+            fetch(`/interacoes/publicarComentario/${usuario.id}/${idPublicacao}/${fkAutor2}/${mensagem}`, {
                 method: "POST",
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);

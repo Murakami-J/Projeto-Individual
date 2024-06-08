@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const publicacaoController = require("../controllers/publicacaoController");
 
-var publicacaoController = require("../controllers/publicacaoController");
-
+// LISTAR / PUBLICAR ================================================================== 
 router.get("/listar", function (req, res) {
     publicacaoController.listar(req, res);
 });
@@ -11,24 +11,12 @@ router.get("/listar/:idUsuario", function (req, res) {
     publicacaoController.listarPorUsuario(req, res);
 });
 
-router.get("/pesquisar/:descricao", function (req, res) {
-    publicacaoController.pesquisarDescricao(req, res);
-});
-
-// PUBLICAÇÃO ==================================================================
 router.post("/publicar/:idUsuario", function (req, res) {
     publicacaoController.publicar(req, res);
 });
 
-router.get("/pesquisarPublicacao/:publicacaoPesquisada", function (req, res) {
-    publicacaoController.pesquisarPublicacao(req, res);
-});
 
-
-router.post("/publicarComentario/:idUsuario/:idPublicacao/:fkAutor2/:mensagem", function (req, res) {
-    publicacaoController.publicarComentario(req, res);
-});
-
+// EXCLUSÃO ================================================================== 
 router.get("/exibirTituloPublicacaoEdicao/:idPublicacaoEdicao/:fkAutor", function (req, res) {
     publicacaoController.exibirTituloPublicacaoEdicao(req, res);
 });

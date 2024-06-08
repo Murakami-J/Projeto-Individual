@@ -1,9 +1,8 @@
-var database = require("../database/config");
+const database = require("../database/config");
 
 function listarGrupo(idGrupo) {
-
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
-    var instrucaoSql = `
+    const instrucaoSql = `
         SELECT g.nome,
             g.descricao,
             g.email,
@@ -19,20 +18,11 @@ function listarGrupo(idGrupo) {
             WHERE idGrupo = '${idGrupo}';
     `;
 
-    // WHERE g.idGrupo = 1
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
-}
-
-function teste(idGrupo){
-    var instrucaoSQL = `SELECT * FROM Grupo WHERE idGrupo = ${idGrupo};`
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSQL);
-    return database.executar(instrucaoSQL);
 }
 
 
 module.exports = {
     listarGrupo,
-    teste
 }

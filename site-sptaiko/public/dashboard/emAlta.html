@@ -142,6 +142,7 @@
 </body>
 
 <script>
+    // GRUPOS  ====================================================
     let contador = 0;
     function exibirGrupos() {
         if (contador % 2 == 0) {
@@ -170,6 +171,7 @@
         contador += 1;
     }
 
+    // GRÁFICO  ====================================================
     let proximaAtualizacao;
     window.onload = obterDadosGrafico();
     window.onload = obterRanking();
@@ -202,10 +204,7 @@
     function plotarGrafico(resposta) {
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
         let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
             datasets: [{
@@ -230,7 +229,7 @@
                 backgroundColor: 'rgba(251, 85, 85, 0.4)'
             },
             responsive: true,
-            maintainAspectRatio: false, // Isso permite definir o tamanho manualmente
+            maintainAspectRatio: false, 
             aspectRatio: 1,
             scales: {
                 x: {
@@ -308,7 +307,7 @@
         });
     }
 
-
+    // RANKING ====================================================
     const numRank = ['counter_1', 'counter_2', 'counter_3', 'counter_4', 'counter_5']
     function obterRanking() {
         fetch("/dashboard/obterRanking").then(function (resposta) {
@@ -365,6 +364,7 @@
         });
     }
 
+    // KPI ====================================================
     function exibirTotalPublicacoesSemana() {
         fetch(`/dashboard/exibirTotalPublicacoesSemana`).then(function (resposta) {
             if (resposta.ok) {

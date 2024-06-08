@@ -1,8 +1,8 @@
-var database = require("../database/config");
+const database = require("../database/config");
 
+// GRÁFICO ================================================================== 
 function obterUltimosDados() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
         SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
         FROM (
             SELECT descricao, 'Acal Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Acal Taiko%'
@@ -35,8 +35,7 @@ function obterUltimosDados() {
 }
 
 function buscarDadosEmTempoReal() {
-
-    var instrucaoSql = `SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
+    const instrucaoSql = `SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
     FROM (
         SELECT descricao, 'Acal Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Acal Taiko%'
         UNION ALL
@@ -66,9 +65,9 @@ function buscarDadosEmTempoReal() {
     return database.executar(instrucaoSql);
 }
 
+// RANKING ================================================================== 
 function obterRanking() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
     SELECT u.nome,
 	p.titulo, 
 	count(fkUsuario) as qtdCurtida
@@ -84,9 +83,9 @@ function obterRanking() {
     return database.executar(instrucaoSql);
 }
 
+// KPI ================================================================== 
 function exibirTotalPublicacoesSemana() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
     SELECT count(idPublicacao) as totalPubSem
         FROM Publicacao 
         WHERE YEAR(dataPublicacao) = YEAR(CURRENT_DATE()) AND WEEK(dataPublicacao) = WEEK(CURRENT_DATE());
@@ -96,8 +95,7 @@ function exibirTotalPublicacoesSemana() {
     return database.executar(instrucaoSql);
 }
 function exibirComentariosPostSemana() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
     SELECT MAX(qtdComentario) AS maiorNumComentario 
     FROM (
         SELECT COUNT(idComentario) AS qtdComentario 
@@ -112,8 +110,7 @@ function exibirComentariosPostSemana() {
     return database.executar(instrucaoSql);
 }
 function exibirGrupoMaisMencionado() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
     SELECT nomeGrupo, COUNT(*) AS qtdTotalMencao
     FROM (
         SELECT descricao, 'Acal Taiko' AS nomeGrupo FROM Publicacao WHERE descricao LIKE '%Acal Taiko%'
@@ -145,8 +142,7 @@ function exibirGrupoMaisMencionado() {
     return database.executar(instrucaoSql);
 }
 function exibirUsuarioMaisPublicacao() {
-
-    var instrucaoSql = `
+    const instrucaoSql = `
     SELECT nome,
 		count(fkAutor) as qtdPublicacao
         FROM Usuario
@@ -161,9 +157,12 @@ function exibirUsuarioMaisPublicacao() {
 }
 
 module.exports = {
+    // GRÁFICO
     obterUltimosDados,
     buscarDadosEmTempoReal,
+    //RANKING
     obterRanking,
+    //KPI
     exibirTotalPublicacoesSemana,
     exibirComentariosPostSemana,
     exibirGrupoMaisMencionado,

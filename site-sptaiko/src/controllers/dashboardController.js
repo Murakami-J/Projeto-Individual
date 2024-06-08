@@ -1,11 +1,7 @@
-var dashboardModel = require("../models/dashboardModel");
+const dashboardModel = require("../models/dashboardModel");
 
+// GRÁFICO ================================================================== 
 function obterUltimosDados(req, res) {
-
-    // const limite_linhas = 7;
-
-    // console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
     dashboardModel.obterUltimosDados().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -19,11 +15,8 @@ function obterUltimosDados(req, res) {
     });
 }
 
-
 function buscarDadosEmTempoReal(req, res) {
-
     console.log(`Recuperando medidas em tempo real`);
-
     dashboardModel.buscarDadosEmTempoReal().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -37,8 +30,8 @@ function buscarDadosEmTempoReal(req, res) {
     });
 }
 
+// RANKING ================================================================== 
 function obterRanking(req, res) {
-
     dashboardModel.obterRanking().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -52,8 +45,8 @@ function obterRanking(req, res) {
     });
 }
 
+// KPI ================================================================== 
 function exibirTotalPublicacoesSemana(req, res) {
-
     dashboardModel.exibirTotalPublicacoesSemana().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -68,7 +61,6 @@ function exibirTotalPublicacoesSemana(req, res) {
 }
 
 function exibirComentariosPostSemana(req, res) {
-
     dashboardModel.exibirComentariosPostSemana().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -81,8 +73,8 @@ function exibirComentariosPostSemana(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function exibirGrupoMaisMencionado(req, res) {
 
+function exibirGrupoMaisMencionado(req, res) {
     dashboardModel.exibirGrupoMaisMencionado().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -95,8 +87,8 @@ function exibirGrupoMaisMencionado(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function exibirUsuarioMaisPublicacao(req, res) {
 
+function exibirUsuarioMaisPublicacao(req, res) {
     dashboardModel.exibirUsuarioMaisPublicacao().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -111,9 +103,12 @@ function exibirUsuarioMaisPublicacao(req, res) {
 }
 
 module.exports = {
+    // GRÁFICO
     obterUltimosDados,
     buscarDadosEmTempoReal,
+    //RANKING
     obterRanking,
+    // KPI
     exibirTotalPublicacoesSemana,
     exibirComentariosPostSemana,
     exibirGrupoMaisMencionado,
