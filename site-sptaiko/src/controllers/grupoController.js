@@ -1,7 +1,9 @@
 var grupoModel = require("../models/grupoModel");
 
 function listarGrupo(req, res) {
-  grupoModel.listarGrupo().then(function (resultado) {
+  const idGrupo = req.params.idGrupo;
+  
+  grupoModel.listarGrupo(idGrupo).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

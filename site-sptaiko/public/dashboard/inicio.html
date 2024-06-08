@@ -14,7 +14,7 @@
 </head>
 
 <body
-    onload="validarSessao(), atualizarFeed(), comentario.selecionarPublicacao(), comentario.listar(), comentario.verificarVisibilidade()">
+    onload="validarSessao(), atualizarFeed(), comentario.selecionarPublicacao(), comentario.listar(), comentario.verificarVisibilidade(), grupos.armazenarId()">
 
     <!-- MENU LATERAL -->
     <nav>
@@ -90,26 +90,27 @@
                                 <label>
                                     Título
                                     <br>
-                                    <input name="titulo" id="titulo" maxlength="45" type="text" placeholder="Insira o título da publicação">
+                                    <input name="titulo" id="titulo" maxlength="45" type="text"
+                                        placeholder="Insira o título da publicação">
                                 </label>
                                 <br>
                                 <br>
                                 <label>
                                     Descrição
                                     <br>
-                                    <textarea name="descricao" id="textarea_descricao" maxlength="1000"
-                                        rows="5" placeholder="Insira a descrição da publicação"></textarea>
+                                    <textarea name="descricao" id="textarea_descricao" maxlength="1000" rows="5"
+                                        placeholder="Insira a descrição da publicação"></textarea>
                                 </label>
                                 <br>
                                 <br>
                                 <label>
                                     Imagem
-                                    <input type="text" name="imagem" id="imagem" placeholder="Insira a url da imagem"> 
+                                    <input type="text" name="imagem" id="imagem" placeholder="Insira a url da imagem">
                                 </label>
                                 <br>
                                 <br>
                                 <button id="bt_publicar">Publicar</button>
-                                
+
                             </form>
                         </div>
                     </div>
@@ -190,7 +191,7 @@
                             <br>
                             <label>
                                 Imagem
-                                <input type="text" name="imagem_edicao" id="imagem_edicao"> 
+                                <input type="text" name="imagem_edicao" id="imagem_edicao">
                             </label>
                             <br>
                             <br>
@@ -208,7 +209,7 @@
 
         </div>
     </div>
-   
+
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
@@ -247,6 +248,43 @@
         contador += 1;
     }
 
+    let idGrupo;
+    const grupos = {
+        armazenarId: function () {
+            if (idGrupo === undefined) {
+                const descendentes = document.querySelectorAll("#ul_grupos li a");
+                for (let i = 0; i < descendentes.length; i++) {
+                    descendentes[i].addEventListener("click", function (e) {
+                        e.preventDefault();
+                        if (this.innerHTML === 'Acal Taiko') {
+                            idGrupo = 0;
+                        } else if (this.innerHTML === 'Futurong Taiko') {
+                            idGrupo = 1;
+                        } else if (this.innerHTML === 'Himawari Taiko') {
+                            idGrupo = 2;
+                        } else if (this.innerHTML === 'Ikkon Wadaiko') {
+                            idGrupo = 3;
+                        } else if (this.innerHTML === 'Mika Taiko') {
+                            idGrupo = 4;
+                        } else if (this.innerHTML === 'Mugen Daiko') {
+                            idGrupo = 5;
+                        } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                            idGrupo = 6;
+                        } else if (this.innerHTML === 'Soragoi Wadaiko') {
+                            idGrupo = 7;
+                        } else if (this.innerHTML === 'Tenryuu Wadaiko') {
+                            idGrupo = 8;
+                        } else if (this.innerHTML === 'Todoroki Daiko') {
+                            idGrupo = 9;
+                        }
+             
+                        sessionStorage.setItem('ID_GRUPO', idGrupo);
+                        window.location = 'grupo.html';
+                    });
+                }
+            }
+        }
+    }
     // USUÁRIO =======================================================================================
 
     const usuario = {
@@ -338,7 +376,7 @@
                 const posicaoDescricao = publicacao.descricao.toUpperCase().indexOf(publicacaoPesquisada);
                 const posicaoTitulo = publicacao.titulo.toUpperCase().indexOf(publicacaoPesquisada);
 
-                if(posicaoDescricao == -1 && posicaoTitulo == -1){
+                if (posicaoDescricao == -1 && posicaoTitulo == -1) {
                     divPublicacao.style.display = 'none';
                 }
 
@@ -390,7 +428,7 @@
             }).catch(function (erro) {
                 console.error(`#ERRO: ${erro}`);
             });
-            
+
             return false;
         }
     }
@@ -522,9 +560,18 @@
         editar: function (idPublicacao, fkAutor) {
             const tituloPublicacao = titulo_edicao.value;
             const descricaoPublicacao = textarea_edicao.value;
+            const urlImagemEdicao = document.getElementById("imagem_edicao").value;
 
-            fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}/${tituloPublicacao}/${descricaoPublicacao}`, {
-                method: "PUT"
+            fetch(`/publicacoes/editar/${idPublicacao}/${fkAutor}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    novoTitulo: tituloPublicacao,
+                    novaDescricao: descricaoPublicacao,
+                    novaImagem: urlImagemEdicao
+                })
             }).then(function (resposta) {
 
                 if (resposta.ok) {
@@ -703,7 +750,7 @@
             icon.name = "heart";
             icon.style.color = "red";
             var idPublicacaoClicado = this.id;
-            console.log(listafkAutor[1].fkAutor)
+            // console.log(listafkAutor[1].fkAutor)
             for (let posicao = 0; posicao < listafkAutor.length; posicao++) {
                 if (idPublicacaoClicado == listafkAutor[posicao].idPublicacao) {
                     fkAutor = listafkAutor[posicao].fkAutor;
@@ -915,9 +962,9 @@
 
     // ARRUMAR SISTEMA DE PESQUISA !!!!!!!!!!!!!!!!!!!!!
 
-    function pesquisarPublicacao(resposta){
+    function pesquisarPublicacao(resposta) {
         const publicacaoPesquisada = document.getElementById("input_pesquisar").value;
-       
+
     }
 
     // function pesquisarPublicacao() {

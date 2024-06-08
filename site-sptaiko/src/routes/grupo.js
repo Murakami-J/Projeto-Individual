@@ -3,7 +3,7 @@ var router = express.Router();
 
 var grupoController = require("../controllers/grupoController");
 
-router.get("/listarGrupo", function(req, res){
+router.get("/listarGrupo/:idGrupo", function(req, res){
     grupoController.listarGrupo(req, res);
 });
 

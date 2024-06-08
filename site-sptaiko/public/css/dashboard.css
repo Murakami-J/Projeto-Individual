@@ -58,6 +58,7 @@
    background-color: #EDD1BA;
    border-radius: 1.5vw;
    height: 5vh;
+  
 }
 
 .div-ranking-titulo{
@@ -82,6 +83,10 @@
 
 .p-autor{
     font-size: 0.7vw;
+    max-width: 10vw; 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 
@@ -105,9 +110,9 @@
 
 .p-titulo-ranking-autor{
     max-width: 10vw; 
-    overflow: hidden;
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .div-pai-kpi{
@@ -193,7 +198,11 @@
 }
 
 .p-kpi-gp{
-    font-size: 1.2vw;
+    font-size: 0.8vw;
+    max-width: 7vw; 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .div-kpi-usuario{

@@ -42,7 +42,7 @@ router.get("/exibirInformacoesPublicacao/:idPublicacao/:fkAutor", function (req,
     publicacaoController.exibirInformacoesPublicacao(req, res);
 });
 
-router.put("/editar/:idPublicacao/:fkAutor/:tituloPublicacao/:descricaoPublicacao", function (req, res) {
+router.put("/editar/:idPublicacao/:fkAutor", function (req, res) {
     publicacaoController.editar(req, res);
 });
 

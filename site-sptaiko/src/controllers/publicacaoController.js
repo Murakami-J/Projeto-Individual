@@ -199,12 +199,13 @@ function exibirInformacoesPublicacao(req, res) {
 }
 
 function editar(req, res) {
-    var novaDescricao = req.params.descricaoPublicacao;
-    var novoTitulo = req.params.tituloPublicacao;
-    var idPublicacao = req.params.idPublicacao;
-    var fkAutor = req.params.fkAutor;
+    const novaDescricao = req.body.novaDescricao;
+    const novoTitulo = req.body.novoTitulo;
+    const novaImagem = req.body.novaImagem;
+    const idPublicacao = req.params.idPublicacao;
+    const fkAutor = req.params.fkAutor;
 
-    publicacaoModel.editar(novaDescricao, novoTitulo, idPublicacao, fkAutor)
+    publicacaoModel.editar(novaDescricao, novoTitulo, novaImagem, idPublicacao, fkAutor)
         .then(
             function (resultado) {
                 res.json(resultado);

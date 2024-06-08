@@ -115,10 +115,10 @@ function exibirInformacoesPublicacao(idPublicacaoEdicao, fkAutor) {
     return database.executar(instrucaoSql);
 }
 
-function editar(novaDescricao, novoTitulo, idPublicacao, fkAutor) {
+function editar(novaDescricao, novoTitulo, novaImagem, idPublicacao, fkAutor) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idPublicacao, fkAutor, novoTitulo);
     var instrucaoSql = `
-        UPDATE Publicacao SET descricao = '${novaDescricao}', titulo = '${novoTitulo}' 
+        UPDATE Publicacao SET descricao = '${novaDescricao}', titulo = '${novoTitulo}', urlImagem = '${novaImagem}' 
         WHERE idPublicacao = ${idPublicacao} AND fkAutor = ${fkAutor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

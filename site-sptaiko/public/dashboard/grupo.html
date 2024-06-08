@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body onload="grupos.exibirMenuGrupos()">
+<body onload="grupos.exibirMenuGrupos(), exibirGrupo()">
 
     <nav>
         <div class="div-logo">
@@ -26,16 +26,16 @@
                         alt="" class="seta-baixo"></li>
                 <span class="divisor"></span>
                 <ul class="ul-grupos" id="ul_grupos">
-                    <li><a href="grupo.html" id="gp_acal">Acal Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_futurong">Futurong Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_himawari">Himawari Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_ikkon">Ikkon Wadaiko</a></li>
-                    <li><a href="grupo.html" id="gp_mika">Mika Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_mugen">Mugen Daiko</a></li>
-                    <li><a href="grupo.html" id="gp_sakura">Sakura Fubuki Taiko</a></li>
-                    <li><a href="grupo.html" id="gp_soragoi">Soragoi Wadaiko</a></li>
-                    <li><a href="grupo.html" id="gp_tenryuu" data-id="9">Tenryuu Wadaiko</a></li>
-                    <li><a href="grupo.html" id="gp_todoroki" data-id="10">Todoroki Daiko</a></li>
+                    <li><a href="" id="gp_acal">Acal Taiko</a></li>
+                    <li><a href="" id="gp_futurong">Futurong Taiko</a></li>
+                    <li><a href="" id="gp_himawari">Himawari Taiko</a></li>
+                    <li><a href="" id="gp_ikkon">Ikkon Wadaiko</a></li>
+                    <li><a href="" id="gp_mika">Mika Taiko</a></li>
+                    <li><a href="" id="gp_mugen">Mugen Daiko</a></li>
+                    <li><a href="" id="gp_sakura">Sakura Fubuki Taiko</a></li>
+                    <li><a href="" id="gp_soragoi">Soragoi Wadaiko</a></li>
+                    <li><a href="" id="gp_tenryuu" data-id="9">Tenryuu Wadaiko</a></li>
+                    <li><a href="" id="gp_todoroki" data-id="10">Todoroki Daiko</a></li>
                 </ul>
                 <li><a href="emAlta.html">EM ALTA</a></li>
                 <span class="divisor"></span>
@@ -66,7 +66,7 @@
     <div class="conteudo-container">
         <div class="div-results">
             <div id="feed_container" class="feed-container">
-                <div class="div-grupo">
+                <!-- <div class="div-grupo">
                     <div class="div-titulo-abt">
                         <p class="p-titulo-abt">VENHA CONHECER OS GRUPOS DE TAIKO EM SÃO PAULO</p>
                     </div>
@@ -84,7 +84,7 @@
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
 
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -124,9 +124,8 @@
                         } else if (this.innerHTML === 'Todoroki Daiko') {
                             idGrupo = 9;
                         }
-                        if (idGrupo !== undefined) {
-                            exibirGrupo();
-                        }
+                        sessionStorage.setItem('ID_GRUPO', idGrupo);
+                        exibirGrupo();
                     });
                 }
             }
@@ -137,12 +136,13 @@
         listaImagens: ['https://media.portalnipponja.com.br/uploads/2023/12/14151832/Apresentacao-da-Parada-Taiko.jpg', 'https://lh4.googleusercontent.com/proxy/DB0RqE4KsfIILTxODtLEBjSPgZnWwp5iPrXGrcMieNl2FQy8UgeId10hJeK8FgX_KEMNNFB7iRPU03Fjyt7Dyum0AxSEs1FA_nVn_B6JGB2WQ05f6g6JGsc9TtjoWLco-1QE7if9drIh', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/156749561_122036603258585_981260719892841597_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DKKUK3riZTYQ7kNvgHmCLAX&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYB7BBa4AJRqXjOaSf585bsW-RZi5Fsdj0uAfybJkJstng&oe=667A0062', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/242692763_2657858447856851_624503789297605737_n.jpg?stp=dst-jpg_p180x540&_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=q0bk-tMY5dcQ7kNvgH5JRfP&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBtVqpNz8u2S_hW4oTAG0hGi7SllC3QP2WznNSp0ncjEg&oe=66686BEB', 'https://static.wixstatic.com/media/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg/v1/fill/w_260,h_177,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/b953a6_6c405e59749b40e5a82a5a065d7cb3ef.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t39.30808-6/305995644_590482452650229_8900571232597188012_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=pFwVZz624aMQ7kNvgE1oS4F&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBg9nFIptykzTAoDu--wEgQd4bTrZ_KVj3mEphRb_PH9w&oe=66684166', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45984638_1737706736339467_8522701616330047488_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Mqt2q64SYPkQ7kNvgH14d4V&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYCGPGJxhnIhSTS7BsBpyPuIJPAg6Hf5m5KpLuxp4o0mNQ&oe=667A2C7C', 'https://live.staticflickr.com/414/19869648573_22c21a9c07_b.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlL3PKRixvaLD_uBHri1pNhHmcfbqSYKYBD_DCMUf3mA&s'],
 
         listaImagens2: ['https://media.portalnipponja.com.br/uploads/2023/07/20150540/Parada-Taiko-conduziu-as-autoridades-do-torii-ate-o-palco.jpg', 'http://futurong.org.br/wp-content/uploads/2021/05/projeto-social-futebol-para-criancas.jpg', 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.6435-9/34885606_10209440868778610_8038271718143295488_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ZeanMwnFmNIQ7kNvgGZeF5c&_nc_ht=scontent.fcgh8-1.fna&oh=00_AYBp2z2juhZ0jRKDk4_Se5zGdKVbPVWFowsjYHy6Re-q5A&oe=667A1DD0', 'https://pr1.nicelocal.br.com/a8GF_qGSP3qVnOihCk17Eg/1120x700,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2SgYqYwkfoNn4MRW4B7viFzR-fAJQXFOoL0WouPF8W0phSokKVWnenzfbAsa-u6UAg', 'https://www.mundook.com.br/wp-content/uploads/2018/02/taiko-mika-youtien.jpg', 'https://scontent.fcgh68-1.fna.fbcdn.net/v/t1.6435-9/45289452_2197304110549183_1394478213454888960_n.png?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TTMaYIuQAuQQ7kNvgG2ejSC&_nc_ht=scontent.fcgh68-1.fna&oh=00_AYBiD_0aJoY9Hy4M6BCL2NUafKrw8LxLEUwTlMOt6yyN1Q&oe=667A06E6', 'https://tatuapebairro.com.br/wp-content/uploads/2021/10/Grupo-Taiko-Sakura-Fubuki-1.jpeg', 'https://www.mundook.com.br/wp-content/uploads/2017/09/Soragoi-Wadaiko-ACREC.jpg', 'https://live.staticflickr.com/1812/30147515458_4085ae7b3b_b.jpg', 'https://catracalivre.com.br/wp-content/uploads/2010/10/todoroki_m.jpg'],
-        listaVideos: ['https://www.youtube.com/embed/nDHHErC_GX4?si=ix6L11TwOoQ1Mvjh', 'https://www.facebook.com/watch/?v=560508158056690', 'https://www.youtube.com/embed/1wC-dJ9YWAg?si=pAjk2VsL1eyAE-4G', 'https://www.youtube.com/embed/pkC4CANqPWI?si=3oiqdf50S86oOnHN', 'https://www.youtube.com/embed/UKhYy0PiluQ?si=_XK7DejD6L3jRjil', '', 'https://www.youtube.com/embed/zquVpyd3fxA?si=cvY4hErpgqZawpM_', 'https://www.youtube.com/embed/_9eWcW7KQVc?si=9NAVD9sBqvHTTi4f', 'https://www.youtube.com/embed/jNdwBRrDXe0?si=URfRklnu56tsR4dC', 'https://www.youtube.com/embed/EVr44MEddHE?si=LngxhNXb7iPV2161']
+
+        listaVideos: ['https://www.youtube.com/embed/nDHHErC_GX4?si=ix6L11TwOoQ1Mvjh', 'https://www.facebook.com/plugins/video.php?height=308&href=https%3A%2F%2Fwww.facebook.com%2Ffuturong.org%2Fvideos%2F560508158056690%2F&show_text=false&width=560&t=0', 'https://www.youtube.com/embed/1wC-dJ9YWAg?si=pAjk2VsL1eyAE-4G', 'https://www.youtube.com/embed/pkC4CANqPWI?si=3oiqdf50S86oOnHN', 'https://www.youtube.com/embed/UKhYy0PiluQ?si=_XK7DejD6L3jRjil', '', 'https://www.youtube.com/embed/zquVpyd3fxA?si=cvY4hErpgqZawpM_', 'https://www.youtube.com/embed/_9eWcW7KQVc?si=9NAVD9sBqvHTTi4f', 'https://www.youtube.com/embed/jNdwBRrDXe0?si=URfRklnu56tsR4dC', 'https://www.youtube.com/embed/EVr44MEddHE?si=LngxhNXb7iPV2161']
 
     }
-
     function exibirGrupo() {
-        fetch("/grupo/listarGrupo").then(function (resposta) {
+        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO'));
+        fetch(`/grupo/listarGrupo/${idGrupo + 1}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -157,7 +157,8 @@
                     var feed = document.getElementById("feed_container");
                     feed.innerHTML = "";
 
-                    for (let i = idGrupo; i < idGrupo + 1; i++) {
+                    
+                    for (let i = 0; i < resposta.length; i++) {
                         var grupo = resposta[i];
                         var divGrupo = document.createElement("div");
 
