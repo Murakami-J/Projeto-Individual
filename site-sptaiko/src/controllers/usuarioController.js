@@ -73,7 +73,65 @@ function cadastrar(req, res) {
     }
 }
 
+function listar(req, res) {
+    const idUsuario = req.params.idUsuario;
+
+    usuarioModel.listar(idUsuario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function verificar(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const senha = req.body.senha;
+
+    usuarioModel.verificar(idUsuario, senha)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function salvarEdicao(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const nome = req.body.nome; 
+    const senha = req.body.senha;
+
+    usuarioModel.salvarEdicao(idUsuario, nome, senha)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listar,
+    verificar,
+    salvarEdicao
 }

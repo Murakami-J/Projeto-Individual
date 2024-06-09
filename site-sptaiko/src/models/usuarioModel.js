@@ -19,7 +19,41 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function listar(idUsuario) { 
+    const instrucaoSql = `
+        SELECT nome,
+            email,
+            senha
+            FROM Usuario WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function verificar(idUsuario, senha) { 
+    const instrucaoSql = `
+        SELECT idUsuario,
+            email,
+            senha
+            FROM Usuario WHERE idUsuario = ${idUsuario} AND senha = MD5('${senha}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function salvarEdicao(idUsuario, nome, senha) { 
+    const instrucaoSql = `
+       UPDATE Usuario SET nome = '${nome}', senha = MD5('${senha}') WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listar,
+    verificar,
+    salvarEdicao
 };

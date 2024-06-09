@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Rubik", sans-serif;
+}
+
+.div-pai-perfil {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+}
+
+.div-container-perfil {
+    width: 85%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-box-perfil {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #2E2E2E;
+    flex-direction: column;
+    width: 60%;
+    height: 70vh;
+    font-size: 1vw;
+    border-radius: 1vw;
+    -webkit-box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 2px 14px -4px rgba(0, 0, 0, 0.75);
+}
+
+.div-informacoes-perfil {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    gap: 2vw;
+}
+
+.div-imagem-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    margin-bottom: auto;
+}
+
+.div-container-informacoes button {
+    color: white;
+    background-color: #B80000;
+    border: none;
+    width: 80%;
+    height: 3vh;
+    border-radius: 0.3vw;
+    font-size: 0.8vw;
+}
+
+.div-container-informacoes button:hover {
+    cursor: pointer;
+    background-color: #e00000;
+}
+
+.icon-perfil {
+    font-size: 7vw;
+}
+
+.p-titulo-perfil {
+    font-size: 2vw;
+    border-bottom: 1px solid white;
+    width: 80%;
+    text-align: center;
+    padding-bottom: 1vw;
+}
+
+.div-usuario-perfil {
+    display: flex;
+    gap: 1vw;
+    width: 100%;
+    margin-top: 1.5vw;
+}
+
+.div-usuario-perfil input {
+    border-radius: 0.7vw;
+    padding: 0.3vw;
+    border: 1px solid black;
+}
+
+.div-usuario-perfil input:focus {
+    border: 2px solid black;
+}
+
+.div-grupos-favoritados {
+    border-top: 1px solid white;
+    padding-top: 2vw;
+    display: flex;
+    width: 80%;
+    gap: 0.5vw;
+}
+
+.icon-coracao {
+    margin-left: 2vw;
+    color: #e00000;
+    font-size: 1vw;
+}
+
+.div-container-informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.div-container-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7vw;
+    width: 100%;
+}
+
+.div-pai-informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.div-bt-editar {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+.div-bt-editar button {
+    color: white;
+    background-color: #B80000;
+    border: 1px solid #fff;
+    width: 30%;
+    height: 3vh;
+    border-radius: 0.5vw;
+    font-size: 0.8vw;
+}
+
+.div-bt-editar button:hover{
+    cursor: pointer;
+    background-color: #e00000;
+}
+
+#bt-cancelar {
+    background-color: transparent;
+}
+
+#bt-cancelar:hover{
+    background-color: #91919115;
+}
+
+input[type='text'][disabled]{
+    background-color: rgb(168, 168, 168);
+}
+
+#div_erro_valdiacao{
+    font-size: 0.7vw;
+    text-align: center;
+    color: rgb(255, 97, 97);
+}
+
+.div-container-botoes{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+#icon-favorito{
+    color: red;
+}
+
+.div-grupos-perfil{
+    margin-left: 0.5vw;
+}

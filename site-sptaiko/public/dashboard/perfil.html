@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | Sptaiko</title>
+    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="../css/grupo.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="shortcut icon" href="../assets/images/faviconLogo.png">
+</head>
+
+<body onload="perfil.listar()">
+    <nav>
+        <div class="div-logo">
+            <img src="../assets/images/logoAnimada.gif" alt="Logo SPTaiko" class="img-logo">
+        </div>
+
+        <div class="nav-container">
+            <ul>
+                <li><a href="inicio.html">INÍCIO</a></li>
+                <span class="divisor"></span>
+                <li onclick="exibirMenuGrupos()" class="li-seta">GRUPOS <img src="../assets/images/seta-para-baixo.png"
+                        alt="" class="seta-baixo"></li>
+                <span class="divisor"></span>
+                <ul class="ul-grupos" id="ul_grupos">
+                    <li><a href="grupo.html" id="gp_acal">Acal Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_futurong">Futurong Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_himawari">Himawari Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_ikkon">Ikkon Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_mika">Mika Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_mugen">Mugen Daiko</a></li>
+                    <li><a href="grupo.html" id="gp_sakura">Sakura Fubuki Taiko</a></li>
+                    <li><a href="grupo.html" id="gp_soragoi">Soragoi Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_tenryuu" data-id="9">Tenryuu Wadaiko</a></li>
+                    <li><a href="grupo.html" id="gp_todoroki" data-id="10">Todoroki Daiko</a></li>
+                </ul>
+                <li><a href="emAlta.html">EM ALTA</a></li>
+                <span class="divisor"></span>
+            </ul>
+        </div>
+
+        <div class="container-sair">
+            <a href="../index.html">
+                <img src="../assets/images/sair.png" alt="Sair">
+                <p>SAIR</p>
+            </a>
+        </div>
+    </nav>
+
+    <div class="div-pai-perfil">
+        <div class="div-container-perfil">
+            <div class="div-box-perfil">
+                <p class="p-titulo-perfil">Perfil</p>
+                <div class="div-informacoes-perfil">
+                    <div class="div-imagem-perfil">
+                        <ion-icon name="person-circle" class="icon-perfil"></ion-icon>
+
+                    </div>
+                    <div class="div-pai-informacoes">
+                        <div class="div-usuario-perfil" id="div_usuario">
+                            <div id="div_informacoes" class="div-container-informacoes">
+                                <p id="p_nome">Nome: </p>
+                                <p id="p_email">Email: </p>
+                                <p id="p_senha">Senha: *********************</p>
+                                <button onclick="perfil.exibirElementosEditar()" id="bt_editar">
+                                    Editar
+                                </button>
+                            </div>
+                            <div id="div_input" class="div-container-input">
+                            </div>
+                        </div>
+
+
+                        <div class="div-container-botoes">
+                            <div id="div_erro_valdiacao">
+
+                            </div>
+                            <div id="div_botoes_editar" class="div-bt-editar">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="div-grupos-favoritados">
+                    <span class="material-symbols-outlined" id="icon-favorito">favorite</span>
+                    <p>Grupos Favoritados:</p>
+                    <div class="div-grupos-perfil">
+                        <!-- Acal Taiko, Futurong Taiko, Himawari Taiko, Ikkon Wadaiko, Mika Taiko, Mugen Daiko, Sakura Fubuki Taiko, Soragoi Wadaiko, Tenryuu Wadaiko, Todoroki Daiko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+
+</html>
+
+<script>
+    // EXIBIR MENU GRUPOS =======================================================================================
+    let contador = 0;
+    function exibirMenuGrupos() {
+        if (contador % 2 == 0) {
+            gp_acal.style.display = 'flex';
+            gp_futurong.style.display = 'flex';
+            gp_himawari.style.display = 'flex';
+            gp_ikkon.style.display = 'flex';
+            gp_mika.style.display = 'flex';
+            gp_mugen.style.display = 'flex';
+            gp_sakura.style.display = 'flex';
+            gp_soragoi.style.display = 'flex';
+            gp_tenryuu.style.display = 'flex';
+            gp_todoroki.style.display = 'flex';
+
+
+        } else {
+            gp_acal.style.display = 'none';
+            gp_futurong.style.display = 'none';
+            gp_himawari.style.display = 'none';
+            gp_ikkon.style.display = 'none';
+            gp_mika.style.display = 'none';
+            gp_mugen.style.display = 'none';
+            gp_sakura.style.display = 'none';
+            gp_soragoi.style.display = 'none';
+            gp_tenryuu.style.display = 'none';
+            gp_todoroki.style.display = 'none';
+        }
+        contador += 1;
+    }
+
+    let idGrupo;
+    const grupos = {
+        armazenarId: function () {
+            if (idGrupo === undefined) {
+                const descendentes = document.querySelectorAll("#ul_grupos li a");
+                for (let i = 0; i < descendentes.length; i++) {
+                    descendentes[i].addEventListener("click", function (e) {
+                        e.preventDefault();
+                        if (this.innerHTML === 'Acal Taiko') {
+                            idGrupo = 0;
+                        } else if (this.innerHTML === 'Futurong Taiko') {
+                            idGrupo = 1;
+                        } else if (this.innerHTML === 'Himawari Taiko') {
+                            idGrupo = 2;
+                        } else if (this.innerHTML === 'Ikkon Wadaiko') {
+                            idGrupo = 3;
+                        } else if (this.innerHTML === 'Mika Taiko') {
+                            idGrupo = 4;
+                        } else if (this.innerHTML === 'Mugen Daiko') {
+                            idGrupo = 5;
+                        } else if (this.innerHTML === 'Sakura Fubuki Taiko') {
+                            idGrupo = 6;
+                        } else if (this.innerHTML === 'Soragoi Wadaiko') {
+                            idGrupo = 7;
+                        } else if (this.innerHTML === 'Tenryuu Wadaiko') {
+                            idGrupo = 8;
+                        } else if (this.innerHTML === 'Todoroki Daiko') {
+                            idGrupo = 9;
+                        }
+
+                        sessionStorage.setItem('ID_GRUPO', idGrupo);
+                        window.location = 'grupo.html';
+                    });
+                }
+            }
+        }
+    }
+
+    const usuario = {
+        id: sessionStorage.ID_USUARIO,
+        nome: sessionStorage.NOME_USUARIO,
+        email: sessionStorage.EMAIL_USUARIO
+    };
+
+    const perfil = {
+        exibir: function (resposta) {
+            for (let i = 0; i < resposta.length; i++) {
+                const usuario = resposta[i];
+
+                p_nome.innerHTML = `Nome: ${usuario.nome}`
+                p_email.innerHTML = `Email: ${usuario.email}`
+            }
+
+        },
+        listar: function () {
+            const idUsuario = usuario.id;
+            fetch(`/usuarios/listar/${idUsuario}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then(function (resposta) {
+                        perfil.exibir(resposta);
+
+                    });
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+        },
+        exibirElementosEditar: function () {
+            const idUsuario = usuario.id;
+            fetch(`/usuarios/listar/${idUsuario}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then(function (resposta) {
+                        for (let i = 0; i < resposta.length; i++) {
+                            const usuario = resposta[i];
+                            bt_editar.style.display = 'none';
+
+                            div_informacoes.innerHTML = `
+                                <p id="p_nome">Nome: </p>
+                                <p id="p_email">Email: </p>
+                                <p id="p_senha">Senha: </p>
+                                <p> Nova senha: </p>
+                                <p> Confirmação senha: </p> 
+                            `;
+
+                            div_input.innerHTML = `
+                                <input id="input_nome">
+                                <input id="input_email" disabled type="text">
+                                <input id="input_senha_atual" type="password">
+                                <input id="input_nova_senha" type="password">
+                                <input id="input_confirmacao_nova_senha" type="password">
+                            `
+                            input_nome.value = usuario.nome;
+                            input_email.value = usuario.email;
+
+                            div_botoes_editar.innerHTML = `
+                            <button onclick="perfil.verificarEdicao()">
+                                Salvar
+                            </button>
+                            <button onclick="perfil.apagarElementosEditar()" id="bt-cancelar">
+                                Cancelar
+                            </button>
+                            `;
+                        }
+                    });
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+
+
+        },
+        apagarElementosEditar: function () {
+            window.location = 'perfil.html';
+        },
+        verificarEdicao: function () {
+            const senhaAtual = input_senha_atual.value;
+            const novaSenha = input_nova_senha.value;
+            const confirmacaoSenha = input_confirmacao_nova_senha.value;
+            const idUsuario = usuario.id
+
+            if (!senhaAtual && !novaSenha && !confirmacaoSenha) {
+                div_erro_valdiacao.innerHTML = `Preencha todos os campos para prosseguir!`;
+            } else {
+                fetch(`/usuarios/verificar/${idUsuario}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        senha: senhaAtual,
+                    })
+                })
+                    .then(function (resposta) {
+
+                        if (resposta.ok) {
+                            if (resposta.status == 204) {
+                                div_erro_valdiacao.innerHTML = `Senha inválida!`;
+
+                                throw "Nenhum resultado encontrado!!";
+                            }
+                            resposta.json().then(function (resposta) {
+
+                                if (novaSenha == confirmacaoSenha) {
+                                    perfil.salvarEdicao();
+                                } else {
+                                    div_erro_valdiacao.innerHTML = `As senhas não conferem!`;
+                                }
+                            });
+                        } else {
+                            throw ('Houve um erro na API!');
+                        }
+                    }).catch(function (resposta) {
+                        console.error(resposta);
+                    });
+            }
+
+        },
+        salvarEdicao: function () {
+            const novoNome = input_nome.value;
+            const novaSenha = input_nova_senha.value;
+
+            fetch(`/usuarios/salvarEdicao/${usuario.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: novoNome,
+                    senha: novaSenha,
+                })
+            }).then(function (resposta) {
+
+                if (resposta.ok) {
+                    window.alert(`Publicação editada com sucesso pelo usuario: ${usuario.nome}`);
+                    window.location = 'perfil.html';
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }
+    }
+</script>

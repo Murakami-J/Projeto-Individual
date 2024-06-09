@@ -27,7 +27,7 @@ router.get("/listar/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
 
 router.post("/cadastrarCurtida/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.cadastrarCurtida(req, res);
-})
+});
 
 router.get("/listarCurtidas/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.listarCurtidas(req, res);
@@ -39,6 +39,11 @@ router.get("/listarCurtidasPorUsuario/:idUsuario/:idPublicacao/:fkAutor", functi
 
 router.delete("/deletarCurtida/:idUsuario/:idPublicacao/:fkAutor", function (req, res) {
     interacaoController.deletarCurtida(req, res);
+});
+
+// GRUPO FAVORITO ==================================================================
+router.post("/cadastrarGrupoFavorito/:idUsuario/:idGrupo", function (req, res) {
+    interacaoController.cadastrarGrupoFavorito(req, res);
 });
 
 module.exports = router;

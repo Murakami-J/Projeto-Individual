@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Sptaiko</title>
     <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="../assets/images/faviconLogo.png">
     <script src="./js/sessao.js"></script>
 </head>
 <body>
@@ -21,8 +22,12 @@
 
                         <p class="p-texto">Senha</p>
                         <input type="password" placeholder="Digite sua senha" id="input_senha">
-                    </div>
 
+                        <div id="div_erro">
+                            Email ou senha inválidos!
+                        </div>
+                    </div>
+                   
                     <button class="bt-entrar" onclick="entrar()">
                         Entrar
                     </button>
@@ -38,28 +43,11 @@
 </body>
 </html>
 
-<script>
-    // function navegar(pagina){
-    //     window.location.href = pagina;
-    // }
-    
+<script>    
     function entrar() {
      
-        var emailVar = input_email.value;
-        var senhaVar = input_senha.value;
-        
-        // if (emailVar == "" || senhaVar == "") {
-            
-        //     // Colocar uma mensagem de erro aqui !!!!!!!!!!!!!!!!!!!!!!!
-        //     // cardErro.style.display = "block"
-        //     // mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-        //     // finalizarAguardar();
-        //     return false;
-        // }
-        
-        
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
+        const emailVar = input_email.value;
+        const senhaVar = input_senha.value;
         
         fetch("/usuarios/autenticar", {
             method: "POST",
@@ -89,7 +77,7 @@
 
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
-                alert("Usuário Inválido");
+                div_erro.style.display = 'flex';
 
                 resposta.text().then(texto => {
                     console.error(texto);

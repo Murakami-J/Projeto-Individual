@@ -2,7 +2,7 @@ const database = require("../database/config");
 
 // COMENTÁRIOS ================================================================== 
 function listarComentarios(idPublicacao, idUsuario) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()") ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     const instrucaoSql = `
         SELECT p.idPublicacao,
             p.fkAutor,
@@ -28,7 +28,7 @@ function listarComentarios(idPublicacao, idUsuario) {
 }
 
 function selecionarPublicacao(idPublicacao) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()") ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     const instrucaoSql = `
         SELECT p.idPublicacao,
             p.fkAutor,
@@ -45,7 +45,7 @@ function selecionarPublicacao(idPublicacao) {
 }
 
 function exibirQtdComentarios(idPublicacao) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()") ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     const instrucaoSql = `
     select fkPublicacao, count(idComentario) as qtdComentario FROM Comentario group by fkPublicacao;
            
@@ -54,7 +54,7 @@ function exibirQtdComentarios(idPublicacao) {
     return database.executar(instrucaoSql);
 }
 
-function publicarComentario( idUsuario, idPublicacao, fkAutor2, mensagem) {
+function publicarComentario(idUsuario, idPublicacao, fkAutor2, mensagem) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", mensagem, idUsuario);
     const instrucaoSql = `
         INSERT INTO Comentario (fkUsuario, fkPublicacao, fkAutor, mensagem, dataComentario) VALUES ('${idUsuario}', '${idPublicacao}', ${fkAutor2}, '${mensagem}',now());
@@ -74,7 +74,7 @@ function cadastrarCurtida(idPublicacao, idUsuario, fkAutor) {
 }
 
 function listarCurtidas(idPublicacao, idUsuario, fkAutor) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2"+ fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao) ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2" + fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao);
     const instrucaoSql = `
         SELECT fkPublicacao, count(fkUsuario) as curtida FROM Curtida WHERE fkPublicacao = ${idPublicacao} AND fkAutor = ${fkAutor}; 
            
@@ -84,7 +84,7 @@ function listarCurtidas(idPublicacao, idUsuario, fkAutor) {
 }
 
 function listarCurtidasPorUsuario(idPublicacao, idUsuario, fkAutor) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2"+ fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao) ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2" + fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao);
     const instrucaoSql = `
         SELECT fkAutor, fkPublicacao, fkUsuario FROM Curtida WHERE  fkUsuario = ${idUsuario}; 
            
@@ -94,7 +94,7 @@ function listarCurtidasPorUsuario(idPublicacao, idUsuario, fkAutor) {
 }
 
 function listar(idPublicacao, idUsuario, fkAutor) {
-    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2"+ fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao) ;
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()" + "AQUI PARTE 2" + fkAutor + "AQUI PARTE 3: " + idUsuario + "AQUI OH PARTE 4: " + idPublicacao);
     const instrucaoSql = `
         SELECT * FROM Curtida WHERE fkUsuario = ${idUsuario} AND fkPublicacao = ${idPublicacao} AND fkAutor = ${fkAutor};
            
@@ -104,9 +104,18 @@ function listar(idPublicacao, idUsuario, fkAutor) {
 }
 
 function deletarCurtida(idPublicacao, idUsuario, fkAutor) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar(): idUsuario:",  idUsuario);
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar(): idUsuario:", idUsuario);
     const instrucaoSql = `
         DELETE FROM Curtida WHERE fkPublicacao = ${idPublicacao} AND fkUsuario = ${idUsuario} AND fkAutor = ${fkAutor};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+// GRUPO FAVORITO ================================================================== 
+function cadastrarGrupoFavorito(idUsuario, idGrupo) {
+    const instrucaoSql = `
+       INSERT INTO Favorito (fkUsuario, fkGrupo, dataFavorito) VALUES (${idUsuario}, ${idGrupo}, now());
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -124,4 +133,6 @@ module.exports = {
     listarCurtidasPorUsuario,
     listar,
     deletarCurtida,
+    // GRUPO FAVORITO
+    cadastrarGrupoFavorito
 }

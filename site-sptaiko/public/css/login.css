@@ -48,7 +48,6 @@ body{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 28vh;
     width: 70%;
 }
 
@@ -131,4 +130,11 @@ input::placeholder{
     position: absolute;
     top: 5%;
     left: 82.5%;
+}
+
+#div_erro{
+    color: #B80000;
+    font-size: 0.7vw;
+    align-self: flex-end;
+    display: none;
 }

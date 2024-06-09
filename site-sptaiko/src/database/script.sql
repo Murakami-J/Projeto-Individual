@@ -38,11 +38,10 @@ CREATE TABLE Telefone(
 );
 
 CREATE TABLE Favorito(
-	idFavorito int auto_increment,
     fkUsuario int,
     fkGrupo int,
     dataCurtida date not null,
-    constraint pkFavoritoUsuarioGrupo primary key(idFavorito, fkUsuario, fkGrupo),
+    constraint pkUsuarioGrupo primary key(fkUsuario, fkGrupo),
     constraint fkFavoritoUsuario foreign key(fkUsuario) references Usuario(idUsuario),
     constraint fkFavoritoGrupo foreign key(fkGrupo) references Grupo(idGrupo)
 );
