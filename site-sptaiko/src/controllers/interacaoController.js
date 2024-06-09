@@ -204,6 +204,25 @@ function cadastrarGrupoFavorito(req, res) {
         );
 }
 
+function listarGrupoFavorito(req, res) {
+    const idUsuario = req.params.idUsuario;
+    const idGrupo = req.params.idGrupo;
+
+    interacaoModel.listarGrupoFavorito(idUsuario, idGrupo)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     //COMENTÁRIOS
     exibirQtdComentarios,
@@ -217,5 +236,6 @@ module.exports = {
     listar,
     deletarCurtida,
     //GRUPO FAVORITO
-    cadastrarGrupoFavorito
+    cadastrarGrupoFavorito,
+    listarGrupoFavorito
 }

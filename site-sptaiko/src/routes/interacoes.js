@@ -46,4 +46,8 @@ router.post("/cadastrarGrupoFavorito/:idUsuario/:idGrupo", function (req, res) {
     interacaoController.cadastrarGrupoFavorito(req, res);
 });
 
+router.get("/listarGrupoFavorito/:idGrupo/:idUsuario", function (req, res) {
+    interacaoController.listarGrupoFavorito(req, res);
+});
+
 module.exports = router;

@@ -121,6 +121,14 @@ function cadastrarGrupoFavorito(idUsuario, idGrupo) {
     return database.executar(instrucaoSql);
 }
 
+function listarGrupoFavorito(idUsuario, idGrupo) {
+    const instrucaoSql = `
+       SELECT fkUsuario, fkGrupo FROM Favorito;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     // COMENTÁRIOS
     listarComentarios,
@@ -134,5 +142,6 @@ module.exports = {
     listar,
     deletarCurtida,
     // GRUPO FAVORITO
-    cadastrarGrupoFavorito
+    cadastrarGrupoFavorito,
+    listarGrupoFavorito
 }

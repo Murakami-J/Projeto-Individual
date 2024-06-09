@@ -233,8 +233,16 @@
                         divMidia.appendChild(divImagem);
                         divMidia.appendChild(divVideo);
 
+                        listarGruposFavoritados();
+                        divGrupo.innerHTML += `<button class="material-symbols-outlined" id="favorito" onclick="cadastrarGrupoFavorito()">favorite</button>`
+                        const iconFavorito = document.getElementById('favorito')
 
-                        divGrupo.innerHTML += `<button class="material-symbols-outlined" id= "favorito">favorite</button>`
+                        if(fkGrupo == idGrupo){
+                            console.log('EBA')
+                            console.log(iconFavorito)
+                            // iconFavorito.style.color = 'red';
+                        }
+
                         feed.appendChild(divGrupo);
                     }
                 });
@@ -275,12 +283,42 @@
         contador += 1;
     }
 
+    let fkGrupo;
+    function listarGruposFavoritados() {
+        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
+
+        fetch(`/interacoes/listarGrupoFavorito/${idGrupo}/${usuario.id}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        const favorito = resposta[i];
+        
+                        if (favorito.fkUsuario == usuario.id && favorito.fkGrupo == idGrupo) {
+                            console.log('Curtido' + idGrupo)
+                            fkGrupo = favorito.fkGrupo;
+                        }
+                    }
+                    return fkGrupo;
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
     function cadastrarGrupoFavorito() {
-        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO'));
+        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
 
         fetch(`/interacoes/cadastrarGrupoFavorito/${usuario.id}/${idGrupo}`, {
             method: "POST",
-           
+
         }).then(function (resposta) {
             if (resposta.ok) {
                 window.alert(`Publicação realizada com sucesso pelo usuario: ${usuario.nome}`);
