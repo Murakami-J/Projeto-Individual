@@ -228,3 +228,11 @@ iframe {
     border-bottom: 1px solid black;
     padding-bottom: 1vw;
 }
+
+.grupo-favorito{
+    display: flex;
+    align-self: flex-end;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+}
+

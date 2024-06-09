@@ -3,7 +3,8 @@ const database = require("../database/config");
 function listarGrupo(idGrupo) {
     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     const instrucaoSql = `
-        SELECT g.nome,
+        SELECT g.idGrupo, 
+            g.nome,
             g.descricao,
             g.email,
             g.instagram,

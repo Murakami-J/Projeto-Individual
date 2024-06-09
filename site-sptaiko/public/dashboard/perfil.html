@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../assets/images/faviconLogo.png">
 </head>
 
-<body onload="perfil.listar()">
+<body onload="perfil.listar(), exibirGruposFavoritos()">
     <nav>
         <div class="div-logo">
             <img src="../assets/images/logoAnimada.gif" alt="Logo SPTaiko" class="img-logo">
@@ -90,7 +90,7 @@
                 <div class="div-grupos-favoritados">
                     <span class="material-symbols-outlined" id="icon-favorito">favorite</span>
                     <p>Grupos Favoritados:</p>
-                    <div class="div-grupos-perfil">
+                    <div class="div-grupos-perfil" id="div_grupos_perfil">
                         <!-- Acal Taiko, Futurong Taiko, Himawari Taiko, Ikkon Wadaiko, Mika Taiko, Mugen Daiko, Sakura Fubuki Taiko, Soragoi Wadaiko, Tenryuu Wadaiko, Todoroki Daiko -->
                     </div>
                 </div>
@@ -118,8 +118,6 @@
             gp_soragoi.style.display = 'flex';
             gp_tenryuu.style.display = 'flex';
             gp_todoroki.style.display = 'flex';
-
-
         } else {
             gp_acal.style.display = 'none';
             gp_futurong.style.display = 'none';
@@ -329,5 +327,29 @@
                 console.log(`#ERRO: ${resposta}`);
             });
         }
+    }
+
+    function exibirGruposFavoritos() {
+
+        fetch(`/usuarios/exibirGruposFavoritos/${usuario.id}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+                    
+                    const listaGrupo = [];
+                    for(let i = 0; i < resposta.length; i++){
+                        const nomeGrupo = resposta[i]
+                        listaGrupo.push(` ${nomeGrupo.nome}`);  
+                    }
+                    div_grupos_perfil.innerHTML += `${listaGrupo}`;
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
 </script>

@@ -24,5 +24,9 @@ router.put("/salvarEdicao/:idUsuario", function (req, res) {
     usuarioController.salvarEdicao(req, res);
 });
 
+router.get("/exibirGruposFavoritos/:idUsuario", function (req, res) {
+    usuarioController.exibirGruposFavoritos(req, res);
+});
+
 
 module.exports = router;

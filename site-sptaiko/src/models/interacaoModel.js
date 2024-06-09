@@ -123,7 +123,15 @@ function cadastrarGrupoFavorito(idUsuario, idGrupo) {
 
 function listarGrupoFavorito(idUsuario, idGrupo) {
     const instrucaoSql = `
-       SELECT fkUsuario, fkGrupo FROM Favorito;
+        SELECT fkUsuario, fkGrupo FROM Favorito WHERE fkUsuario = ${idUsuario} AND fkGrupo = ${idGrupo};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletarGrupoFavorito(idUsuario, idGrupo) {
+    const instrucaoSql = `
+        DELETE FROM Favorito WHERE fkUsuario = ${idUsuario} AND fkGrupo = ${idGrupo};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -143,5 +151,6 @@ module.exports = {
     deletarCurtida,
     // GRUPO FAVORITO
     cadastrarGrupoFavorito,
-    listarGrupoFavorito
+    listarGrupoFavorito,
+    deletarGrupoFavorito
 }

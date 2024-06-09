@@ -50,4 +50,8 @@ router.get("/listarGrupoFavorito/:idGrupo/:idUsuario", function (req, res) {
     interacaoController.listarGrupoFavorito(req, res);
 });
 
+router.delete("/deletarGrupoFavorito/:idUsuario/:idGrupo", function (req, res) {
+    interacaoController.deletarGrupoFavorito(req, res);
+});
+
 module.exports = router;

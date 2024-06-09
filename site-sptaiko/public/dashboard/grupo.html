@@ -58,7 +58,7 @@
                 <p>Grupos</p>
             </div>
             <div class="div-perfil-usuario">
-                <ion-icon name="person-circle" class="header-icon-perfil"></ion-icon>
+               <a href="perfil.html"><ion-icon name="person-circle" class="header-icon-perfil"></ion-icon></a>
 
             </div>
         </div>
@@ -129,6 +129,50 @@
         listaVideos: ['https://www.youtube.com/embed/nDHHErC_GX4?si=ix6L11TwOoQ1Mvjh', 'https://www.facebook.com/plugins/video.php?height=308&href=https%3A%2F%2Fwww.facebook.com%2Ffuturong.org%2Fvideos%2F560508158056690%2F&show_text=false&width=560&t=0', 'https://www.youtube.com/embed/1wC-dJ9YWAg?si=pAjk2VsL1eyAE-4G', 'https://www.youtube.com/embed/pkC4CANqPWI?si=3oiqdf50S86oOnHN', 'https://www.youtube.com/embed/UKhYy0PiluQ?si=_XK7DejD6L3jRjil', '', 'https://www.youtube.com/embed/zquVpyd3fxA?si=cvY4hErpgqZawpM_', 'https://www.youtube.com/embed/_9eWcW7KQVc?si=9NAVD9sBqvHTTi4f', 'https://www.youtube.com/embed/jNdwBRrDXe0?si=URfRklnu56tsR4dC', 'https://www.youtube.com/embed/EVr44MEddHE?si=LngxhNXb7iPV2161']
 
     }
+
+    function listarGruposFavoritados(idGrupo, divFavorito) {
+        let iconFavoritoGrupo = 'black';
+        // const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
+
+        fetch(`/interacoes/listarGrupoFavorito/${idGrupo}/${usuario.id}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then(function (resposta) {
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        const favorito = resposta[i];
+
+                        if (favorito.fkUsuario == usuario.id && favorito.fkGrupo == idGrupo) {
+                            console.log('aaaa ' + favorito.fkUsuario + usuario.id + ' ' + favorito.fkGrupo + idGrupo)
+
+                            console.log('Curtido' + idGrupo)
+
+                            iconFavoritoGrupo = 'red';
+                            divFavorito.innerHTML = `<button class="material-symbols-outlined" id="favorito" onclick="deletarGrupoFavorito()" style='color: ${iconFavoritoGrupo};'>favorite</button>`
+
+                        } else {
+                            console.log('Não curtiu' + idGrupo)
+                            iconFavoritoGrupo = 'black';
+
+                        }
+
+                    }
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+
     function exibirGrupo() {
         const idGrupo = Number(sessionStorage.getItem('ID_GRUPO'));
         fetch(`/grupo/listarGrupo/${idGrupo + 1}`).then(function (resposta) {
@@ -190,6 +234,10 @@
                         divVideo.innerHTML = `<iframe width="500vw" height="300vh" src="${grupos.listaVideos[idGrupo]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         `;
 
+                        // Favoritado =======================================
+                        var divFavorito = document.createElement("div");
+
+
                         // Adicionando Classes para as divs ====================================================
                         divGrupo.className = "div-grupo";
                         divLogo.className = "grupo-logo";
@@ -206,6 +254,7 @@
                         divMidia.className = "grupo-midia";
                         divImagem.className = "grupo-imagem";
                         divVideo.className = "grupo-video";
+                        divFavorito.className = 'grupo-favorito'
 
                         divGrupo.appendChild(divLogo);
                         divGrupo.appendChild(divContato);
@@ -219,6 +268,7 @@
                         divGrupo.appendChild(divImagem);
                         divGrupo.appendChild(divMidia);
                         divGrupo.appendChild(divVideo);
+                        divGrupo.appendChild(divFavorito);
 
                         divLogo.appendChild(divNome);
                         divNome.appendChild(divDescricao);
@@ -233,15 +283,14 @@
                         divMidia.appendChild(divImagem);
                         divMidia.appendChild(divVideo);
 
-                        listarGruposFavoritados();
-                        divGrupo.innerHTML += `<button class="material-symbols-outlined" id="favorito" onclick="cadastrarGrupoFavorito()">favorite</button>`
-                        const iconFavorito = document.getElementById('favorito')
 
-                        if(fkGrupo == idGrupo){
-                            console.log('EBA')
-                            console.log(iconFavorito)
-                            // iconFavorito.style.color = 'red';
-                        }
+
+                        divFavorito.innerHTML = `<button class="material-symbols-outlined" id="favorito" onclick="cadastrarGrupoFavorito()" style='color: black;'>favorite</button>`
+                        listarGruposFavoritados(grupo.idGrupo, divFavorito);
+
+                        // console.log(iconFavorito)
+                        // iconFavorito.style.color = 'red';
+
 
                         feed.appendChild(divGrupo);
                     }
@@ -283,35 +332,7 @@
         contador += 1;
     }
 
-    let fkGrupo;
-    function listarGruposFavoritados() {
-        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
 
-        fetch(`/interacoes/listarGrupoFavorito/${idGrupo}/${usuario.id}`).then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then(function (resposta) {
-                    for (let i = 0; i < resposta.length; i++) {
-                        const favorito = resposta[i];
-        
-                        if (favorito.fkUsuario == usuario.id && favorito.fkGrupo == idGrupo) {
-                            console.log('Curtido' + idGrupo)
-                            fkGrupo = favorito.fkGrupo;
-                        }
-                    }
-                    return fkGrupo;
-
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-    }
 
     function cadastrarGrupoFavorito() {
         const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
@@ -321,8 +342,7 @@
 
         }).then(function (resposta) {
             if (resposta.ok) {
-                window.alert(`Publicação realizada com sucesso pelo usuario: ${usuario.nome}`);
-                // window.location = "/dashboard/inicio.html";
+                window.location = "/dashboard/grupo.html";
 
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
@@ -333,5 +353,26 @@
             console.error(`#ERRO: ${erro}`);
         });
         return false;
+    }
+
+    function deletarGrupoFavorito(){
+        const idGrupo = Number(sessionStorage.getItem('ID_GRUPO')) + 1;
+
+        fetch(`/interacoes/deletarGrupoFavorito/${usuario.id}/${idGrupo}`, {
+                method: "DELETE",
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                   window.location = '/dashboard/grupo.html';
+
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 </script>

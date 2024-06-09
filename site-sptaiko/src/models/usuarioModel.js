@@ -50,10 +50,20 @@ function salvarEdicao(idUsuario, nome, senha) {
     return database.executar(instrucaoSql);
 }
 
+function exibirGruposFavoritos(idUsuario) { 
+    const instrucaoSql = `
+       SELECT g.nome FROM Grupo as g 
+        JOIN Favorito on fkGrupo = idGrupo WHERE fkUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listar,
     verificar,
-    salvarEdicao
+    salvarEdicao,
+    exibirGruposFavoritos
 };
