@@ -478,7 +478,6 @@
             }).then(function (resposta) {
 
                 if (resposta.ok) {
-                    window.alert("Publicação deletada com sucesso pelo usuario: " + usuario.nome);
                     window.location = "/dashboard/inicio.html"
                 } else if (resposta.status == 404) {
                     window.alert("Deu 404!");

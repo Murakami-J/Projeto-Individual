@@ -93,9 +93,7 @@
     border: 1px solid black;
 }
 
-.div-usuario-perfil input:focus {
-    border: 2px solid black;
-}
+
 
 .div-grupos-favoritados {
     border-top: 1px solid white;
@@ -114,7 +112,7 @@
 .div-container-informacoes {
     display: flex;
     flex-direction: column;
-    gap: 1vw;
+    gap: 1.5vw;
 }
 
 .div-container-input {

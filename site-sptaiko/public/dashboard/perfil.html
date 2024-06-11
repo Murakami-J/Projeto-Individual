@@ -303,7 +303,7 @@
         salvarEdicao: function () {
             const novoNome = input_nome.value;
             const novaSenha = input_nova_senha.value;
-
+            
             fetch(`/usuarios/salvarEdicao/${usuario.id}`, {
                 method: "PUT",
                 headers: {
@@ -316,7 +316,7 @@
             }).then(function (resposta) {
 
                 if (resposta.ok) {
-                    window.alert(`Publicação editada com sucesso pelo usuario: ${usuario.nome}`);
+                    window.alert(`Perfil do usuário: ${usuario.nome}, editado com sucesso!`);
                     window.location = 'perfil.html';
                 } else if (resposta.status == 404) {
                     window.alert("Deu 404!");

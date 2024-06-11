@@ -17,8 +17,8 @@ router.post("/publicar/:idUsuario", function (req, res) {
 
 
 // EXCLUSÃO ================================================================== 
-router.get("/exibirTituloPublicacaoEdicao/:idPublicacaoEdicao/:fkAutor", function (req, res) {
-    publicacaoController.exibirTituloPublicacaoEdicao(req, res);
+router.get("/exibirTituloPublicacaoDeletar/:idPublicacaoEdicao/:fkAutor", function (req, res) {
+    publicacaoController.exibirTituloPublicacaoDeletar(req, res);
 });
 
 router.delete("/deletarPublicacao/:idPublicacao/:fkAutor", function (req, res) {
